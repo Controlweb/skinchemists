@@ -1,0 +1,5 @@
+/.remember/
+/.playwright-mcp/
+/node_modules/
+/vendor/
+.env

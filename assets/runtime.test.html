@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>runtime self-check</title>
+<style>body{font:14px/1.6 ui-monospace,monospace;margin:24px}.p{color:#2F5A38}.f{color:#A83A30;font-weight:600}</style>
+</head>
+<body>
+<h1>runtime.js self-check</h1>
+<pre id="out"></pre>
+
+<!-- fixtures -->
+<div id="host"></div>
+<script type="application/xml" id="t">
+  <sc-if value="{{ on }}"><b>{{ label }}</b></sc-if>
+  <sc-for list="{{ rows }}" as="r">
+    <sc-for list="{{ r.tags }}" as="g"><i>{{ r.name }}/{{ g }}</i></sc-for>
+  </sc-for>
+  <input value="{{ q }}" onChange="{{ onQ }}" style-focus="border-color:#000" />
+  <button onClick="{{ bump }}">go</button>
+  <div style="width:{{ w }}px;color:red"></div>
+  <svg viewBox="0 0 4 4"><circle cx="2" /></svg>
+  <table><tbody>
+    <sc-for list="{{ rows }}" as="r"><tr><td>{{ r.name }}</td></tr></sc-for>
+  </tbody></table>
+</script>
+
+<script src="runtime.js"></script>
+<script>
+var out = document.getElementById('out'), fails = 0;
+function ok(name, cond) {
+  fails += cond ? 0 : 1;
+  out.insertAdjacentHTML('beforeend',
+    '<span class="' + (cond ? 'p">  ok  ' : 'f">FAIL  ') + name + '</span>\n');
+}
+
+var host = document.getElementById('host'), tpl = document.getElementById('t');
+var clicks = 0;
+
+var app = new (function C() {
+  DCLogic.call(this, {});
+  this.state = { on: true, label: 'A', q: 'hi', w: 10,
+                 rows: [{ name: 'x', tags: ['1', '2'] }] };
+  this.renderVals = function () {
+    var s = this.state, self = this;
+    return {
+      on: s.on, label: s.label, rows: s.rows, q: s.q, w: s.w,
+      onQ: function (e) { self.setState({ q: e.target.value }); },
+      bump: function () { clicks++; self.setState({ label: 'B' }); }
+    };
+  };
+})();
+Object.setPrototypeOf(app, DCLogic.prototype);
+app.renderVals = app.renderVals.bind(app);
+
+DCRuntime.mount(tpl, host, app);
+
+// --- structure -------------------------------------------------------------
+ok('sc-if renders when truthy', host.querySelector('b') && host.querySelector('b').textContent === 'A');
+ok('nested sc-for expands 1x2', host.querySelectorAll('i').length === 2);
+ok('inner scope sees outer loop var', host.querySelectorAll('i')[1].textContent === 'x/2');
+ok('partial interpolation in style', /width:\s*10px/.test(host.querySelector('div[style]').getAttribute('style')));
+ok('svg uses the SVG namespace', host.querySelector('svg').namespaceURI === 'http://www.w3.org/2000/svg');
+ok('svg children too', host.querySelector('circle').namespaceURI === 'http://www.w3.org/2000/svg');
+ok('style-focus became a class', /dc-focus-/.test(host.querySelector('input').className));
+ok('binding attrs are not emitted', !host.querySelector('input').hasAttribute('onchange'));
+ok('form value set as property', host.querySelector('input').value === 'hi');
+ok('svg viewBox keeps its case', host.querySelector('svg').getAttribute('viewBox') === '0 0 4 4');
+// regression: the HTML parser foster-parents <sc-for> out of a <table>
+ok('sc-for survives inside a table', host.querySelector('tbody td') &&
+   host.querySelector('tbody td').textContent === 'x');
+
+// --- identity across re-render (the whole point of patching) ---------------
+var firstInput = host.querySelector('input');
+var firstB = host.querySelector('b');
+app.setState({ label: 'C' });
+
+Promise.resolve().then(function () {
+  ok('text updates in place', host.querySelector('b').textContent === 'C');
+  ok('element identity survives re-render', host.querySelector('b') === firstB);
+  ok('input identity survives re-render', host.querySelector('input') === firstInput);
+
+  // --- events ---
+  host.querySelector('button').dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  return Promise.resolve();
+}).then(function () {
+  ok('onClick fires once', clicks === 1);
+
+  // no duplicate listeners after several renders
+  app.setState({ w: 11 });
+  return Promise.resolve();
+}).then(function () {
+  host.querySelector('button').dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  return Promise.resolve();
+}).then(function () {
+  ok('re-render does not stack listeners', clicks === 2);
+
+  // --- caret preservation: value must not be rewritten while typing --------
+  var input = host.querySelector('input');
+  input.value = 'hix';
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  return Promise.resolve();
+}).then(function () {
+  var input = host.querySelector('input');
+  input.__probe = 0;
+  var real = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+  Object.defineProperty(input, 'value', {
+    configurable: true,
+    get: function () { return real.get.call(this); },
+    set: function (v) { this.__probe++; real.set.call(this, v); }
+  });
+  app.setState({ w: 12 });          // unrelated re-render
+  return Promise.resolve();
+}).then(function () {
+  var input = host.querySelector('input');
+  ok('state tracked the typed value', app.state.q === 'hix');
+  ok('value not rewritten when unchanged', input.__probe === 0);
+
+  // --- sc-if teardown ---
+  app.setState({ on: false });
+  return Promise.resolve();
+}).then(function () {
+  ok('sc-if removes its subtree', !host.querySelector('b'));
+  out.insertAdjacentHTML('beforeend',
+    '\n<span class="' + (fails ? 'f">' + fails + ' FAILED' : 'p">all passed') + '</span>\n');
+  document.title = fails ? fails + ' FAILED' : 'all passed';
+});
+</script>
+</body>
+</html>
