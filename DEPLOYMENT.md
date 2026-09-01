@@ -118,7 +118,7 @@ php artisan up
   (Collections, modèles) — le store désérialise avec `allowed_classes`
   restreint et rend un `__PHP_Incomplete_Class`. Mettre en cache des tableaux.
 - **Images produits** : servies depuis `public/uploads/products/`. Les noms de
-  dossiers contiennent des espaces et des accents ; ils sont encodés en base.
+  dossiers contiennent des espaces et des accents ; voir la section « Images ».
   `CatalogSeeder` échoue si une image référencée n'existe pas.
 - **Paiement** : paiement à la livraison uniquement. CMI (carte bancaire) n'est
   pas intégré — cela demande un contrat marchand et leur spécification.
