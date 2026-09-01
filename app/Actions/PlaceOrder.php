@@ -3,12 +3,18 @@
 namespace App\Actions;
 
 use App\Exceptions\OutOfStockException;
+use App\Mail\NewOrderNotification;
+use App\Mail\OrderConfirmation;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Models\Setting;
 use App\Support\Pricing;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * Turns a cart into an order.
@@ -37,7 +43,7 @@ class PlaceOrder
             throw new \InvalidArgumentException('Le panier est vide.');
         }
 
-        return DB::transaction(function () use ($quantities, $customer, $shippingMethod, $couponCode) {
+        $order = DB::transaction(function () use ($quantities, $customer, $shippingMethod, $couponCode) {
             // Lock the rows before reading stock, so two simultaneous checkouts
             // cannot both see the last unit as available.
             $products = Product::whereIn('id', array_keys($quantities))
@@ -143,5 +149,38 @@ class PlaceOrder
 
             return $order->fresh(['items']);
         });
+
+        // Only once the order is safely committed. Sending inside the
+        // transaction would email a confirmation for an order a rollback
+        // then erased.
+        $this->sendNotifications($order);
+
+        return $order;
+    }
+
+    /**
+     * Mail goes out synchronously on shared hosting, so a slow or misconfigured
+     * SMTP server must not turn a completed sale into an error page. The order
+     * exists; a missing email is a support problem, not a lost order.
+     */
+    private function sendNotifications(Order $order): void
+    {
+        if ($order->email) {
+            try {
+                Mail::to($order->email)->send(new OrderConfirmation($order));
+            } catch (Throwable $e) {
+                Log::error("Confirmation email failed for {$order->number}: ".$e->getMessage());
+            }
+        }
+
+        $storeEmail = Setting::get('store_email');
+
+        if ($storeEmail) {
+            try {
+                Mail::to($storeEmail)->send(new NewOrderNotification($order));
+            } catch (Throwable $e) {
+                Log::error("Staff notification failed for {$order->number}: ".$e->getMessage());
+            }
+        }
     }
 }

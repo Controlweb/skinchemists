@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Tables;
 
 use App\Actions\CancelOrder;
+use App\Mail\OrderConfirmation;
 use App\Models\Order;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -15,6 +16,8 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class OrdersTable
 {
@@ -132,6 +135,44 @@ class OrdersTable
                             );
 
                             Notification::make()->title('Commande encaissée')->success()->send();
+                        }),
+
+                    Action::make('resendConfirmation')
+                        ->label('Renvoyer la confirmation')
+                        ->icon('heroicon-m-envelope')
+                        ->visible(fn (Order $record) => filled($record->email))
+                        ->schema([
+                            TextInput::make('email')
+                                ->label('Adresse de destination')
+                                ->email()
+                                ->required()
+                                ->default(fn (Order $record) => $record->email)
+                                ->helperText('Corrigez ici si le client a mal saisi son email.'),
+                        ])
+                        ->action(function (Order $record, array $data) {
+                            // Persist a corrected address, otherwise the next
+                            // resend repeats the same typo.
+                            if ($data['email'] !== $record->email) {
+                                $record->update(['email' => $data['email']]);
+                            }
+
+                            try {
+                                Mail::to($data['email'])->send(new OrderConfirmation($record));
+                            } catch (Throwable $e) {
+                                Notification::make()
+                                    ->title("Envoi impossible : {$e->getMessage()}")
+                                    ->danger()->send();
+
+                                return;
+                            }
+
+                            $record->recordEvent(
+                                'Confirmation renvoyée à '.$data['email'],
+                                auth()->user()?->name ?? 'Administration',
+                                auth()->id(),
+                            );
+
+                            Notification::make()->title('Confirmation renvoyée')->success()->send();
                         }),
 
                     Action::make('cancel')

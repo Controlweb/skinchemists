@@ -71,6 +71,15 @@ chmod -R 775 storage bootstrap/cache
 - [ ] `/admin` refuse un visiteur non connecté
 - [ ] Le mot de passe admin de `.env` a été changé
 - [ ] `/sitemap.xml` répond
+- [ ] La commande test a bien déclenché **deux** emails : la confirmation au
+      client et l'alerte à `store_email`. Vérifier aussi qu'ils n'arrivent pas
+      en spam (SPF/DKIM du domaine).
+
+> Les emails partent pendant la requête (`QUEUE_CONNECTION=sync`). Un serveur
+> SMTP lent ou mal configuré n'empêche **jamais** la commande d'être
+> enregistrée : l'échec est écrit dans `storage/logs`. Si un client dit ne pas
+> avoir reçu sa confirmation, chercher `Confirmation email failed` dans les
+> logs, puis utiliser l'action « Renvoyer la confirmation » sur la commande.
 
 ## Comptes du back-office
 

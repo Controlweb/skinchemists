@@ -23,6 +23,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationLabel = 'Commandes';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Ventes';
+
     protected static ?string $modelLabel = 'commande';
 
     protected static ?string $pluralModelLabel = 'commandes';

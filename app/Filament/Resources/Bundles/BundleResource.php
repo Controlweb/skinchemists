@@ -22,6 +22,8 @@ class BundleResource extends Resource
 
     protected static ?string $navigationLabel = 'Coffrets';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Catalogue';
+
     protected static ?string $modelLabel = 'coffret';
 
     protected static ?string $pluralModelLabel = 'coffrets';

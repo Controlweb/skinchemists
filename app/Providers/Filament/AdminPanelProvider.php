@@ -2,16 +2,18 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\LatestOrders;
+use App\Filament\Widgets\LowStockProducts;
+use App\Filament\Widgets\ShopOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -28,8 +30,22 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('skinChemists Maroc')
+            ->brandLogo(asset('uploads/black_Logo_1.webp'))
+            ->darkModeBrandLogo(asset('uploads/SKINCHEMIST-LOGO-WHITE.webp'))
+            ->brandLogoHeight('1.75rem')
+            ->favicon(asset('uploads/favicon.png'))
             ->colors([
-                'primary' => Color::Amber,
+                // Matches the storefront's near-black rather than Filament amber.
+                'primary' => Color::Zinc,
+                'danger' => Color::Rose,
+                'success' => Color::Emerald,
+                'warning' => Color::Amber,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make('Ventes'),
+                NavigationGroup::make('Catalogue'),
+                NavigationGroup::make('Contenu'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -38,8 +54,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                ShopOverview::class,
+                LatestOrders::class,
+                LowStockProducts::class,
             ])
             ->middleware([
                 EncryptCookies::class,

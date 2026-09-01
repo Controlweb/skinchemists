@@ -22,6 +22,8 @@ class IngredientResource extends Resource
 
     protected static ?string $navigationLabel = 'Actifs';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Contenu';
+
     protected static ?string $modelLabel = 'actif';
 
     protected static ?string $pluralModelLabel = 'actifs';

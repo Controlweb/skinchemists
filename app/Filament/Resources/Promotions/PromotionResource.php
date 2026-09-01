@@ -22,6 +22,8 @@ class PromotionResource extends Resource
 
     protected static ?string $navigationLabel = 'Promotions';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Ventes';
+
     protected static ?string $modelLabel = 'promotion';
 
     protected static ?string $pluralModelLabel = 'promotions';

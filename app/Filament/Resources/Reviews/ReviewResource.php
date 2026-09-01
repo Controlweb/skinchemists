@@ -22,6 +22,8 @@ class ReviewResource extends Resource
 
     protected static ?string $navigationLabel = 'Avis';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Catalogue';
+
     protected static ?string $modelLabel = 'avis';
 
     protected static ?string $pluralModelLabel = 'avis';
