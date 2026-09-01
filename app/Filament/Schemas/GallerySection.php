@@ -30,12 +30,18 @@ class GallerySection
                     ->itemLabel(fn (array $state) => isset($state['path'])
                         ? basename((string) $state['path'])
                         : 'Nouvelle image')
-                    ->collapsible()
+                    // Deliberately not collapsible: collapsing reduces an image
+                    // to its filename, and a filename is not something anyone
+                    // can recognise a product photo by.
                     ->schema([
                         FileUpload::make('path')
                             ->hiddenLabel()
                             ->image()
                             ->imageEditor()
+                            // Big enough to identify the product at a glance,
+                            // small enough that four of them still fit on one
+                            // screen. panelAspectRatio would override this.
+                            ->imagePreviewHeight('160')
                             ->disk('public_files')
                             ->directory('uploads/products')
                             // Keeps the stored value relative to public/, which

@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use App\Models\Product;
+use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -12,6 +15,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class ProductsTable
 {
@@ -92,6 +96,48 @@ class ProductsTable
                         ->whereColumn('stock', '<=', 'low_stock_threshold')),
             ])
             ->recordActions([EditAction::make()])
-            ->toolbarActions([BulkActionGroup::make([])]);
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    // Brand and gamme are usually corrected for a whole line at
+                    // once, not product by product.
+                    BulkAction::make('setBrandAndGamme')
+                        ->label('Modifier marque / gamme')
+                        ->icon('heroicon-m-tag')
+                        ->schema([
+                            TextInput::make('brand')
+                                ->label('Marque')
+                                ->datalist(fn () => Product::query()
+                                    ->whereNotNull('brand')->distinct()->orderBy('brand')->pluck('brand')->all())
+                                ->helperText('Laisser vide pour ne pas y toucher.'),
+
+                            TextInput::make('gamme')
+                                ->label('Gamme')
+                                ->datalist(fn () => Product::query()
+                                    ->whereNotNull('gamme')->distinct()->orderBy('gamme')->pluck('gamme')->all())
+                                ->helperText('Laisser vide pour ne pas y toucher.'),
+                        ])
+                        ->action(function (Collection $records, array $data) {
+                            // Only the fields actually filled in are written, so
+                            // setting a gamme cannot silently blank a brand.
+                            $changes = array_filter([
+                                'brand' => $data['brand'] ?: null,
+                                'gamme' => $data['gamme'] ?: null,
+                            ]);
+
+                            if ($changes === []) {
+                                Notification::make()->title('Rien à modifier')->warning()->send();
+
+                                return;
+                            }
+
+                            $records->each->update($changes);
+
+                            Notification::make()
+                                ->title($records->count().' produit(s) mis à jour')
+                                ->success()->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                ]),
+            ]);
     }
 }
