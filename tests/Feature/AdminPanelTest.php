@@ -40,6 +40,28 @@ class AdminPanelTest extends TestCase
         $this->get('/admin')->assertRedirect('/admin/login');
     }
 
+    public function test_admin_make_grants_access_without_touching_the_password(): void
+    {
+        $user = User::factory()->create(['is_admin' => false]);
+        $original = $user->password;
+
+        $this->artisan('admin:make', ['email' => $user->email])->assertSuccessful();
+
+        $user->refresh();
+        $this->assertTrue($user->is_admin);
+        $this->assertSame($original, $user->password);
+    }
+
+    public function test_admin_make_can_revoke_access(): void
+    {
+        $user = User::factory()->create(['is_admin' => true]);
+
+        $this->artisan('admin:make', ['email' => $user->email, '--revoke' => true])
+            ->assertSuccessful();
+
+        $this->assertFalse($user->refresh()->is_admin);
+    }
+
     public function test_a_signed_in_user_without_the_admin_flag_is_refused(): void
     {
         $this->actingAs(User::factory()->create(['is_admin' => false]))

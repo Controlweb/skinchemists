@@ -72,6 +72,24 @@ chmod -R 775 storage bootstrap/cache
 - [ ] Le mot de passe admin de `.env` a été changé
 - [ ] `/sitemap.xml` répond
 
+## Comptes du back-office
+
+Filament n'a pas d'écran de gestion des utilisateurs. Tout passe par une
+commande :
+
+```bash
+php artisan admin:make sofia@skinchemists.ma --name="Sofia Alaoui"   # crée + autorise
+php artisan admin:make un.compte@existant.ma                          # autorise un compte existant
+php artisan admin:make un.compte@existant.ma --revoke                 # retire l'accès
+```
+
+La commande ne modifie **jamais** le mot de passe d'un compte existant.
+
+> Si la connexion renvoie « Ces identifiants ne correspondent pas à nos
+> enregistrements » alors que le mot de passe est bon, c'est que `is_admin` est
+> à `false` : Filament signale un refus de `canAccessPanel()` comme un échec
+> d'identifiants. Lancer `php artisan admin:make <email>`.
+
 ## Mises à jour
 
 ```bash
