@@ -12,6 +12,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; }
+  /* Until Alpine boots, x-show elements are still in the document. Without
+     this they flash open on every page load — the mega menu, the search
+     overlay, and every product gallery image at once. */
+  [x-cloak] { display: none !important; }
   body { margin: 0; background: #FFFFFF; -webkit-font-smoothing: antialiased; }
   a { color: oklch(0.48 0.09 250); text-decoration: none; }
   a:hover { color: #14120F; }

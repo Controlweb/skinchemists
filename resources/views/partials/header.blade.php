@@ -9,7 +9,8 @@
 </div>
 
 <header style="position:sticky;top:0;z-index:40;background:#FFFFFF;border-bottom:1px solid #E6E6E6"
-        x-data="{ mega: false, search: false }">
+        x-data="{ mega: false, search: false }"
+        @mouseleave="mega = false">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px;height:90px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px">
     <nav style="display:flex;align-items:center;gap:26px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500">
       <a href="{{ route('shop') }}" style="{{ $navLink }}">Soins</a>
@@ -31,8 +32,11 @@
     </div>
   </div>
 
-  {{-- Mega menu: hover-driven, no server round-trip. --}}
-  <div x-show="mega" x-cloak @mouseleave="mega = false" style="border-top:1px solid #E6E6E6;background:#FFFFFF;animation:scmIn 0.18s ease both">
+  {{-- Mega menu: hover-driven, no server round-trip.
+       Absolutely positioned against the sticky header so it overlays the page
+       instead of growing the header and pushing the content down. --}}
+  <div x-show="mega" x-cloak
+       style="position:absolute;top:100%;left:0;right:0;z-index:50;border-top:1px solid #E6E6E6;background:#FFFFFF;box-shadow:0 18px 40px -18px rgba(20,18,15,0.28);animation:scmIn 0.18s ease both">
     <div style="max-width:1320px;margin:0 auto;padding:34px 40px 40px;display:grid;grid-template-columns:1.1fr 1.1fr 1fr;gap:48px">
       <div>
         <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:16px">Par actif</div>
