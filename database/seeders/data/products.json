@@ -1,0 +1,1120 @@
+[
+ {
+  "id": "152",
+  "sku": "SC-152",
+  "gtin": "637665737141",
+  "name": "CRÈME JOUR ANTI-RIDE AU CAVIAR 50ML",
+  "slug": "creme-jour-anti-ride-au-caviar-50ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 645,
+  "sale": 480,
+  "short": "SKINCHEMISTS Crème Jour Anti-Ride au Caviar 50 ml est un soin visage anti-âge conçu pour hydrater, lisser et revitaliser la peau au quotidien. Enrichie en extrait de caviar, cette crème contribue à améliorer la fermeté de la peau, à réduire l'apparence des rides et ridules et à révéler un teint plus uniforme et lumineux. Sa texture légère pénètre rapidement sans laisser de film gras, offrant une peau douce, souple et protégée contre les agressions extérieures.",
+  "bullets": [
+   "Hydrate intensément la peau tout au long de la journée.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité de la peau.",
+   "Matifie et affine le grain de peau.",
+   "Illumine le teint et atténue les irrégularités pigmentaires.",
+   "Protège la peau contre les agressions extérieures grâce à son action antioxydante."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar",
+    "d": "\\nRiche en protéines, vitamines, acides aminés et minéraux, l'extrait de caviar nourrit intensément la peau. Il contribue à améliorer la fermeté cutanée, à lisser les rides et les ridules et à restaurer l'éclat naturel du visage. \\n \\n"
+   },
+   {
+    "t": "Extrait de Fleur de Tiaré",
+    "d": "\\nReconnu pour ses propriétés hydratantes et apaisantes, cet extrait aide à maintenir une peau souple, douce et parfaitement nourrie. \\n \\n"
+   },
+   {
+    "t": "Beurre de Karité",
+    "d": "\\nNaturellement riche en vitamines A, E et F, le beurre de karité nourrit la peau en profondeur, améliore son confort et aide à retrouver une texture plus lisse, plus douce et plus uniforme. \\n \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20JOUR%20ANTI-RIDE%20AU%20CAVIAR%2050ML/skin-chemists-skin-chemists-caviar-creme-hydratante-anti-age-jour-50-ml-premieres-rides.webp",
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20JOUR%20ANTI-RIDE%20AU%20CAVIAR%2050ML/skin_chemists_cr_anti-ride_jour_au_caviar_50ml.webp"
+  ],
+  "stock": 42,
+  "low": 5,
+  "rating": 4.8,
+  "reviews": 126
+ },
+ {
+  "id": "155",
+  "sku": "SC-155",
+  "gtin": "637665737158",
+  "name": "CRÈME NUIT ANTI-RIDE AU CAVIAR 50ML",
+  "slug": "creme-nuit-anti-ride-au-caviar-50ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 855,
+  "sale": 590,
+  "short": "SKINCHEMISTS Crème Nuit Anti-Ride au Caviar 50 ml est un soin de nuit conçu pour accompagner le processus naturel de régénération de la peau pendant le sommeil. Enrichie en extrait de caviar et en actifs nourrissants, elle hydrate intensément, aide à réduire l'apparence des rides et ridules et améliore la souplesse de la peau. Au réveil, le teint paraît plus lumineux, la peau plus lisse, plus ferme et parfaitement revitalisée.",
+  "bullets": [
+   "Hydrate intensément pendant toute la nuit.",
+   "Favorise le renouvellement naturel de la peau.",
+   "Aide à réduire l'apparence des rides et ridules.",
+   "Améliore la fermeté et l'élasticité cutanées.",
+   "Nourrit durablement les peaux sèches et déshydratées.",
+   "Laisse la peau plus lisse, souple et lumineuse au réveil.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar",
+    "d": "\\nRiche en nutriments essentiels, l'extrait de caviar aide à revitaliser la peau, améliore son élasticité et contribue à atténuer les signes visibles du vieillissement. Il favorise une peau plus ferme, plus lisse et éclatante de jeunesse. \\n"
+   },
+   {
+    "t": "Extrait de Fleur de Tiaré",
+    "d": "\\nApprécié pour ses propriétés nourrissantes et apaisantes, cet extrait aide à préserver l'hydratation de la peau et lui procure douceur et confort durant toute la nuit. \\n"
+   },
+   {
+    "t": "Actifs hydratants et nourrissants",
+    "d": "\\nLa formule contient des ingrédients qui renforcent la barrière cutanée, limitent la déshydratation et apportent une nutrition optimale afin que la peau retrouve toute sa souplesse et son éclat naturel. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20NUIT%20ANTI-RIDE%20AU%20CAVIAR%2050ML/skinchemists-caviar-creme-nuit-anti-age-50-ml.webp",
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20NUIT%20ANTI-RIDE%20AU%20CAVIAR%2050ML/61eMHiofOOL._AC_UF894,1000_QL80_.jpg"
+  ],
+  "stock": 18,
+  "low": 5,
+  "rating": 4.6,
+  "reviews": 84
+ },
+ {
+  "id": "158",
+  "sku": "SC-158",
+  "gtin": "5060881920519",
+  "name": "CRÈME GREEN CAVIAR NUIT 50 ML",
+  "slug": "creme-green-caviar-nuit-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Green Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 900,
+  "sale": 596.33,
+  "short": "SKINCHEMISTS Crème Green Caviar Nuit 50 ml est un soin de nuit hydratant conçu pour nourrir intensément la peau pendant son cycle naturel de régénération. Enrichie en extrait de Green Caviar, une algue marine riche en nutriments, cette crème aide à améliorer l'élasticité de la peau, à renforcer son hydratation et à révéler un teint plus lumineux au réveil. Sa texture onctueuse laisse la peau douce, souple et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément la peau pendant toute la nuit.",
+   "Favorise la régénération cutanée nocturne.",
+   "Améliore la fermeté et l'élasticité de la peau.",
+   "Nourrit durablement les peaux sèches et déshydratées.",
+   "Protège la peau grâce à ses propriétés antioxydantes.",
+   "Révèle un teint plus frais, lumineux et revitalisé au réveil.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Green Caviar (Caulerpa Lentillifera)",
+    "d": "\\nÉgalement appelée \"caviar vert\", cette algue marine est reconnue pour sa forte concentration en nutriments essentiels. Elle aide à maintenir une hydratation optimale, améliore l'élasticité de la peau et contribue à renforcer la barrière cutanée pour une peau plus souple et plus résistante. \\n"
+   },
+   {
+    "t": "Huiles végétales nourrissantes",
+    "d": "\\nLa formule contient un mélange d'huiles végétales sélectionnées pour leurs propriétés nourrissantes et adoucissantes. Elles participent à restaurer le confort de la peau tout en limitant la déshydratation nocturne. \\n"
+   },
+   {
+    "t": "Antioxydants",
+    "d": "\\nLes actifs antioxydants aident à protéger la peau contre les radicaux libres responsables du vieillissement prématuré, tout en préservant son éclat et son aspect uniforme. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20GREEN%20CAVIAR%20NUIT%2050%20ML/3848086a-4fe4-4b7d-8515-16bdd7fb332f.webp",
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20GREEN%20CAVIAR%20NUIT%2050%20ML/982b5c7b-e55d-4623-b1a6-6f18188a22dd.webp",
+   "uploads/products/SKINCHEMISTS%20CR%C3%88ME%20GREEN%20CAVIAR%20NUIT%2050%20ML/9bec6f96-6e07-4dc6-83d1-95ecc9cb20ef.webp"
+  ],
+  "stock": 6,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 73
+ },
+ {
+  "id": "191",
+  "sku": "SC-191",
+  "gtin": "5060881920489",
+  "name": "CAVIAR NUTRITION SERUM VISAGE 30 ML",
+  "slug": "caviar-nutrition-serum-visage-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 655,
+  "sale": 490,
+  "short": "SKINCHEMISTS Caviar Nutrition Sérum Visage 30 ml est un sérum anti-âge concentré qui hydrate intensément, repulpe la peau et améliore sa fermeté. Sa formule enrichie en extrait de caviar, en acide hyaluronique et en acides aminés aide à réduire l'apparence des rides et ridules tout en redonnant éclat et souplesse au teint. Léger et rapidement absorbé, il laisse la peau douce, lisse et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément et durablement la peau.",
+   "Repulpe le visage pour une apparence plus jeune.",
+   "Réduit l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité cutanées.",
+   "Lisse le grain de peau et ravive l'éclat du teint.",
+   "Protège la peau contre les agressions extérieures grâce à son action antioxydante.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar",
+    "d": "\\nRiche en protéines, vitamines, minéraux et acides aminés, l'extrait de caviar nourrit intensément la peau. Il aide à améliorer sa fermeté, favorise un aspect plus lisse et contribue à atténuer les signes visibles de l'âge. \\n"
+   },
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nVéritable référence en matière d'hydratation, l'acide hyaluronique aide à retenir l'eau dans les tissus cutanés. Il repulpe la peau, améliore son élasticité et réduit l'apparence des ridules causées par la déshydratation. \\n"
+   },
+   {
+    "t": "Acides Aminés",
+    "d": "\\nLes acides aminés participent au renouvellement cutané et contribuent à préserver une peau souple, résistante et éclatante. Ils soutiennent également la production naturelle de collagène pour une peau visiblement plus ferme. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/nutrition%20night/9641cef0-9dd0-4b38-864f-d29bbf0bf663.webp"
+  ],
+  "stock": 0,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 41
+ },
+ {
+  "id": "195",
+  "sku": "SC-195",
+  "gtin": "5060881920496",
+  "name": "CAVIAR NUTRITION SERUM YEUX 15 ML",
+  "slug": "caviar-nutrition-serum-yeux-15-ml",
+  "brand": "skinChemists",
+  "cat": "Contour des yeux",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 550,
+  "sale": 395,
+  "short": "SKINCHEMISTS Caviar Nutrition Sérum Yeux 15 ml est un soin contour des yeux haute performance conçu pour hydrater, lisser et revitaliser cette zone délicate. Enrichi en Green Caviar et en Matrikine Peptide-6, il aide à réduire l'apparence des rides, ridules et signes de fatigue tout en améliorant la fermeté et l'élasticité de la peau. Sa texture légère pénètre rapidement pour un regard visiblement plus frais, lumineux et reposé.",
+  "bullets": [
+   "Hydrate intensément le contour des yeux.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité de la peau.",
+   "Lisse le contour des yeux et ravive l'éclat du regard.",
+   "Protège la peau grâce à son action antioxydante.",
+   "Laisse le regard plus frais, reposé et lumineux.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Green Caviar (Caulerpa Lentillifera)",
+    "d": "\\nRiche en minéraux, vitamines et antioxydants, le Green Caviar contribue à maintenir une hydratation optimale tout en améliorant la souplesse et l'élasticité de la peau. Il aide également à préserver la barrière cutanée pour un contour des yeux plus lisse et revitalisé. \\n"
+   },
+   {
+    "t": "Matrikine Peptide-6",
+    "d": "\\nCe peptide est reconnu pour son action ciblée sur les signes visibles du vieillissement. Il aide à améliorer l'apparence des rides et ridules, tout en favorisant une peau plus ferme et plus uniforme. \\n"
+   },
+   {
+    "t": "Glycérine",
+    "d": "\\nExcellent agent hydratant, la glycérine aide à retenir l'eau dans la peau afin de préserver son confort, sa douceur et son élasticité tout au long de la journée. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/eye%20serum/1d9b60c2-e6b4-4336-b44c-3042b70ac4f3.webp",
+   "uploads/products/eye%20serum/34faac1e-e30e-4e88-b55b-56536b990308.webp",
+   "uploads/products/eye%20serum/eb5cb97d-cd19-4939-a883-b14f4f9b56c2.webp"
+  ],
+  "stock": 27,
+  "low": 5,
+  "rating": 4.5,
+  "reviews": 52
+ },
+ {
+  "id": "199",
+  "sku": "SC-199",
+  "gtin": "5060881921905",
+  "name": "Lotion éclaircissante Advanced 250 ml",
+  "slug": "lotion-eclaircissante-advanced-250-ml",
+  "brand": "skinChemists",
+  "cat": "Lotions & Toniques",
+  "ingredient": "Niacinamide",
+  "concern": "Taches & Éclat",
+  "price": 450,
+  "sale": 389,
+  "short": "skinChemists Lotion Éclaircissante Advanced 250 ml est un soin hydratant conçu pour révéler un teint plus lumineux, uniforme et éclatant. Sa formule enrichie en Vitamine C, Niacinamide et PoreAway® hydrate intensément la peau, aide à réduire l'apparence des pores dilatés et améliore la texture cutanée. Jour après jour, la peau paraît plus douce, plus lisse et visiblement plus éclatante.",
+  "bullets": [
+   "Hydrate intensément et durablement la peau.",
+   "Illumine le teint et ravive son éclat naturel.",
+   "Aide à unifier le teint et à atténuer les irrégularités.",
+   "Réduit visiblement l'apparence des pores dilatés.",
+   "Affine le grain de peau pour un fini plus lisse.",
+   "Laisse la peau douce, souple et confortable.",
+   "Convient à une utilisation quotidienne."
+  ],
+  "actifs": [
+   {
+    "t": "Vitamine C",
+    "d": "\\nPuissant antioxydant, la Vitamine C aide à raviver l'éclat du teint, protège la peau contre les agressions extérieures et contribue à améliorer l'apparence des taches pigmentaires pour un teint plus uniforme. \\n"
+   },
+   {
+    "t": "Niacinamide (Vitamine B3)",
+    "d": "\\nLa Niacinamide est reconnue pour ses propriétés équilibrantes et perfectrices. Elle aide à améliorer la texture de la peau, à réduire l'apparence des pores, à limiter les imperfections et à renforcer la barrière cutanée. \\n"
+   },
+   {
+    "t": "PoreAway®",
+    "d": "\\nCet actif d'origine végétale aide à resserrer visiblement les pores et à lisser la surface de la peau, offrant un fini mat et plus uniforme. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/advanced%20brightening%20lotion/2605ec62-d820-44c5-bc37-98aec4975d60.webp",
+   "uploads/products/advanced%20brightening%20lotion/847f8c5a-2cc3-4e97-8a13-38b06a4d481c.webp"
+  ],
+  "stock": 55,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 68
+ },
+ {
+  "id": "202",
+  "sku": "SC-202",
+  "gtin": "637665737073",
+  "name": "Crème Hydratante de Jour Anti-Rides au Venin de Serpent 50ml",
+  "slug": "creme-hydratante-de-jour-anti-rides-au-venin-de-serpent-50ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "SYN-AKE",
+  "concern": "Rides & Fermeté",
+  "price": 600,
+  "sale": 430,
+  "short": "Skin Chemists Crème Hydratante de Jour Anti-Rides au Venin de Serpent 50 ml est un soin anti-âge quotidien conçu pour hydrater, lisser et raffermir la peau. Sa formule enrichie en SYN®-AKE, un peptide inspiré du venin de serpent, aide à atténuer l'apparence des rides d'expression tout en améliorant la fermeté de la peau. Associée à la bétaïne et à l'extrait de fleur de Tiaré, elle procure une hydratation durable et laisse le teint plus lisse, lumineux et visiblement revitalisé.",
+  "bullets": [
+   "Hydrate intensément la peau tout au long de la journée.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité cutanées.",
+   "Lisse le grain de peau et affine les traits.",
+   "Ravive l'éclat naturel du teint.",
+   "Texture légère, non grasse et rapidement absorbée.",
+   "Convient à une utilisation quotidienne."
+  ],
+  "actifs": [
+   {
+    "t": "SYN®-AKE (Peptide inspiré du venin de serpent)",
+    "d": "\\nLe SYN®-AKE est un peptide biomimétique conçu pour reproduire les effets du venin de la vipère du temple. Il aide à détendre visiblement les rides d'expression et à lisser la peau, offrant un aspect plus jeune et plus uniforme. \\n"
+   },
+   {
+    "t": "Bétaïne",
+    "d": "\\nLa bétaïne est un actif hydratant d'origine naturelle qui contribue à maintenir l'équilibre en eau de la peau. Elle aide à préserver son confort, sa souplesse et son élasticité tout au long de la journée. \\n"
+   },
+   {
+    "t": "Extrait de Fleur de Tiaré",
+    "d": "\\nApprécié pour ses propriétés nourrissantes et adoucissantes, l'extrait de fleur de Tiaré apporte une hydratation supplémentaire et laisse la peau douce, souple et confortable. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/anti%20rides%20venin%20serpent/c1b492b1-af61-4c77-94e4-21fdc6e9d86b.webp",
+   "uploads/products/anti%20rides%20venin%20serpent/637665737073_df4b8d89-ab5e-4d44-b6b4-54c97e6a53fb.jpg"
+  ],
+  "stock": 12,
+  "low": 5,
+  "rating": 4.6,
+  "reviews": 95
+ },
+ {
+  "id": "206",
+  "sku": "SC-206",
+  "gtin": "637665737080",
+  "name": "Crème Hydratante de Nuit Anti-Rides au Venin de Serpent 50ml",
+  "slug": "creme-hydratante-de-nuit-anti-rides-au-venin-de-serpent-50ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "SYN-AKE",
+  "concern": "Rides & Fermeté",
+  "price": 800,
+  "sale": 570,
+  "short": "Skin Chemists Crème Hydratante de Nuit Anti-Rides au Venin de Serpent 50 ml est un soin anti-âge de nuit qui accompagne le renouvellement naturel de la peau pendant le sommeil. Formulée avec le peptide SYN®-AKE, inspiré du venin de serpent, elle aide à lisser les rides d'expression, améliore la fermeté de la peau et procure une hydratation intense. Au réveil, la peau paraît plus douce, plus souple et visiblement plus jeune.",
+  "bullets": [
+   "Hydrate intensément la peau durant toute la nuit.",
+   "Aide à lisser les rides et les ridules.",
+   "Améliore la fermeté et l'élasticité de la peau.",
+   "Favorise le renouvellement cutané nocturne.",
+   "Nourrit la peau et limite la déshydratation.",
+   "Redonne confort, douceur et éclat au teint.",
+   "Texture riche, non grasse et rapidement absorbée."
+  ],
+  "actifs": [
+   {
+    "t": "SYN®-AKE",
+    "d": "\\nCe peptide innovant, inspiré du venin de serpent, est reconnu pour son action lissante sur les rides d'expression. Il contribue à rendre la peau visiblement plus lisse et plus ferme, tout en améliorant son aspect général. \\n"
+   },
+   {
+    "t": "Bétaïne",
+    "d": "\\nLa bétaïne est un actif hydratant d'origine naturelle qui aide à maintenir un niveau d'hydratation optimal. Elle protège la peau contre le dessèchement et améliore son confort. \\n"
+   },
+   {
+    "t": "Extrait de Fleur de Tiaré",
+    "d": "\\nApprécié pour ses propriétés adoucissantes et nourrissantes, l'extrait de fleur de Tiaré aide à préserver la souplesse de la peau tout en apportant douceur et éclat. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/anti%20rides%20venin%20serpent/637665737073_df4b8d89-ab5e-4d44-b6b4-54c97e6a53fb.jpg",
+   "uploads/products/anti%20rides%20venin%20serpent/c1b492b1-af61-4c77-94e4-21fdc6e9d86b.webp"
+  ],
+  "stock": 3,
+  "low": 5,
+  "rating": 4.8,
+  "reviews": 110
+ },
+ {
+  "id": "211",
+  "sku": "SC-211",
+  "gtin": "637665741346",
+  "name": "SERUM PURE AU CAVIAR 5% 30ML",
+  "slug": "serum-pure-au-caviar-5-30ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 800,
+  "sale": 586,
+  "short": "SKINCHEMISTS Sérum Pur au Caviar 5% 30 ml est un sérum anti-âge concentré formulé pour hydrater, raffermir et revitaliser la peau. Enrichi à 5 % d'extrait de caviar, il nourrit intensément l'épiderme, améliore l'élasticité cutanée et aide à réduire l'apparence des rides et ridules. Sa texture légère pénètre rapidement pour laisser la peau plus lisse, plus souple et éclatante de jeunesse.",
+  "bullets": [
+   "Hydrate intensément et durablement la peau.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité cutanées.",
+   "Nourrit la peau grâce à des actifs riches en nutriments.",
+   "Lisse le grain de peau et améliore sa texture.",
+   "Ravive l'éclat naturel du teint.",
+   "Prépare la peau à recevoir les soins hydratants."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar 5 %",
+    "d": "\\nRiche en protéines, acides aminés, vitamines et minéraux, l'extrait de caviar est reconnu pour ses propriétés nourrissantes et revitalisantes. Il contribue à améliorer la fermeté de la peau, à préserver son élasticité et à réduire les signes visibles du vieillissement. \\n"
+   },
+   {
+    "t": "Agents Hydratants",
+    "d": "\\nLa formule est enrichie en actifs hydratants qui aident à maintenir un niveau d'hydratation optimal, limitant ainsi la sensation de tiraillement et laissant la peau douce et confortable. \\n"
+   },
+   {
+    "t": "Antioxydants",
+    "d": "\\nLes ingrédients antioxydants contribuent à protéger la peau contre les agressions extérieures et les radicaux libres, responsables du vieillissement prématuré de la peau. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/biphase%20serum/052a0587-9672-4114-9f06-4a19adaa3de1.webp",
+   "uploads/products/biphase%20serum/f0af395d-fc55-4fa3-825f-1d2e1fca7e53.webp"
+  ],
+  "stock": 31,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 47
+ },
+ {
+  "id": "215",
+  "sku": "SC-215",
+  "gtin": "5061083811506",
+  "name": "Crème de Jour Anti-Âge SPF 50 à 1 % d'Acide Hyaluronique – 50 ml",
+  "slug": "creme-de-jour-anti-age-spf-50-a-1-d-acide-hyaluronique-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Acide Hyaluronique",
+  "concern": "Protection",
+  "price": 400,
+  "sale": 249,
+  "short": "skinChemists Crème de Jour Anti-Âge SPF 50 à 1 % d'Acide Hyaluronique 50 ml est un soin quotidien qui associe une protection solaire élevée SPF 50 à une hydratation intense. Formulée avec 1 % d'acide hyaluronique, elle aide à maintenir l'hydratation de la peau, à lisser les ridules liées à la déshydratation et à préserver la jeunesse du visage tout en protégeant efficacement contre les rayons UVA et UVB.",
+  "bullets": [
+   "Protège efficacement contre les rayons UVA et UVB grâce au SPF 50.",
+   "Hydrate intensément la peau tout au long de la journée.",
+   "Aide à réduire l'apparence des ridules dues à la déshydratation.",
+   "Contribue à préserver la fermeté et la souplesse de la peau.",
+   "Protège contre le photovieillissement causé par les agressions extérieures.",
+   "Laisse la peau douce, lisse et confortable.",
+   "Texture légère adaptée à un usage quotidien."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Hyaluronique 1 %",
+    "d": "\\nReconnu pour son exceptionnelle capacité à retenir l'eau, l'acide hyaluronique hydrate intensément la peau, améliore son élasticité et contribue à lisser les ridules. Il procure un effet repulpant tout en renforçant la barrière cutanée. \\n"
+   },
+   {
+    "t": "Protection Solaire SPF 50",
+    "d": "\\nLes filtres solaires à large spectre aident à protéger la peau contre les rayons UVA et UVB, principaux responsables du vieillissement cutané prématuré, des taches pigmentaires et de la perte de fermeté. \\n"
+   },
+   {
+    "t": "Actifs Hydratants",
+    "d": "\\nLa formule contient des ingrédients qui participent au maintien d'une hydratation optimale et aident à préserver le confort de la peau tout au long de la journée. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/Anti-Ageing%20SPF%2050%201%25%20Hyaluronic%20Acid%20Day%20Moisturiser%2050ml/6c6d29d6-0f6a-4c7d-be5b-412965ab0a6c.webp",
+   "uploads/products/Anti-Ageing%20SPF%2050%201%25%20Hyaluronic%20Acid%20Day%20Moisturiser%2050ml/cfd36762-fff5-4c66-b023-2dcd19ab404a.webp"
+  ],
+  "stock": 64,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 132
+ },
+ {
+  "id": "218",
+  "sku": "SC-218",
+  "gtin": "5060881927082",
+  "name": "Tranexamic Crème 15 ml",
+  "slug": "tranexamic-creme-15-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Acide Tranexamique",
+  "concern": "Taches & Éclat",
+  "price": 300,
+  "sale": 219,
+  "short": "SKINCHEMISTS Tranexamic Crème 15 ml est un soin ciblé formulé pour aider à réduire l'apparence des taches pigmentaires, unifier le teint et améliorer l'éclat naturel de la peau. Enrichie en acide tranexamique et en actifs hydratants, cette crème contribue à atténuer les irrégularités du teint tout en laissant la peau plus douce, lumineuse et visiblement plus uniforme.",
+  "bullets": [
+   "Aide à réduire l'apparence des taches pigmentaires.",
+   "Contribue à uniformiser le teint.",
+   "Ravive l'éclat naturel de la peau.",
+   "Hydrate et adoucit la peau.",
+   "Améliore la texture cutanée.",
+   "Convient à une utilisation quotidienne.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Tranexamique",
+    "d": "\\nL'acide tranexamique est un actif cosmétique reconnu pour son action sur les irrégularités pigmentaires. Il aide à atténuer l'apparence des taches brunes et favorise un teint plus homogène et lumineux. \\n"
+   },
+   {
+    "t": "Agents Hydratants",
+    "d": "\\nDes actifs hydratants contribuent à maintenir une bonne hydratation de la peau, renforcent la barrière cutanée et procurent une sensation de confort tout au long de la journée. \\n"
+   },
+   {
+    "t": "Antioxydants",
+    "d": "\\nLa formule contient des ingrédients aux propriétés antioxydantes qui aident à protéger la peau contre les agressions extérieures et les effets des radicaux libres, responsables du vieillissement prématuré. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/Tranexamic%203%25%20Moisturiser%20Cream%20100ml/e5628263-3a10-4a85-872b-9f24adc253d6.webp",
+   "uploads/products/Tranexamic%203%25%20Moisturiser%20Cream%20100ml/edae2b6d-8bac-4982-aeed-329f8054cb15.webp"
+  ],
+  "stock": 9,
+  "low": 5,
+  "rating": 4.4,
+  "reviews": 38
+ },
+ {
+  "id": "219",
+  "sku": "SC-219",
+  "gtin": "5060881925941",
+  "name": "Tranexamic Crème 100 ml",
+  "slug": "tranexamic-creme-100-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Acide Tranexamique",
+  "concern": "Taches & Éclat",
+  "price": 800,
+  "sale": 589,
+  "short": "SKINCHEMISTS Tranexamic Crème 100 ml est un soin ciblé formulé pour aider à réduire l'apparence des taches pigmentaires, unifier le teint et améliorer l'éclat naturel de la peau. Enrichie en acide tranexamique et en actifs hydratants, cette crème contribue à atténuer les irrégularités du teint tout en laissant la peau plus douce, lumineuse et visiblement plus uniforme.",
+  "bullets": [
+   "Aide à réduire l'apparence des taches pigmentaires.",
+   "Contribue à uniformiser le teint.",
+   "Ravive l'éclat naturel de la peau.",
+   "Hydrate et adoucit la peau.",
+   "Améliore la texture cutanée.",
+   "Convient à une utilisation quotidienne.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Tranexamique",
+    "d": "\\nL'acide tranexamique est un actif cosmétique reconnu pour son action sur les irrégularités pigmentaires. Il aide à atténuer l'apparence des taches brunes et favorise un teint plus homogène et lumineux. \\n"
+   },
+   {
+    "t": "Agents Hydratants",
+    "d": "\\nDes actifs hydratants contribuent à maintenir une bonne hydratation de la peau, renforcent la barrière cutanée et procurent une sensation de confort tout au long de la journée. \\n"
+   },
+   {
+    "t": "Antioxydants",
+    "d": "\\nLa formule contient des ingrédients aux propriétés antioxydantes qui aident à protéger la peau contre les agressions extérieures et les effets des radicaux libres, responsables du vieillissement prématuré. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/Tranexamic%203%25%20Moisturiser%20Cream%20100ml/e5628263-3a10-4a85-872b-9f24adc253d6.webp",
+   "uploads/products/Tranexamic%203%25%20Moisturiser%20Cream%20100ml/edae2b6d-8bac-4982-aeed-329f8054cb15.webp"
+  ],
+  "stock": 21,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 61
+ },
+ {
+  "id": "222",
+  "sku": "SC-222",
+  "gtin": "5060881926009",
+  "name": "Tranexamic Serum 30 ml",
+  "slug": "tranexamic-serum-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Acide Tranexamique",
+  "concern": "Taches & Éclat",
+  "price": 450,
+  "sale": 396.3,
+  "short": "SKINCHEMISTS Tranexamic Serum 30 ml est un sérum illuminateur conçu pour atténuer l'apparence des taches pigmentaires, uniformiser le teint et raviver l'éclat naturel de la peau. Formulé avec de l'acide tranexamique, de la niacinamide et des actifs hydratants, il aide à réduire les irrégularités du teint tout en laissant la peau plus lisse, plus lumineuse et visiblement revitalisée.",
+  "bullets": [
+   "Aide à atténuer l'apparence des taches pigmentaires.",
+   "Unifie le teint et ravive son éclat naturel.",
+   "Hydrate intensément et améliore le confort de la peau.",
+   "Affine le grain de peau et améliore sa texture.",
+   "Laisse la peau plus lisse, plus douce et lumineuse.",
+   "Convient à une utilisation quotidienne.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Tranexamique",
+    "d": "\\nL'acide tranexamique est un actif cosmétique reconnu pour son action sur les irrégularités pigmentaires. Il contribue à réduire l'apparence des taches brunes et favorise un teint plus homogène et éclatant. \\n"
+   },
+   {
+    "t": "Niacinamide (Vitamine B3)",
+    "d": "\\nLa niacinamide aide à renforcer la barrière cutanée, améliore l'uniformité du teint et participe à réduire l'apparence des imperfections et des pores visibles. Elle contribue également à préserver l'hydratation naturelle de la peau. \\n"
+   },
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nReconnu pour son fort pouvoir hydratant, l'acide hyaluronique aide à retenir l'eau dans la peau, améliore son élasticité et procure un effet repulpant tout en réduisant les ridules liées à la déshydratation. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/Tranexamic%20Acid%202.5%25,%20Niacinamide%204%25%20Brightening%20Facial%20Serum%2030ml/463c941a-edcc-4a57-9c70-030ec7dae096.webp",
+   "uploads/products/Tranexamic%20Acid%202.5%25,%20Niacinamide%204%25%20Brightening%20Facial%20Serum%2030ml/9cfa69a3-3999-4d6f-8b57-15cdfb0feb23.webp"
+  ],
+  "stock": 48,
+  "low": 5,
+  "rating": 4.6,
+  "reviews": 58
+ },
+ {
+  "id": "225",
+  "sku": "SC-225",
+  "gtin": "5061006591232",
+  "name": "Gel Nettoyant Vitamine C 200 ml",
+  "slug": "gel-nettoyant-vitamine-c-200-ml",
+  "brand": "skinChemists",
+  "cat": "Nettoyants",
+  "ingredient": "Vitamine C",
+  "concern": "Taches & Éclat",
+  "price": 300,
+  "sale": 198,
+  "short": "SKINCHEMISTS Gel Nettoyant Vitamine C 200 ml est un nettoyant visage quotidien qui élimine efficacement les impuretés, l'excès de sébum et les résidus de maquillage tout en préservant l'équilibre naturel de la peau. Enrichi en Vitamine C et en actifs hydratants, il aide à raviver l'éclat du teint, à laisser la peau fraîche, douce et parfaitement nettoyée.",
+  "bullets": [
+   "Nettoie efficacement la peau en douceur.",
+   "Élimine les impuretés, le sébum et les résidus de maquillage.",
+   "Aide à illuminer le teint et à raviver son éclat naturel.",
+   "Hydrate et préserve le confort de la peau.",
+   "Laisse la peau fraîche, douce et parfaitement propre.",
+   "Prépare la peau à recevoir les soins de votre routine.",
+   "Tous les types de peau."
+  ],
+  "actifs": [
+   {
+    "t": "Vitamine C",
+    "d": "\\nPuissant antioxydant, la Vitamine C aide à protéger la peau contre les agressions extérieures tout en améliorant l'éclat du teint. Elle contribue à révéler une peau plus lumineuse et plus uniforme. \\n"
+   },
+   {
+    "t": "Glycérine",
+    "d": "\\nLa glycérine est reconnue pour ses propriétés hydratantes. Elle aide à maintenir l'hydratation naturelle de la peau et limite les sensations de sécheresse après le nettoyage. \\n"
+   },
+   {
+    "t": "Agents Nettoyants Doux",
+    "d": "\\nLa formule contient des agents nettoyants qui éliminent efficacement les impuretés sans agresser la peau, laissant une sensation de confort et de fraîcheur. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/vit%20c%20cleanser/9f33d803-ee30-4349-93f1-92b90b12dcd3.webp"
+  ],
+  "stock": 15,
+  "low": 5,
+  "rating": 4.8,
+  "reviews": 102
+ },
+ {
+  "id": "227",
+  "sku": "SC-227",
+  "gtin": "5061006590921",
+  "name": "Crème Hydratante Jour & Nuit au Rétinol 60 ml",
+  "slug": "creme-hydratante-jour-nuit-au-retinol-60-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Rétinol",
+  "concern": "Rides & Fermeté",
+  "price": 400,
+  "sale": 297,
+  "short": "SKINCHEMISTS Crème Hydratante Jour & Nuit au Rétinol 60 ml est un soin anti-âge conçu pour hydrater intensément, améliorer la texture de la peau et atténuer les signes visibles du vieillissement. Enrichie en rétinol, en actifs hydratants et en antioxydants, cette crème aide à lisser les rides et ridules, à raffermir la peau et à révéler un teint plus uniforme et lumineux. Sa formule convient à une utilisation de jour comme de nuit.",
+  "bullets": [
+   "Hydrate durablement la peau.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Améliore la fermeté et l'élasticité de la peau.",
+   "Affine le grain de peau et favorise un teint plus uniforme.",
+   "Contribue à améliorer l'éclat naturel du visage.",
+   "Nourrit la peau et renforce sa barrière protectrice.",
+   "Convient pour une utilisation de jour et de nuit."
+  ],
+  "actifs": [
+   {
+    "t": "Rétinol",
+    "d": "\\nLe rétinol est un actif reconnu pour son action anti-âge. Il favorise le renouvellement cellulaire, aide à lisser les rides et ridules et améliore la texture de la peau. Utilisé régulièrement, il contribue à une peau plus ferme, plus uniforme et visiblement plus jeune. \\n"
+   },
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nL'acide hyaluronique aide à retenir l'eau dans la peau afin de maintenir une hydratation optimale. Il procure un effet repulpant, améliore la souplesse de la peau et atténue les ridules liées à la déshydratation. \\n"
+   },
+   {
+    "t": "Vitamine E",
+    "d": "\\nPuissant antioxydant, la vitamine E aide à protéger la peau contre les agressions extérieures et les radicaux libres responsables du vieillissement prématuré. Elle contribue également à préserver la douceur et le confort de la peau. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/retinol/retinol.webp",
+   "uploads/products/retinol/b16f3cef-3c29-48e7-8f55-618d1737bca3.webp"
+  ],
+  "stock": 0,
+  "low": 5,
+  "rating": 4.5,
+  "reviews": 44
+ },
+ {
+  "id": "230",
+  "sku": "SC-230",
+  "gtin": "5060881926030",
+  "name": "Sérum Acne Prone 30 ml",
+  "slug": "serum-acne-prone-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Niacinamide",
+  "concern": "Imperfections",
+  "price": 400,
+  "sale": 279,
+  "short": "SKINCHEMISTS Sérum Acne Prone 30 ml est un soin purifiant spécialement formulé pour les peaux à tendance acnéique. Enrichi en actifs séborégulateurs et hydratants, il aide à réduire l'apparence des imperfections, à limiter l'excès de sébum et à affiner le grain de peau. Sa texture légère pénètre rapidement, laissant la peau plus nette, équilibrée et visiblement plus saine.",
+  "bullets": [
+   "Aide à réduire l'apparence des boutons et des imperfections.",
+   "Régule l'excès de sébum pour une peau plus équilibrée.",
+   "Affine le grain de peau et resserre visiblement les pores.",
+   "Apaise les sensations d'inconfort et les rougeurs liées aux imperfections.",
+   "Hydrate sans alourdir la peau.",
+   "Favorise un teint plus net, plus uniforme et matifié.",
+   "Les peaux grasses, mixtes et à tendance acnéique."
+  ],
+  "actifs": [
+   {
+    "t": "Niacinamide (Vitamine B3)",
+    "d": "\\nLa niacinamide aide à équilibrer la production de sébum, à améliorer l'apparence des pores dilatés et à réduire les marques laissées par les imperfections. Elle contribue également à renforcer la barrière cutanée. \\n"
+   },
+   {
+    "t": "Acide Salicylique",
+    "d": "\\nReconnu pour son action exfoliante douce, l'acide salicylique aide à désobstruer les pores, éliminer les cellules mortes et limiter l'apparition des points noirs et des imperfections. \\n"
+   },
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nL'acide hyaluronique procure une hydratation durable sans effet gras. Il aide à préserver l'équilibre de la peau et à maintenir sa souplesse. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/acne%20prone/15877c58-0c21-4de9-a099-1b3bf51a8e80.webp",
+   "uploads/products/acne%20prone/6f56bb06-262e-4da0-9106-33eb431b1b44.webp",
+   "uploads/products/acne%20prone/84ce4e86-8871-47bc-9675-4dc568fd3552.webp"
+  ],
+  "stock": 38,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 77
+ },
+ {
+  "id": "236",
+  "sku": "SC-236",
+  "gtin": "5061006590266",
+  "name": "Crème Duo Anti-Rides 50 ml",
+  "slug": "creme-duo-anti-rides-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Niacinamide",
+  "concern": "Rides & Fermeté",
+  "price": 600,
+  "sale": 479,
+  "short": "SKIN CHEMISTS Duo Crème Anti-Rides 50 ml est un soin hydratant anti-âge conçu pour prendre soin de la peau de jour comme de nuit. Sa formule aide à hydrater intensément la peau, à lisser l'apparence des rides et ridules et à améliorer la fermeté cutanée. Utilisée régulièrement, cette crème contribue à une peau plus douce, plus souple et visiblement plus lisse, tout en préservant son confort et son éclat naturel.",
+  "bullets": [
+   "Hydrate la peau et aide à préserver son confort.",
+   "Aide à réduire l'apparence des rides et des ridules.",
+   "Contribue à améliorer l'aspect de la fermeté cutanée.",
+   "Lisse et adoucit la texture de la peau.",
+   "Aide à maintenir une peau souple et nourrie.",
+   "Peut s'intégrer dans une routine de soin de jour comme de nuit.",
+   "Convient particulièrement aux peaux présentant des signes visibles de l'âge."
+  ],
+  "actifs": [],
+  "images": [
+   "uploads/products/Advanced%20Wrinkle%20Killer%20Duo%20Moisturiser%2050ml/042b8a89-1796-4234-81ce-2b46f2cf1763.webp",
+   "uploads/products/Advanced%20Wrinkle%20Killer%20Duo%20Moisturiser%2050ml/51f9da3e-a4ec-453f-af6c-c5864cbe45c1.webp"
+  ],
+  "stock": 7,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 66
+ },
+ {
+  "id": "239",
+  "sku": "SC-239",
+  "gtin": "5060881920175",
+  "name": "Sérum Réparateur Yeux à l'Acide Hyaluronique 15 ml",
+  "slug": "serum-reparateur-yeux-a-l-acide-hyaluronique-15-ml",
+  "brand": "skinChemists",
+  "cat": "Contour des yeux",
+  "ingredient": "Acide Hyaluronique",
+  "concern": "Hydratation",
+  "price": 400,
+  "sale": 269,
+  "short": "SKIN CHEMISTS Sérum Réparateur Yeux à l'Acide Hyaluronique 15 ml est un soin contour des yeux intensément hydratant conçu pour prendre soin de la peau délicate du regard. Enrichi en acide hyaluronique, il aide à repulper la peau, à lisser l'apparence des ridules et à réduire les signes visibles de fatigue. Sa texture légère procure une sensation de fraîcheur et laisse le contour des yeux plus souple, lisse et lumineux.",
+  "bullets": [
+   "Hydrate intensément la zone délicate du contour des yeux.",
+   "Aide à réduire l'apparence des ridules de déshydratation.",
+   "Contribue à repulper et lisser la peau.",
+   "Améliore la souplesse et le confort du contour des yeux.",
+   "Aide à atténuer visiblement les signes de fatigue.",
+   "Ravive l'apparence du regard pour un effet plus frais et reposé.",
+   "Sa texture légère s'absorbe rapidement sans alourdir la peau."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nVéritable référence en matière d'hydratation, l'acide hyaluronique aide à retenir l'eau au sein de la peau et contribue à maintenir son niveau d'hydratation. Il aide ainsi à améliorer l'aspect des ridules, à renforcer la souplesse cutanée et à procurer un effet repulpant. \\n \\nGrâce à cette action hydratante, le cont"
+   }
+  ],
+  "images": [
+   "uploads/products/HYALURONIC%20ACID%20repair%20eye/397c7cb6-0594-4ba8-9d79-6528e564bea1.webp",
+   "uploads/products/HYALURONIC%20ACID%20repair%20eye/b0e8b929-dd28-4b40-adc4-c748b964fabb.webp"
+  ],
+  "stock": 52,
+  "low": 5,
+  "rating": 4.6,
+  "reviews": 89
+ },
+ {
+  "id": "242",
+  "sku": "SC-242",
+  "gtin": "5060881920199",
+  "name": "Crème Hydratante de Nuit à l'Acide Hyaluronique 50 ml",
+  "slug": "creme-hydratante-de-nuit-a-l-acide-hyaluronique-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Acide Hyaluronique",
+  "concern": "Hydratation",
+  "price": 600,
+  "sale": 419,
+  "short": "SKIN CHEMISTS Crème Hydratante de Nuit à l'Acide Hyaluronique 50 ml est un soin de nuit conçu pour hydrater intensément la peau et l'accompagner pendant son processus naturel de régénération. Enrichie en acide hyaluronique, elle aide à retenir l'hydratation, à repulper la peau et à lisser l'apparence des ridules liées à la déshydratation. Au réveil, la peau paraît plus douce, souple, confortable et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément la peau pendant la nuit.",
+   "Aide à retenir l'eau et à limiter la déshydratation cutanée.",
+   "Repulpe visiblement la peau et améliore sa souplesse.",
+   "Aide à lisser l'apparence des ridules de déshydratation.",
+   "Nourrit et apaise les peaux en manque de confort.",
+   "Favorise une peau plus douce et plus lumineuse au réveil.",
+   "Contribue à renforcer la sensation de confort de la peau."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nNaturellement présent dans la peau, l'acide hyaluronique est reconnu pour son exceptionnelle capacité à retenir l'eau. Il aide à maintenir une hydratation optimale et contribue à améliorer l'aspect de la peau déshydratée. \\n \\nGrâce à son action hydratante, il procure un effet repulpant qui aide à lisser visiblement "
+   }
+  ],
+  "images": [
+   "uploads/products/Hyaluronic%20Acid%20Aqua%20Repair%20Night%20Moisturiser%2050ml/2c368403-3284-4db4-bfe7-c7e9a956059e.webp",
+   "uploads/products/Hyaluronic%20Acid%20Aqua%20Repair%20Night%20Moisturiser%2050ml/fc55d93a-1754-43ae-8031-1472a3985053.webp"
+  ],
+  "stock": 24,
+  "low": 5,
+  "rating": 4.8,
+  "reviews": 54
+ },
+ {
+  "id": "245",
+  "sku": "SC-245",
+  "gtin": "5061006591423",
+  "name": "Sérum Visage Anti-Âge au Rétinol 30 ml",
+  "slug": "serum-visage-anti-age-au-retinol-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Rétinol",
+  "concern": "Rides & Fermeté",
+  "price": 500,
+  "sale": 395,
+  "short": "Dr H Sérum Visage Anti-Âge au Rétinol 30 ml est un soin concentré conçu pour aider à réduire l'apparence des rides et ridules et à améliorer la texture de la peau. Enrichi en rétinol, il favorise le renouvellement cutané et contribue à révéler une peau plus lisse, plus ferme et plus uniforme. Sa texture légère pénètre rapidement et laisse le visage visiblement revitalisé et éclatant.",
+  "bullets": [
+   "Aide à réduire l'apparence des rides et ridules.",
+   "Favorise le renouvellement naturel de la peau.",
+   "Améliore la texture et le grain de peau.",
+   "Contribue à rendre la peau visiblement plus lisse.",
+   "Aide à améliorer l'apparence de la fermeté cutanée.",
+   "Ravive l'éclat du teint et favorise une apparence plus uniforme.",
+   "Texture légère et rapidement absorbée."
+  ],
+  "actifs": [
+   {
+    "t": "Rétinol",
+    "d": "\\nLe rétinol, dérivé de la vitamine A, est un actif incontournable des soins anti-âge. Il contribue à stimuler le renouvellement cellulaire et à améliorer progressivement l'apparence de la peau. Il aide notamment à lisser les rides et ridules, à affiner le grain de peau et à favoriser un teint plus homogène. \\n"
+   }
+  ],
+  "images": [
+   "uploads/products/drh%20retinol/b72856f3-98fd-40d3-880e-1fe57db9aca1.webp",
+   "uploads/products/drh%20retinol/f67725b8-0a6d-47de-b7d9-5d262c4b44c5.webp"
+  ],
+  "stock": 11,
+  "low": 5,
+  "rating": 4.5,
+  "reviews": 71
+ },
+ {
+  "id": "248",
+  "sku": "SC-248",
+  "gtin": "5061006591430",
+  "name": "Sérum Visage Anti-Âge au Collagène 30 ml",
+  "slug": "serum-visage-anti-age-au-collagene-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Collagène",
+  "concern": "Rides & Fermeté",
+  "price": 500,
+  "sale": 390,
+  "short": "Dr H Sérum Visage Anti-Âge au Collagène 30 ml est un soin concentré conçu pour hydrater, lisser et revitaliser la peau. Enrichi en collagène, il aide à améliorer l'apparence de la fermeté et de l'élasticité cutanées tout en réduisant visiblement les signes du vieillissement. Sa texture légère pénètre rapidement pour laisser la peau plus douce, souple et éclatante.",
+  "bullets": [
+   "Aide à hydrater intensément la peau.",
+   "Contribue à améliorer l'apparence de la fermeté cutanée.",
+   "Aide à préserver l'élasticité et la souplesse de la peau.",
+   "Réduit visiblement l'apparence des rides et ridules.",
+   "Lisse le grain de peau et améliore sa texture.",
+   "Ravive l'éclat naturel du teint.",
+   "Laisse la peau plus douce, confortable et revitalisée."
+  ],
+  "actifs": [
+   {
+    "t": "Collagène",
+    "d": "\\nLe collagène est une protéine naturellement présente dans la peau, essentielle à son aspect ferme et souple. Avec le temps, sa production naturelle diminue, ce qui peut contribuer à l'apparition des rides et à la perte de fermeté. \\n \\nIntégré dans un soin cosmétique, le collagène contribue principalement à maintenir"
+   }
+  ],
+  "images": [
+   "uploads/products/Dr%20H%20Anti-Ageing%20Collagen%20Facial%20Serum/7261f873-3dd3-4e78-b72d-17dd143062d4.webp"
+  ],
+  "stock": 4,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 63
+ },
+ {
+  "id": "250",
+  "sku": "SC-250",
+  "gtin": "5061006591485",
+  "name": "Crème Hydratante de Nuit Anti-Âge au Collagène 60 ml",
+  "slug": "creme-hydratante-de-nuit-anti-age-au-collagene-60-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Collagène",
+  "concern": "Rides & Fermeté",
+  "price": 600,
+  "sale": 429,
+  "short": "Dr H Crème Hydratante de Nuit Anti-Âge au Collagène 60 ml est un soin de nuit conçu pour hydrater, nourrir et revitaliser la peau pendant le sommeil. Enrichie en collagène, sa formule aide à améliorer l'apparence de la fermeté et de l'élasticité cutanées tout en lissant les rides et ridules. Au réveil, la peau paraît plus douce, souple, confortable et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément la peau pendant la nuit.",
+   "Aide à nourrir et à revitaliser les peaux en manque de confort.",
+   "Contribue à améliorer l'apparence de la fermeté cutanée.",
+   "Aide à préserver la souplesse et l'élasticité de la peau.",
+   "Lisse visiblement l'apparence des rides et ridules.",
+   "Favorise une peau plus douce et confortable au réveil.",
+   "Aide à maintenir un teint frais et revitalisé."
+  ],
+  "actifs": [
+   {
+    "t": "Collagène",
+    "d": "\\nLe collagène est naturellement présent dans la structure de la peau et joue un rôle important dans son aspect ferme et souple. Dans les soins cosmétiques, il est principalement apprécié pour ses propriétés hydratantes et filmogènes. \\n \\nIl aide à maintenir l'hydratation à la surface de la peau et contribue à lui don"
+   }
+  ],
+  "images": [
+   "uploads/products/Collagen%20Anti-ageing%20Night%20Moisturiser/1aacd641-2f33-467c-be02-3bdab73e89bc.webp",
+   "uploads/products/Collagen%20Anti-ageing%20Night%20Moisturiser/cd3608bf-4d38-4f63-8ea7-77211557c330.webp"
+  ],
+  "stock": 36,
+  "low": 5,
+  "rating": 4.6,
+  "reviews": 49
+ },
+ {
+  "id": "253",
+  "sku": "SC-253",
+  "gtin": "5061006591454",
+  "name": "Sérum Visage Anti-Âge à la Vitamine C 30 ml",
+  "slug": "serum-visage-anti-age-a-la-vitamine-c-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Vitamine C",
+  "concern": "Taches & Éclat",
+  "price": 450,
+  "sale": 345,
+  "short": "DR H Sérum Visage Anti-Âge à la Vitamine C 30 ml est un soin concentré conçu pour raviver l'éclat du teint et lutter contre les signes visibles du vieillissement cutané. Enrichi en vitamine C, il aide à protéger la peau contre les agressions extérieures, à améliorer l'apparence des taches pigmentaires et à uniformiser le teint. Sa texture légère laisse la peau plus lisse, lumineuse et visiblement revitalisée.",
+  "bullets": [
+   "Ravive l'éclat naturel de la peau.",
+   "Aide à uniformiser le teint.",
+   "Contribue à réduire l'apparence des taches pigmentaires.",
+   "Aide à protéger la peau contre les agressions extérieures grâce à son action antioxydante.",
+   "Améliore l'apparence générale de la texture cutanée.",
+   "Aide à lisser visiblement les ridules.",
+   "Laisse la peau plus douce, lumineuse et revitalisée."
+  ],
+  "actifs": [
+   {
+    "t": "Vitamine C",
+    "d": "\\nLa vitamine C est un puissant antioxydant largement apprécié dans les soins anti-âge et illuminateurs. Elle aide à neutraliser les radicaux libres générés par les agressions environnementales et contribue à préserver l'éclat et l'apparence uniforme de la peau. \\n \\nElle participe également à améliorer l'apparence des"
+   }
+  ],
+  "images": [
+   "uploads/products/Dr%20H%20vit%20c/d8ddd1f2-76de-4483-8f81-845ba4a7639e.webp"
+  ],
+  "stock": 29,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 81
+ },
+ {
+  "id": "255",
+  "sku": "SC-255",
+  "gtin": "5061006591461",
+  "name": "Crème Hydratante de Nuit Anti-Âge à la Vitamine C 60 ml",
+  "slug": "creme-hydratante-de-nuit-anti-age-a-la-vitamine-c-60-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Vitamine C",
+  "concern": "Taches & Éclat",
+  "price": 500,
+  "sale": 395,
+  "short": "Dr H Crème Hydratante de Nuit Anti-Âge à la Vitamine C 60 ml est un soin de nuit conçu pour hydrater, nourrir et revitaliser la peau pendant le sommeil. Enrichie en vitamine C, sa formule aide à raviver l'éclat du teint, à améliorer l'apparence des signes visibles du vieillissement et à protéger la peau contre les agressions extérieures grâce à son action antioxydante. Au réveil, la peau paraît plus douce, plus lisse et visiblement lumineuse.",
+  "bullets": [
+   "Hydrate intensément la peau pendant la nuit.",
+   "Aide à nourrir et revitaliser les peaux ternes et fatiguées.",
+   "Ravive l'éclat naturel du teint.",
+   "Contribue à uniformiser l'apparence du teint.",
+   "Aide à réduire l'apparence des signes visibles du vieillissement.",
+   "Protège la peau contre les agressions extérieures grâce à l'action antioxydante de la vitamine C.",
+   "Laisse la peau plus douce, souple et lumineuse au réveil."
+  ],
+  "actifs": [
+   {
+    "t": "Vitamine C",
+    "d": "\\nLa vitamine C est un puissant antioxydant reconnu pour ses propriétés illuminatrices et anti-âge. Elle aide à protéger la peau contre les radicaux libres générés par les agressions extérieures et contribue à préserver son éclat naturel. \\n \\nElle aide également à améliorer l'apparence du teint irrégulier et des tache"
+   }
+  ],
+  "images": [
+   "uploads/products/Vitamin%20C%20Anti-Ageing%20Night%20Moisturiser%2060ml/a817659e-72d5-408d-ae49-1ed96632e8cb.webp"
+  ],
+  "stock": 58,
+  "low": 5,
+  "rating": 4.8,
+  "reviews": 97
+ },
+ {
+  "id": "257",
+  "sku": "SC-257",
+  "gtin": "5061006591447",
+  "name": "Sérum Visage Anti-Âge à l'Acide Hyaluronique 30 ml",
+  "slug": "serum-visage-anti-age-a-l-acide-hyaluronique-30-ml",
+  "brand": "skinChemists",
+  "cat": "Sérums",
+  "ingredient": "Acide Hyaluronique",
+  "concern": "Hydratation",
+  "price": 600,
+  "sale": 459,
+  "short": "DR H Sérum Visage Anti-Âge à l'Acide Hyaluronique 30 ml est un soin hautement hydratant conçu pour repulper la peau, lisser l'apparence des ridules et améliorer sa souplesse. Enrichi en acide hyaluronique, il aide à maintenir une hydratation optimale et à renforcer le confort cutané. Sa texture légère pénètre rapidement pour laisser la peau plus douce, lisse, souple et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément et durablement la peau.",
+   "Aide à repulper visiblement la peau.",
+   "Lisse l'apparence des ridules liées à la déshydratation.",
+   "Améliore la souplesse et l'élasticité cutanées.",
+   "Contribue à renforcer la sensation de confort de la peau.",
+   "Laisse le teint plus frais et la peau visiblement plus lisse.",
+   "Texture légère et rapidement absorbée."
+  ],
+  "actifs": [
+   {
+    "t": "Acide Hyaluronique",
+    "d": "\\nNaturellement présent dans l'organisme, l'acide hyaluronique est un actif incontournable des soins hydratants et anti-âge. Il possède une forte capacité à retenir l'eau, ce qui contribue à maintenir une peau hydratée, souple et confortable. \\n \\nEn apportant une hydratation intense, il aide à lisser l'apparence des r"
+   }
+  ],
+  "images": [
+   "uploads/products/Anti-Ageing%20Hyaluronic%20Acid%20Facial%20Serum%2030ml/36681f60-89ae-4ddb-b709-00750506cd6a.webp"
+  ],
+  "stock": 17,
+  "low": 5,
+  "rating": 4.5,
+  "reviews": 56
+ },
+ {
+  "id": "259",
+  "sku": "SC-259",
+  "gtin": "5060881929222",
+  "name": "Crème de Jour Hydratante Anti-Âge au Caviar Édition Limitée 50 ml",
+  "slug": "creme-de-jour-hydratante-anti-age-au-caviar-edition-limitee-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 1000,
+  "sale": 779,
+  "short": "skinPharmacy Crème de Jour Hydratante Anti-Âge au Caviar Édition Limitée 50 ml est un soin quotidien conçu pour hydrater intensément la peau tout en ciblant les signes visibles du vieillissement. Enrichie en extrait de caviar, sa formule aide à nourrir la peau, à améliorer son apparence de fermeté et à lisser les rides et ridules. Elle laisse le visage plus doux, souple, confortable et visiblement éclatant.",
+  "bullets": [
+   "Hydrate intensément la peau tout au long de la journée.",
+   "Aide à nourrir les peaux sèches et déshydratées.",
+   "Contribue à améliorer l'apparence de la fermeté cutanée.",
+   "Aide à lisser visiblement les rides et ridules.",
+   "Préserve la souplesse et le confort de la peau.",
+   "Ravive l'éclat naturel du teint.",
+   "Laisse la peau douce, lisse et visiblement revitalisée."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar",
+    "d": "\\nRiche en nutriments, protéines, acides aminés et minéraux, l'extrait de caviar est apprécié dans les soins cosmétiques pour ses propriétés nourrissantes et revitalisantes. Il contribue à améliorer l'apparence de la peau et à préserver sa souplesse et son confort. \\n \\nAssocié à des actifs hydratants, il aide à mainte"
+   }
+  ],
+  "images": [
+   "uploads/products/Caviar%20Limited%20Edition%20Hydrating%20Anti-Ageing/m5060881929222_white_xl.webp",
+   "uploads/products/Caviar%20Limited%20Edition%20Hydrating%20Anti-Ageing/m5060881929222_white_xl_1.webp"
+  ],
+  "stock": 2,
+  "low": 5,
+  "rating": 4.7,
+  "reviews": 43
+ },
+ {
+  "id": "262",
+  "sku": "SC-262",
+  "gtin": "5060881929239",
+  "name": "Crème de Nuit Réparatrice Anti-Âge au Caviar Édition Limitée 50 ml",
+  "slug": "creme-de-nuit-reparatrice-anti-age-au-caviar-edition-limitee-50-ml",
+  "brand": "skinChemists",
+  "cat": "Crèmes & Hydratants",
+  "ingredient": "Caviar",
+  "concern": "Rides & Fermeté",
+  "price": 1100,
+  "sale": 849,
+  "short": "skinPharmacy Crème de Nuit Réparatrice Anti-Âge au Caviar Édition Limitée 50 ml est un soin de nuit conçu pour nourrir, hydrater et revitaliser la peau pendant le sommeil. Enrichie en extrait de caviar, sa formule aide à préserver l'hydratation, à améliorer l'apparence de la fermeté et à lisser les rides et ridules. Au réveil, la peau paraît plus douce, plus souple, confortable et visiblement revitalisée.",
+  "bullets": [
+   "Hydrate intensément la peau pendant la nuit.",
+   "Aide à nourrir et revitaliser les peaux en manque de confort.",
+   "Contribue à améliorer l'apparence de la fermeté cutanée.",
+   "Aide à préserver la souplesse et l'élasticité de la peau.",
+   "Lisse visiblement l'apparence des rides et ridules.",
+   "Favorise une peau plus douce et confortable au réveil.",
+   "Ravive l'apparence d'un teint frais et reposé."
+  ],
+  "actifs": [
+   {
+    "t": "Extrait de Caviar",
+    "d": "\\nRiche en protéines, acides aminés, vitamines et minéraux, l'extrait de caviar est apprécié dans les soins cosmétiques pour ses propriétés nourrissantes et revitalisantes. Il contribue à préserver la souplesse et le confort de la peau tout en améliorant son apparence générale. \\n \\nAssocié à des actifs hydratants, il "
+   }
+  ],
+  "images": [
+   "uploads/products/skinPharmacy%20Caviar%20Limited%20Edition/2b67823cd0dd45229e7ec55f0e6c74cf.jpg",
+   "uploads/products/skinPharmacy%20Caviar%20Limited%20Edition/9020347290f54e869a7973c4a7eebb37.jpg"
+  ],
+  "stock": 45,
+  "low": 5,
+  "rating": 4.9,
+  "reviews": 118
+ }
+]
