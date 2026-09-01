@@ -1,0 +1,30 @@
+[
+ {
+  "name": "Rituel Caviar Jour & Nuit",
+  "tag": "Édition limitée",
+  "ids": [
+   "152",
+   "155"
+  ],
+  "blurb": "Le protocole complet de la gamme Caviar : la crème de jour raffermit et protège, celle de nuit nourrit et répare pendant le sommeil."
+ },
+ {
+  "name": "Protocole Éclat Vitamine C",
+  "tag": "Teint terne · Taches",
+  "ids": [
+   "225",
+   "253",
+   "255"
+  ],
+  "blurb": "Trois étapes pour raviver un teint fatigué : nettoyage à la vitamine C, sérum concentré, crème de nuit antioxydante."
+ },
+ {
+  "name": "Duo Hydratation Hyaluronique",
+  "tag": "Toutes peaux",
+  "ids": [
+   "257",
+   "242"
+  ],
+  "blurb": "Sérum et crème de nuit à l'acide hyaluronique, pour repulper les peaux déshydratées et lisser les ridules de surface."
+ }
+]

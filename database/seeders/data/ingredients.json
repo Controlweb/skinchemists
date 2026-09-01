@@ -1,0 +1,101 @@
+{
+ "Caviar": {
+  "intro": "Un extrait riche en acides aminés et oligo-éléments, utilisé pour soutenir la fermeté et l'éclat des peaux matures.",
+  "what": "L'extrait de caviar concentre protéines, minéraux et acides gras qui participent au maintien de la densité cutanée. C'est l'actif signature des formules les plus concentrées du laboratoire.",
+  "benefits": [
+   "Aide à raffermir et lisser le grain de peau",
+   "Soutient l'éclat des teints fatigués",
+   "Apporte une nutrition riche sans effet gras"
+  ],
+  "how": "Matin et soir sur peau nettoyée, en massage ascendant du visage et du cou.",
+  "who": "Peaux matures, premières rides installées, perte de fermeté."
+ },
+ "Green Caviar": {
+  "intro": "Une algue marine gorgée d'eau, connue pour sa capacité à retenir l'hydratation à la surface de la peau.",
+  "what": "Le Green Caviar est une algue riche en polysaccharides qui forme un film hydratant léger. Elle complète l'action des soins de nuit sans alourdir la peau.",
+  "benefits": [
+   "Retient l'hydratation pendant la nuit",
+   "Apaise les sensations d'inconfort",
+   "Laisse un fini souple, non collant"
+  ],
+  "how": "Le soir, en dernière étape de la routine, sur l'ensemble du visage.",
+  "who": "Peaux déshydratées, peaux normales à mixtes."
+ },
+ "Rétinol": {
+  "intro": "Le dérivé de vitamine A le plus étudié pour le renouvellement cellulaire et le lissage des rides.",
+  "what": "Le rétinol accélère le renouvellement des cellules de surface et stimule les mécanismes de fermeté. Son introduction doit être progressive pour limiter les réactions.",
+  "benefits": [
+   "Lisse les rides et ridules avec le temps",
+   "Affine le grain de peau",
+   "Aide à uniformiser le teint"
+  ],
+  "how": "Le soir uniquement, deux à trois fois par semaine au départ, puis progressivement chaque soir. Écran solaire obligatoire le matin.",
+  "who": "Peaux non sensibilisées, à partir de 25 ans. À éviter pendant la grossesse."
+ },
+ "Acide Hyaluronique": {
+  "intro": "La molécule de référence pour attirer et fixer l'eau dans les couches supérieures de la peau.",
+  "what": "L'acide hyaluronique peut retenir de nombreuses fois son poids en eau. Les formules combinent plusieurs poids moléculaires pour hydrater en surface et en profondeur relative.",
+  "benefits": [
+   "Repulpe visiblement dès les premières applications",
+   "Atténue les ridules de déshydratation",
+   "Compatible avec tous les autres actifs"
+  ],
+  "how": "Matin et soir sur peau légèrement humide, avant la crème.",
+  "who": "Tous les types de peau, y compris sensibles."
+ },
+ "Vitamine C": {
+  "intro": "Un antioxydant qui cible la perte d'éclat et l'irrégularité du teint.",
+  "what": "La vitamine C limite l'action des radicaux libres et intervient dans les mécanismes de pigmentation. Elle donne des résultats visibles sur la luminosité du teint.",
+  "benefits": [
+   "Ravive l'éclat des teints ternes",
+   "Aide à estomper les taches pigmentaires",
+   "Protège contre le stress oxydatif quotidien"
+  ],
+  "how": "Le matin, avant la crème et l'écran solaire.",
+  "who": "Teints ternes, taches, exposition urbaine et solaire."
+ },
+ "Collagène": {
+  "intro": "Un soutien ciblé pour les peaux qui perdent en densité et en rebond.",
+  "what": "Les formules au collagène associent peptides et agents hydratants pour améliorer l'aspect de fermeté de la peau et son confort immédiat.",
+  "benefits": [
+   "Améliore l'aspect de fermeté",
+   "Renforce le confort des peaux sèches",
+   "Lisse les rides d'expression"
+  ],
+  "how": "Le soir, en couche généreuse sur le visage et le cou.",
+  "who": "Peaux matures ou relâchées."
+ },
+ "SYN-AKE": {
+  "intro": "Un tripeptide inspiré du venin de serpent, utilisé pour cibler les rides d'expression.",
+  "what": "SYN-AKE agit sur la contraction des muscles superficiels responsables des rides d'expression, avec une action de lissage progressive.",
+  "benefits": [
+   "Cible les rides du front et du contour des yeux",
+   "Lisse les traits sans effet figé",
+   "S'associe bien à l'acide hyaluronique"
+  ],
+  "how": "Matin et soir sur les zones concernées, en tapotements légers.",
+  "who": "Rides d'expression marquées, front et pattes d'oie."
+ },
+ "Acide Tranexamique": {
+  "intro": "L'actif de référence sur les taches persistantes et les marques post-inflammatoires.",
+  "what": "L'acide tranexamique intervient sur les mécanismes de pigmentation déclenchés par l'inflammation et le soleil. Il est souvent associé à la niacinamide.",
+  "benefits": [
+   "Atténue les taches et le mélasma",
+   "Réduit les marques laissées par les imperfections",
+   "Uniformise progressivement le teint"
+  ],
+  "how": "Matin et soir, suivi d'un écran solaire SPF 50 en journée.",
+  "who": "Taches pigmentaires, mélasma, marques post-acné."
+ },
+ "Niacinamide": {
+  "intro": "Une vitamine B3 polyvalente : sébum, pores, rougeurs et barrière cutanée.",
+  "what": "La niacinamide régule la production de sébum, renforce la barrière cutanée et limite les rougeurs. Elle est bien tolérée à des concentrations élevées.",
+  "benefits": [
+   "Régule les brillances et resserre l'aspect des pores",
+   "Apaise les rougeurs",
+   "Renforce la barrière cutanée"
+  ],
+  "how": "Matin et/ou soir, avant la crème hydratante.",
+  "who": "Peaux mixtes à grasses, peaux sujettes aux imperfections."
+ }
+}

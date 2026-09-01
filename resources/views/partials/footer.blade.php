@@ -9,6 +9,7 @@
       <div style="display:grid;gap:10px;font-size:13.5px">
         <a href="{{ route('shop') }}" style="color:#FFFFFF;opacity:0.8">Tous les soins</a>
         <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="color:#FFFFFF;opacity:0.8">Best-sellers</a>
+        <a href="{{ route('bundles') }}" style="color:#FFFFFF;opacity:0.8">Coffrets &amp; rituels</a>
         <a href="{{ route('shop', ['actif' => 'Caviar']) }}" style="color:#FFFFFF;opacity:0.8">Édition limitée Caviar</a>
       </div>
     </div>
@@ -18,11 +19,13 @@
         <span style="opacity:0.8">Livraison &amp; délais</span>
         <span style="opacity:0.8">Paiement à la livraison</span>
         <span style="opacity:0.8">Retours</span>
+        <a href="{{ route('tracking') }}" style="color:#FFFFFF;opacity:0.8">Suivre ma commande</a>
       </div>
     </div>
     <div>
       <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:16px">Maison</div>
       <div style="display:grid;gap:10px;font-size:13.5px">
+        <a href="{{ route('lab') }}" style="color:#FFFFFF;opacity:0.8">Le Lab</a>
         <span style="opacity:0.8">Authenticité</span>
         <span style="opacity:0.8">Mentions légales</span>
         <span style="opacity:0.8">Confidentialité</span>

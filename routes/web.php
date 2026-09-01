@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BundleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +28,20 @@ Route::get('/commande/{order:number}/confirmation', [CheckoutController::class, 
     ->name('checkout.confirmation');
 
 Route::get('/sitemap.xml', function () {
-    $products = \App\Models\Product::active()->select('slug', 'updated_at')->get();
-
-    return response()->view('sitemap', compact('products'))
-        ->header('Content-Type', 'application/xml');
+    return response()->view('sitemap', [
+        'products' => \App\Models\Product::active()->select('slug', 'updated_at')->get(),
+        'ingredients' => \App\Models\Ingredient::published()->select('slug', 'updated_at')->get(),
+        'articles' => \App\Models\Article::published()->select('slug', 'updated_at')->get(),
+    ])->header('Content-Type', 'application/xml');
 })->name('sitemap');
+
+Route::get('/coffrets', [BundleController::class, 'index'])->name('bundles');
+Route::get('/actif/{ingredient:slug}', [IngredientController::class, 'show'])->name('ingredient');
+
+Route::get('/le-lab', [ArticleController::class, 'index'])->name('lab');
+Route::get('/le-lab/{article:slug}', [ArticleController::class, 'show'])->name('article');
+
+Route::get('/suivi', [OrderTrackingController::class, 'show'])->name('tracking');
+Route::post('/suivi', [OrderTrackingController::class, 'find'])
+    ->middleware('throttle:8,1')
+    ->name('tracking.find');

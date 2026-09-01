@@ -95,8 +95,8 @@
   <section style="max-width:1320px;margin:0 auto;padding:74px 40px 0">
     <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 28px">Acheter par actif</h2>
     <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
-      @foreach ($ingredients as $ingredient)
-        <a href="{{ route('shop', ['actif' => $ingredient]) }}"
+      @foreach ($navIngredients as $ingredient => $ingredientSlug)
+        <a href="{{ $ingredientSlug ? route('ingredient', $ingredientSlug) : route('shop', ['actif' => $ingredient]) }}"
            style="background:#FFFFFF;padding:34px 26px;color:#14120F;display:flex;align-items:center;justify-content:space-between;font-size:15px">
           <span>{{ $ingredient }}</span>
           <span style="color:#9B9B9B">→</span>

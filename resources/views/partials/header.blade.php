@@ -16,7 +16,8 @@
       <a href="{{ route('shop') }}" style="{{ $navLink }}">Soins</a>
       <button type="button" @mouseenter="mega = true" @click="mega = !mega" style="{{ $navLink }}">Actifs</button>
       <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="{{ $navLink }}">Best-sellers</a>
-      <a href="{{ route('shop', ['categorie' => 'cremes-hydratants']) }}" style="{{ $navLink }}">Coffrets</a>
+      <a href="{{ route('bundles') }}" style="{{ $navLink }}">Coffrets</a>
+      <a href="{{ route('lab') }}" style="{{ $navLink }}">Le Lab</a>
     </nav>
 
     <a href="{{ route('home') }}" style="display:block;line-height:0">
@@ -41,8 +42,9 @@
       <div>
         <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:16px">Par actif</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px">
-          @foreach ($navIngredients as $ing)
-            <a href="{{ route('shop', ['actif' => $ing]) }}" style="color:#14120F;font-size:14px">{{ $ing }}</a>
+          @foreach ($navIngredients as $ing => $ingSlug)
+            <a href="{{ $ingSlug ? route('ingredient', $ingSlug) : route('shop', ['actif' => $ing]) }}"
+               style="color:#14120F;font-size:14px">{{ $ing }}</a>
           @endforeach
         </div>
       </div>

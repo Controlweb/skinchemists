@@ -18,7 +18,15 @@ class PromotionResource extends Resource
 {
     protected static ?string $model = Promotion::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTicket;
+
+    protected static ?string $navigationLabel = 'Promotions';
+
+    protected static ?string $modelLabel = 'promotion';
+
+    protected static ?string $pluralModelLabel = 'promotions';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

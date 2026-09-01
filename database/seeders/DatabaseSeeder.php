@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingsSeeder::class,
             CatalogSeeder::class,
+            EditorialSeeder::class,
             PromotionSeeder::class,
             AdminUserSeeder::class,
         ]);

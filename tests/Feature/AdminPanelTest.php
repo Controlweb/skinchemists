@@ -101,6 +101,20 @@ class AdminPanelTest extends TestCase
             ->assertSuccessful();
     }
 
+    /**
+     * These caught a real breakage once: a Filament class that moved namespace
+     * only blew up when the page was actually rendered.
+     */
+    public function test_every_admin_screen_renders(): void
+    {
+        $this->actingAs(User::factory()->create(['is_admin' => true]));
+
+        foreach (['orders', 'products', 'reviews', 'promotions', 'articles', 'bundles', 'ingredients'] as $screen) {
+            $this->get("/admin/{$screen}")
+                ->assertSuccessful("L'écran /admin/{$screen} ne s'affiche pas");
+        }
+    }
+
     public function test_the_reviews_screen_loads(): void
     {
         Review::create([

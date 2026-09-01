@@ -12,8 +12,7 @@ class HomeController extends Controller
         return view('home', [
             'bestSellers' => Product::with('images')->active()->inStock()
                 ->orderByDesc('reviews_count')->take(7)->get(),
-            'ingredients' => Product::active()->whereNotNull('ingredient')
-                ->distinct()->orderBy('ingredient')->pluck('ingredient'),
+            // $navIngredients (name => slug) comes from ViewServiceProvider.
             'reviews' => Review::with('product')->approved()->latest()->take(4)->get(),
             'ratingAvg' => round(Review::approved()->avg('rating') ?? 0, 1),
         ]);

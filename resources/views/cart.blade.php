@@ -29,6 +29,11 @@
           <div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:10px">
             <span style="color:#6B6B6B">Sous-total</span><span>{{ mad($pricing->subtotal) }}</span>
           </div>
+          @if ($pricing->discount > 0)
+            <div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:10px;color:#3F6B45">
+              <span>Remise coffret</span><span>−{{ mad($pricing->discount) }}</span>
+            </div>
+          @endif
           <div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:16px">
             <span style="color:#6B6B6B">Livraison estimée</span><span>{{ $pricing->shipping === 0 ? 'Offerte' : mad($pricing->shipping) }}</span>
           </div>
