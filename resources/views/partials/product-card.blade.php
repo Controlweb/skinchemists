@@ -1,4 +1,12 @@
-<article style="background:#FFFFFF;display:flex;flex-direction:column">
+{{--
+    Every card is the same shape regardless of what data a product has.
+
+    height:100% fills the grid cell (grid stretches rows to the tallest card),
+    and margin-top:auto on the price block pushes price and button to the
+    bottom edge — so they line up across the row even when one product has a
+    three-line name, no reviews, or a low-stock warning and another has none.
+--}}
+<article style="background:#FFFFFF;display:flex;flex-direction:column;height:100%">
     <a href="{{ route('product', $product) }}"
        style="border:0;background:#FAFAFA;padding:26px;cursor:pointer;position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center">
         <span style="flex:1;align-self:stretch;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
@@ -18,11 +26,19 @@
         <a href="{{ route('product', $product) }}"
            style="font-size:14.5px;line-height:1.35;color:#14120F;font-weight:400;min-height:40px">{{ $product->name }}</a>
 
-        @if ($product->reviews_count > 0)
-            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#6B6B6B">
-                <span style="color:#14120F">★</span><span>{{ $product->rating_avg }}</span><span style="opacity:0.5">({{ $product->reviews_count }})</span>
-            </div>
-        @endif
+        {{-- Rating, then the stock warning directly beneath it. Reserved height
+             so a product with neither still occupies the same vertical space. --}}
+        <div style="min-height:20px;display:flex;flex-direction:column;gap:4px">
+            @if ($product->reviews_count > 0)
+                <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#6B6B6B">
+                    <span style="color:#14120F">★</span><span>{{ $product->rating_avg }}</span><span style="opacity:0.5">({{ $product->reviews_count }})</span>
+                </div>
+            @endif
+
+            @if ($product->isLowStock())
+                <div style="font-size:11.5px;color:#8A6A22">Plus que {{ $product->stock }} en stock</div>
+            @endif
+        </div>
 
         <div style="display:flex;align-items:baseline;gap:9px;margin-top:auto">
             <span style="font-size:16px">{{ mad($product->effectivePriceCents()) }}</span>

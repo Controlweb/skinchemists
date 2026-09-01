@@ -13,6 +13,13 @@ new class extends Component
     /** Show a quantity stepper on the product page, not on grid cards. */
     public bool $withStepper = false;
 
+    /**
+     * The low-stock line renders below the button, so on a grid card it pushed
+     * that card's button out of line with its neighbours. Cards render the
+     * warning themselves, under the rating, where it stays aligned.
+     */
+    public bool $withStockNote = false;
+
     public function increment(): void
     {
         $this->quantity = min($this->quantity + 1, max($this->product->stock, 1));
@@ -67,7 +74,7 @@ new class extends Component
             </button>
         </div>
 
-        @if ($product->isLowStock())
+        @if ($withStockNote && $product->isLowStock())
             <p style="margin:10px 0 0;font-size:12px;color:#8A6A22">Plus que {{ $product->stock }} en stock.</p>
         @endif
     @endif

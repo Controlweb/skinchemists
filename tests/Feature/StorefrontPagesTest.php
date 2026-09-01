@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class StorefrontPagesTest extends TestCase
@@ -39,6 +40,33 @@ class StorefrontPagesTest extends TestCase
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');
+    }
+
+    public function test_a_low_stock_product_warns_on_its_card(): void
+    {
+        $product = $this->product();
+        $product->update(['stock' => 3, 'low_stock_threshold' => 5]);
+
+        $this->get('/boutique')
+            ->assertSuccessful()
+            ->assertSee('Plus que 3 en stock');
+    }
+
+    /**
+     * The note renders below the button, so on a grid card it would push that
+     * card's button out of line with the rest of the row. Cards draw it
+     * themselves, under the rating; the button must stay silent by default.
+     */
+    public function test_the_add_to_cart_button_stays_silent_about_stock_by_default(): void
+    {
+        $product = $this->product();
+        $product->update(['stock' => 2, 'low_stock_threshold' => 5]);
+
+        Livewire::test('add-to-cart', ['product' => $product])
+            ->assertDontSee('Plus que');
+
+        Livewire::test('add-to-cart', ['product' => $product, 'withStockNote' => true])
+            ->assertSee('Plus que');
     }
 
     /**

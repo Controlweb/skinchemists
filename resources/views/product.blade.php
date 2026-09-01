@@ -81,7 +81,7 @@
       @endif
 
       <div style="margin-bottom:26px">
-        @livewire('add-to-cart', ['product' => $product, 'withStepper' => true])
+        @livewire('add-to-cart', ['product' => $product, 'withStepper' => true, 'withStockNote' => true])
       </div>
 
       <div style="border-top:1px solid #E6E6E6;padding-top:20px;display:grid;gap:10px;font-size:13px;color:#6B6B6B">
