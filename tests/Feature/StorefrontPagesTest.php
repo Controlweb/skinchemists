@@ -41,6 +41,65 @@ class StorefrontPagesTest extends TestCase
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');
     }
 
+    /**
+     * An Eloquent model's __toString() is its JSON, so passing one where a
+     * string is expected produces a 200 with garbage baked into the markup
+     * rather than an exception. That is exactly how the hero images broke:
+     * the page looked fine to every status-code check.
+     *
+     * Checks image URLs specifically. Livewire legitimately serialises
+     * component state into wire:snapshot, so scanning the whole document for
+     * JSON would flag that instead.
+     */
+    public function test_no_image_url_contains_a_serialised_model(): void
+    {
+        $this->seed(\Database\Seeders\CatalogSeeder::class);
+        $this->seed(\Database\Seeders\EditorialSeeder::class);
+
+        $product = \App\Models\Product::has('images')->first();
+
+        $pages = [
+            '/', '/boutique', '/coffrets', '/le-lab', '/panier', '/suivi',
+            '/produit/'.$product->slug,
+            '/actif/'.\App\Models\Ingredient::first()->slug,
+            '/le-lab/'.\App\Models\Article::published()->first()->slug,
+        ];
+
+        foreach ($pages as $page) {
+            $html = $this->get($page)->assertSuccessful()->getContent();
+
+            preg_match_all("/(?:background-image:url\('|src=\")([^'\"]*)/", $html, $matches);
+
+            foreach ($matches[1] as $url) {
+                $this->assertStringNotContainsString(
+                    '{',
+                    $url,
+                    "{$page} rend un modèle sérialisé dans une URL d'image"
+                );
+            }
+        }
+    }
+
+    public function test_the_home_hero_points_at_real_image_files(): void
+    {
+        $this->seed(\Database\Seeders\CatalogSeeder::class);
+
+        $html = $this->get('/')->assertSuccessful()->getContent();
+
+        preg_match_all("/height:560px;background-image:url\('([^']+)'/", $html, $matches);
+
+        $this->assertNotEmpty($matches[1], 'Aucune image de hero rendue');
+
+        foreach ($matches[1] as $url) {
+            $path = rawurldecode(parse_url($url, PHP_URL_PATH) ?? '');
+
+            $this->assertTrue(
+                is_file(public_path($path)),
+                "L'image du hero n'existe pas sur le disque : {$path}"
+            );
+        }
+    }
+
     public function test_an_ingredient_page_lists_its_products(): void
     {
         $product = $this->product('Caviar');

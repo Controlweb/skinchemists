@@ -40,7 +40,7 @@
     <div style="max-width:1100px;margin:34px auto 0;padding:0 40px">
       <div style="aspect-ratio:21/9;background:repeating-linear-gradient(135deg,#F4F4F4 0 8px,#EDEDED 8px 16px);display:flex;align-items:center;justify-content:center">
         @if ($article->image_path)
-          <span style="width:100%;height:100%;background-image:url('{{ asset($article->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
+          <span style="width:100%;height:100%;background-image:url('{{ image_url($article->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
         @else
           <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.08em;color:#9B9B9B">[ visuel éditorial ]</span>
         @endif

@@ -22,7 +22,7 @@
       <article style="display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;border:1px solid #E6E6E6;margin-bottom:36px">
         <a href="{{ route('article', $featured) }}" style="aspect-ratio:16/10;{{ $placeholder }}">
           @if ($featured->image_path)
-            <span style="width:100%;height:100%;background-image:url('{{ asset($featured->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
+            <span style="width:100%;height:100%;background-image:url('{{ image_url($featured->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
           @else
             <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.08em;color:#9B9B9B">[ visuel éditorial ]</span>
           @endif
@@ -50,7 +50,7 @@
         <article style="display:flex;flex-direction:column;gap:14px">
           <a href="{{ route('article', $article) }}" style="aspect-ratio:4/3;{{ $placeholder }}">
             @if ($article->image_path)
-              <span style="width:100%;height:100%;background-image:url('{{ asset($article->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
+              <span style="width:100%;height:100%;background-image:url('{{ image_url($article->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
             @else
               <span style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:0.08em;color:#9B9B9B">[ visuel éditorial ]</span>
             @endif

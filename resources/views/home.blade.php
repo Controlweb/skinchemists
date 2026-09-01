@@ -21,9 +21,9 @@
          'ctaLabel' => "Voir l'écran SPF 50", 'ctaUrl' => route('shop', ['q' => 'SPF 50'])],
     ])->map(function ($slide) {
         $product = \App\Models\Product::with('images')->where('sku', $slide['sku'])->first();
-        $slide['img'] = $product?->primaryImage();
+        $slide['img'] = $product?->primaryImageUrl();
         return $slide;
-    })->filter(fn ($slide) => $slide['img'] !== null)->values();
+    })->filter(fn ($slide) => filled($slide['img']))->values();
   @endphp
 
   {{-- Hero --}}
@@ -70,7 +70,7 @@
         @foreach ($heroSlides as $index => $slide)
           <template x-if="i === {{ $index }}">
             <div role="img" aria-label="{{ $slide['kicker'] }}"
-                 style="width:100%;height:560px;background-image:url('{{ asset($slide['img']) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply;animation:scmHeroB 0.85s cubic-bezier(0.22,0.61,0.36,1) both"></div>
+                 style="width:100%;height:560px;background-image:url('{{ $slide['img'] }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply;animation:scmHeroB 0.85s cubic-bezier(0.22,0.61,0.36,1) both"></div>
           </template>
         @endforeach
       </div>
