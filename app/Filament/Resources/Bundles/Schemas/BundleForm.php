@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use App\Filament\Schemas\GallerySection;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
@@ -41,6 +42,10 @@ class BundleForm
 
                     Toggle::make('is_active')->label('Actif')->default(true),
                 ]),
+
+            GallerySection::make(
+                'Facultatif. Sans image, la vignette est composée automatiquement à partir des produits du coffret.'
+            ),
         ]);
     }
 }

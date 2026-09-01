@@ -22,9 +22,7 @@ class ProductsTable
             ->columns([
                 ImageColumn::make('primary_image')
                     ->label('')
-                    ->state(fn (Product $record) => $record->primaryImage()
-                        ? asset($record->primaryImage())
-                        : null)
+                    ->state(fn (Product $record) => $record->primaryImage()?->url())
                     ->height(44),
 
                 TextColumn::make('name')

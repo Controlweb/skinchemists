@@ -122,7 +122,8 @@ class PlaceOrder
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'sku' => $product->sku,
-                    'image_path' => $product->primaryImage(),
+                    // Snapshot the raw path; the order view encodes it for display.
+                    'image_path' => $product->primaryImage()?->path,
                     'unit_price_cents' => $unit,
                     'quantity' => $quantity,
                     'line_total_cents' => $unit * $quantity,

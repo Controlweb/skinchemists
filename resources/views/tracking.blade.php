@@ -60,7 +60,7 @@
         @foreach ($order->items as $item)
           <div style="display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid #F4F4F4;align-items:center">
             @if ($item->image_path)
-              <span style="width:56px;height:56px;flex:none;background:#FAFAFA;background-image:url('{{ asset($item->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
+              <span style="width:56px;height:56px;flex:none;background:#FAFAFA;background-image:url('{{ image_url($item->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
             @endif
             <span style="flex:1;font-size:13.5px;line-height:1.4">{{ $item->name }}<br><span style="color:#9B9B9B;font-size:12px">× {{ $item->quantity }}</span></span>
             <span style="font-size:13.5px">{{ mad($item->line_total_cents) }}</span>

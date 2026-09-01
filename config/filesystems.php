@@ -30,6 +30,22 @@ return [
 
     'disks' => [
 
+        /*
+         * Rooted at public/ so admin uploads land beside the 51 product images
+         * that shipped with the site, keeping one image location instead of
+         * two. Paths stored in the images table are relative to this root.
+         *
+         * No storage:link needed, which matters on shared hosting where the
+         * symlink is sometimes unavailable.
+         */
+        'public_files' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),

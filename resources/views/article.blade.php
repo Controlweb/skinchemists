@@ -65,7 +65,7 @@
           <div style="display:grid;gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
             @foreach ($article->products as $product)
               <div style="background:#FFFFFF;display:grid;grid-template-columns:56px 1fr auto 150px;gap:16px;align-items:center;padding:14px 16px">
-                <span style="width:56px;height:56px;background-color:#FAFAFA;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
+                <span style="width:56px;height:56px;background-color:#FAFAFA;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
                 <a href="{{ route('product', $product) }}" style="font-size:14px;color:#14120F">{{ $product->name }}</a>
                 <span style="font-size:14px">{{ mad($product->effectivePriceCents()) }}</span>
                 @livewire('add-to-cart', ['product' => $product], key('cited-'.$product->id))

@@ -73,7 +73,7 @@ new class extends Component
                     @forelse ($lines as $line)
                         @php($product = $line['product'])
                         <div wire:key="line-{{ $product->id }}" style="display:flex;gap:16px;padding:20px 0;border-bottom:1px solid #F4F4F4">
-                            <a href="{{ route('product', $product) }}" style="width:72px;height:72px;flex:none;background:#FAFAFA;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></a>
+                            <a href="{{ route('product', $product) }}" style="width:72px;height:72px;flex:none;background:#FAFAFA;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain"></a>
                             <div style="flex:1;min-width:0">
                                 <a href="{{ route('product', $product) }}" style="display:block;font-size:13px;color:#14120F;line-height:1.35;margin-bottom:6px">{{ $product->name }}</a>
                                 <div style="font-size:13px;color:#6B6B6B;margin-bottom:10px">{{ mad($product->effectivePriceCents()) }}</div>

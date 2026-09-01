@@ -106,7 +106,7 @@
         @foreach ($lines as $line)
           @php($product = $line['product'])
           <div style="display:flex;gap:14px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid #F4F4F4">
-            <span style="width:52px;height:52px;flex:none;background:#FAFAFA;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
+            <span style="width:52px;height:52px;flex:none;background:#FAFAFA;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
             <span style="flex:1;font-size:12.5px;line-height:1.4">{{ $product->name }}<br><span style="color:#9B9B9B">× {{ $line['quantity'] }}</span></span>
             <span style="font-size:13px">{{ mad($product->effectivePriceCents() * $line['quantity']) }}</span>
           </div>

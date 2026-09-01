@@ -16,7 +16,7 @@
           'gtin13' => $product->gtin,
           'brand' => ['@type' => 'Brand', 'name' => $product->brand],
           'description' => strip_tags($product->short ?? ''),
-          'image' => $product->images->map(fn ($i) => asset($i->path))->all(),
+          'image' => $product->images->map(fn ($i) => $i->url())->all(),
           'offers' => [
               '@type' => 'Offer',
               'url' => route('product', $product),
@@ -41,7 +41,7 @@
       <div style="background:#FAFAFA;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:40px">
         @foreach ($product->images as $index => $image)
           <div x-show="active === {{ $index }}" x-cloak
-               style="width:100%;height:100%;background-image:url('{{ asset($image->path) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></div>
+               style="width:100%;height:100%;background-image:url('{{ $image->url() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></div>
         @endforeach
       </div>
 
@@ -50,7 +50,7 @@
           @foreach ($product->images as $index => $image)
             <button type="button" @click="active = {{ $index }}"
                     :style="`background:#FAFAFA;border:0;padding:14px;cursor:pointer;width:86px;height:86px;outline:${active === {{ $index }} ? '1px solid #14120F' : 'none'};outline-offset:-1px`">
-              <span style="display:block;width:100%;height:100%;background-image:url('{{ asset($image->path) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
+              <span style="display:block;width:100%;height:100%;background-image:url('{{ $image->url() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
             </button>
           @endforeach
         </div>

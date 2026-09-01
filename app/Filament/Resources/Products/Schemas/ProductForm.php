@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use App\Filament\Schemas\GallerySection;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -65,6 +66,10 @@ class ProductForm
                         ->label('Seuil d\'alerte')->numeric()->required()->minValue(0),
                     Toggle::make('is_active')->label('Visible sur le site')->default(true),
                 ]),
+
+            GallerySection::make(
+                'La première image sert de vignette dans la boutique, le panier et les emails.'
+            ),
 
             Section::make('Contenu')
                 ->schema([

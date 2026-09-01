@@ -24,9 +24,10 @@
     <div style="display:grid;gap:20px">
       @forelse ($bundles as $bundle)
         <article style="border:1px solid #E6E6E6;display:grid;grid-template-columns:1fr 1.2fr;background:#FFFFFF">
+          @php($gallery = $bundle->galleryImages())
           <div style="background:#FAFAFA;display:flex;align-items:center;justify-content:center;gap:14px;padding:44px 36px;min-height:300px">
-            @foreach ($bundle->products as $product)
-              <span style="width:33%;height:200px;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
+            @foreach ($gallery as $image)
+              <span style="width:{{ $gallery->count() > 1 ? '33%' : '100%' }};height:200px;background-image:url('{{ $image->url() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
             @endforeach
           </div>
 
@@ -42,7 +43,7 @@
             <div style="display:grid;gap:1px;background:#F0F0F0;border:1px solid #F0F0F0">
               @foreach ($bundle->products as $product)
                 <a href="{{ route('product', $product) }}" style="background:#FFFFFF;display:grid;grid-template-columns:42px 1fr auto;gap:14px;align-items:center;padding:11px 14px;color:#14120F">
-                  <span style="width:42px;height:42px;background-color:#FAFAFA;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
+                  <span style="width:42px;height:42px;background-color:#FAFAFA;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain"></span>
                   <span style="font-size:13.5px;line-height:1.35">{{ $product->name }}</span>
                   <span style="font-size:13px;color:#9B9B9B">{{ mad($product->effectivePriceCents()) }}</span>
                 </a>

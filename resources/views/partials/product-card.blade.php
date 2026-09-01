@@ -1,7 +1,7 @@
 <article style="background:#FFFFFF;display:flex;flex-direction:column">
     <a href="{{ route('product', $product) }}"
        style="border:0;background:#FAFAFA;padding:26px;cursor:pointer;position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center">
-        <span style="flex:1;align-self:stretch;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
+        <span style="flex:1;align-self:stretch;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
 
         @if ($product->isOnSale())
             <span style="position:absolute;top:14px;left:14px;background:#14120F;color:#FFFFFF;font-size:9.5px;letter-spacing:0.14em;padding:5px 8px;text-transform:uppercase">−{{ $product->discountPercent() }}%</span>

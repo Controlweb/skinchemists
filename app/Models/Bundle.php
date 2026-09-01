@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 
 class Bundle extends Model
 {
+    use Concerns\HasImages;
+
     protected $guarded = [];
 
     protected function casts(): array
@@ -20,6 +24,25 @@ class Bundle extends Model
         return $this->belongsToMany(Product::class)
             ->withPivot('position')
             ->orderBy('position');
+    }
+
+    /**
+     * What the coffret page shows: its own gallery if it has one, otherwise the
+     * component product shots composed side by side, which is how the prototype
+     * displayed it and stays correct with no work from staff.
+     *
+     * @return \Illuminate\Support\Collection<int, Image>
+     */
+    public function galleryImages(): Collection
+    {
+        if ($this->images->isNotEmpty()) {
+            return $this->images;
+        }
+
+        return $this->products
+            ->map(fn (Product $product) => $product->primaryImage())
+            ->filter()
+            ->values();
     }
 
     /** Sum of the components at their own current prices. */

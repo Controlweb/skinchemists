@@ -26,7 +26,7 @@
 
           <div style="background:#FAFAFA;display:flex;align-items:center;justify-content:center;padding:40px;min-height:340px">
             @if ($products->first()?->primaryImage())
-              <span style="width:100%;height:280px;background-image:url('{{ asset($products->first()->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
+              <span style="width:100%;height:280px;background-image:url('{{ $products->first()->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain;mix-blend-mode:multiply"></span>
             @endif
           </div>
         </div>

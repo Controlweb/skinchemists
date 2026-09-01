@@ -122,3 +122,22 @@ php artisan up
   `CatalogSeeder` échoue si une image référencée n'existe pas.
 - **Paiement** : paiement à la livraison uniquement. CMI (carte bancaire) n'est
   pas intégré — cela demande un contrat marchand et leur spécification.
+
+## Images
+
+Les images vivent dans `public/uploads/products/`. Les téléversements de
+l'administration y sont écrits via le disque `public_files` — pas de
+`storage:link` nécessaire, ce qui évite un point de rupture sur mutualisé.
+
+Le chemin stocké en base est **décodé** (espaces et accents tels quels) ;
+`image_url()` encode chaque segment au moment de l'affichage. Ne pas stocker
+de chemin déjà encodé, il serait encodé deux fois.
+
+> **`db:seed` ne réécrit plus le catalogue.** `CatalogSeeder` importe un produit
+> uniquement s'il n'existe pas déjà. Après la mise en ligne, la base fait foi :
+> relancer le seeder n'efface ni les prix, ni le stock, ni les images
+> téléversées par l'équipe.
+
+Supprimer une image dans l'administration retire la ligne en base mais laisse
+le fichier sur le disque — volontaire, pour qu'une fausse manipulation ne
+détruise pas un original. Le ménage se fait à la main si besoin.

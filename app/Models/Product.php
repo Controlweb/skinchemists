@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
 {
+    use Concerns\HasImages;
+
     /**
      * Set by PlaceOrder/CancelOrder, which write their own stock movements
      * with order context. Stops ProductObserver logging the same change twice.
@@ -37,10 +40,6 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(ProductImage::class)->orderBy('position');
-    }
 
     public function reviews(): HasMany
     {
@@ -78,10 +77,6 @@ class Product extends Model
         return $this->stock > 0 && $this->stock <= $this->low_stock_threshold;
     }
 
-    public function primaryImage(): ?string
-    {
-        return $this->images->first()?->path;
-    }
 
     public function scopeActive(Builder $query): Builder
     {

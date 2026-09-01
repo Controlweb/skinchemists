@@ -32,10 +32,25 @@ class CatalogSeeder extends Seeder
             );
         }
 
+        $imported = 0;
+        $skipped = 0;
+
         foreach ($rows as $row) {
-            $product = Product::updateOrCreate(
-                ['sku' => $row['sku']],
+            // Import once, never clobber. After launch the database is the
+            // source of truth: staff edit prices, stock and images in the
+            // admin, and re-running this seeder must not undo that work.
+            // DEPLOYMENT.md asks for `db:seed --force` on every deploy.
+            if (Product::where('sku', $row['sku'])->exists()) {
+                $skipped++;
+
+                continue;
+            }
+
+            $imported++;
+
+            $product = Product::create(
                 [
+                    'sku' => $row['sku'],
                     'gtin' => $row['gtin'] ?? null,
                     'name' => $row['name'],
                     'slug' => $row['slug'],
@@ -58,24 +73,23 @@ class CatalogSeeder extends Seeder
                 ]
             );
 
-            $product->images()->delete();
-
             foreach (array_values($row['images'] ?? []) as $position => $path) {
-                // A product page with a broken image is a bug we ship to customers.
-                // Fail the import instead, while it is still cheap to fix.
-                $file = public_path(rawurldecode($path));
+                // Stored decoded, matching what is on disk and what an upload
+                // produces. image_url() encodes it at render time.
+                $decoded = rawurldecode($path);
 
-                if (! is_file($file)) {
-                    throw new RuntimeException(
-                        "Missing image for {$row['sku']}: ".rawurldecode($path)
-                    );
+                // A product page with a broken image is a bug we ship to
+                // customers. Fail the import instead, while it is cheap to fix.
+                if (! is_file(public_path($decoded))) {
+                    throw new RuntimeException("Missing image for {$row['sku']}: {$decoded}");
                 }
 
-                $product->images()->create(['path' => $path, 'position' => $position]);
+                $product->images()->create(['path' => $decoded, 'position' => $position]);
             }
         }
 
-        $this->command->info('Catalogue: '.Product::count().' products, '
-            .Category::count().' categories.');
+        $this->command->info(
+            "Catalogue : {$imported} produit(s) importé(s), {$skipped} déjà présent(s) et laissé(s) intact(s)."
+        );
     }
 }

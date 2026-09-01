@@ -15,7 +15,7 @@
           @foreach ($lines as $line)
             @php($product = $line['product'])
             <div style="display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #E6E6E6">
-              <a href="{{ route('product', $product) }}" style="width:96px;height:96px;flex:none;background:#FAFAFA;background-image:url('{{ asset($product->primaryImage()) }}');background-repeat:no-repeat;background-position:center;background-size:contain"></a>
+              <a href="{{ route('product', $product) }}" style="width:96px;height:96px;flex:none;background:#FAFAFA;background-image:url('{{ $product->primaryImageUrl() }}');background-repeat:no-repeat;background-position:center;background-size:contain"></a>
               <div style="flex:1">
                 <a href="{{ route('product', $product) }}" style="display:block;font-size:14.5px;color:#14120F;margin-bottom:6px">{{ $product->name }}</a>
                 <div style="font-size:13px;color:#6B6B6B">{{ mad($product->effectivePriceCents()) }} × {{ $line['quantity'] }}</div>
