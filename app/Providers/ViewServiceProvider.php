@@ -39,6 +39,11 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         // Used by the header bar, the drawer and the home page alike.
-        View::share('freeShippingThreshold', Setting::int('free_shipping_threshold_cents', 60000));
+        // Resolved per-render, never in boot(): a provider that queries the
+        // database at boot breaks every artisan command run before the tables
+        // exist — migrate on a fresh server included.
+        View::composer('*', function ($view) {
+            $view->with('freeShippingThreshold', Setting::int('free_shipping_threshold_cents', 60000));
+        });
     }
 }

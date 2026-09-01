@@ -22,3 +22,10 @@ Route::post('/commande', [CheckoutController::class, 'store'])
 
 Route::get('/commande/{order:number}/confirmation', [CheckoutController::class, 'confirmation'])
     ->name('checkout.confirmation');
+
+Route::get('/sitemap.xml', function () {
+    $products = \App\Models\Product::active()->select('slug', 'updated_at')->get();
+
+    return response()->view('sitemap', compact('products'))
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');

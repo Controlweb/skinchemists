@@ -123,6 +123,7 @@ class PlaceOrder
                 ]);
 
                 $before = $product->stock;
+                $product->suppressStockLog = true;
                 $product->decrement('stock', $quantity);
 
                 $product->stockMovements()->create([

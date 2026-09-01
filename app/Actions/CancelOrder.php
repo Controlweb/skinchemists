@@ -33,6 +33,7 @@ class CancelOrder
                 }
 
                 $before = $product->stock;
+                $product->suppressStockLog = true;
                 $product->increment('stock', $item->quantity);
 
                 $product->stockMovements()->create([

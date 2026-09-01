@@ -12,14 +12,20 @@ class AdminUserSeeder extends Seeder
     {
         $email = env('ADMIN_EMAIL', 'admin@skinchemists.ma');
 
-        User::firstOrCreate(
+        $user = User::firstOrCreate(
             ['email' => $email],
             [
                 'name' => env('ADMIN_NAME', 'Administrateur'),
+                // Only set on creation: re-seeding must never reset a password
+                // the owner has since changed.
                 'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
             ]
         );
 
-        $this->command->warn("Admin: {$email} — change the password before going live.");
+        $user->forceFill(['is_admin' => true])->save();
+
+        if ($user->wasRecentlyCreated) {
+            $this->command->warn("Admin créé : {$email} — changez le mot de passe avant la mise en ligne.");
+        }
     }
 }

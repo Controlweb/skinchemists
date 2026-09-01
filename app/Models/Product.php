@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    /**
+     * Set by PlaceOrder/CancelOrder, which write their own stock movements
+     * with order context. Stops ProductObserver logging the same change twice.
+     */
+    public bool $suppressStockLog = false;
+
     protected $fillable = [
         'sku', 'gtin', 'name', 'slug', 'brand', 'category_id',
         'ingredient', 'concern', 'price_cents', 'sale_price_cents',

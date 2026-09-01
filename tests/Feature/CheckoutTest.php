@@ -194,4 +194,28 @@ class CheckoutTest extends TestCase
         app(CancelOrder::class)->handle($order->fresh());
         $this->assertSame(10, $product->fresh()->stock);
     }
+
+    public function test_a_sale_records_exactly_one_stock_movement(): void
+    {
+        $product = $this->product(priceCents: 30000, stock: 10);
+
+        app(PlaceOrder::class)->handle([$product->id => 2], $this->customer());
+
+        // The action logs the sale; the observer must not log it a second time.
+        $this->assertSame(1, $product->stockMovements()->count());
+        $this->assertStringStartsWith('Commande ', $product->stockMovements()->first()->reason);
+    }
+
+    public function test_a_manual_stock_edit_is_logged_as_a_movement(): void
+    {
+        $product = $this->product(priceCents: 30000, stock: 4);
+
+        $product->update(['stock' => 12]);
+
+        $movement = $product->stockMovements()->latest('id')->first();
+        $this->assertSame(8, $movement->delta);
+        $this->assertSame(4, $movement->stock_before);
+        $this->assertSame(12, $movement->stock_after);
+        $this->assertSame('Ajustement manuel', $movement->reason);
+    }
 }
