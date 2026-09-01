@@ -7,6 +7,8 @@
   @php
     $activeFilters = array_filter([
         'categorie' => request('categorie'),
+        'marque' => request('marque'),
+        'gamme' => request('gamme'),
         'actif' => request('actif'),
         'besoin' => request('besoin'),
         'q' => request('q'),
@@ -15,7 +17,11 @@
 
   <section style="max-width:1320px;margin:0 auto;padding:44px 40px 0">
     <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:38px;margin:0 0 10px">
-      {{ request('actif') ?: (request('besoin') ?: (request('q') ? 'Recherche : '.request('q') : 'Tous les soins')) }}
+      {{ request('marque')
+          ?: (request('gamme')
+          ?: (request('actif')
+          ?: (request('besoin')
+          ?: (request('q') ? 'Recherche : '.request('q') : 'Tous les soins')))) }}
     </h1>
     <p style="margin:0 0 30px;color:#6B6B6B;font-size:13.5px">{{ $products->total() }} produit{{ $products->total() > 1 ? 's' : '' }}</p>
   </section>
@@ -25,6 +31,30 @@
     <aside>
       @if ($activeFilters !== [])
         <a href="{{ route('shop') }}" style="display:inline-block;margin-bottom:24px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#14120F;border-bottom:1px solid #14120F;padding-bottom:3px">Effacer les filtres</a>
+      @endif
+
+      {{-- Several brands are distributed here, so the filter only appears
+           once there is actually more than one to choose between. --}}
+      @if ($brands->count() > 1)
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:14px">Marque</div>
+        <div style="display:grid;gap:9px;margin-bottom:30px">
+          @foreach ($brands as $brand)
+            @php($isActive = request('marque') === $brand)
+            <a href="{{ route('shop', array_merge($activeFilters, ['marque' => $isActive ? null : $brand])) }}"
+               style="font-size:13.5px;color:{{ $isActive ? '#14120F' : '#6B6B6B' }};{{ $isActive ? 'font-weight:500' : '' }}">{{ $brand }}</a>
+          @endforeach
+        </div>
+      @endif
+
+      @if ($gammes->isNotEmpty())
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:14px">Gamme</div>
+        <div style="display:grid;gap:9px;margin-bottom:30px">
+          @foreach ($gammes as $gamme)
+            @php($isActive = request('gamme') === $gamme)
+            <a href="{{ route('shop', array_merge($activeFilters, ['gamme' => $isActive ? null : $gamme])) }}"
+               style="font-size:13.5px;color:{{ $isActive ? '#14120F' : '#6B6B6B' }};{{ $isActive ? 'font-weight:500' : '' }}">{{ $gamme }}</a>
+          @endforeach
+        </div>
       @endif
 
       <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:14px">Catégorie</div>

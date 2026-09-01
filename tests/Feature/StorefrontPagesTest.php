@@ -42,6 +42,43 @@ class StorefrontPagesTest extends TestCase
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');
     }
 
+    public function test_the_shop_filters_by_brand_and_by_gamme(): void
+    {
+        $chemists = $this->product();
+        $chemists->update(['brand' => 'skinChemists', 'gamme' => 'Caviar', 'name' => 'Crème Caviar']);
+
+        $drh = $this->product();
+        $drh->update(['brand' => 'Dr H', 'gamme' => 'Vitamine C', 'name' => 'Sérum Dr H']);
+
+        $this->get('/boutique?marque=Dr+H')
+            ->assertSuccessful()
+            ->assertSee('Sérum Dr H')
+            ->assertDontSee('Crème Caviar');
+
+        $this->get('/boutique?gamme=Caviar')
+            ->assertSuccessful()
+            ->assertSee('Crème Caviar')
+            ->assertDontSee('Sérum Dr H');
+    }
+
+    public function test_the_brand_filter_is_hidden_when_everything_is_one_brand(): void
+    {
+        $this->product()->update(['brand' => 'skinChemists']);
+
+        // A filter with a single option is noise, not navigation.
+        $this->get('/boutique')->assertSuccessful()->assertDontSee('>Marque<', false);
+    }
+
+    public function test_a_card_shows_the_gamme_beside_the_brand(): void
+    {
+        $this->product()->update(['brand' => 'Dr H', 'gamme' => 'Vitamine C']);
+
+        $this->get('/boutique')
+            ->assertSuccessful()
+            ->assertSee('Dr H')
+            ->assertSee('Vitamine C');
+    }
+
     public function test_a_low_stock_product_warns_on_its_card(): void
     {
         $product = $this->product();

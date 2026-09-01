@@ -23,6 +23,22 @@ class ProductForm
                         ->helperText("Change l'URL publique du produit."),
                     TextInput::make('sku')->label('SKU')->required()->unique(ignoreRecord: true),
                     TextInput::make('gtin')->label('Code-barres (GTIN)'),
+                    // Several brands are distributed here, not just skinChemists.
+                    // The datalist suggests what is already in use without
+                    // preventing a new one.
+                    TextInput::make('brand')
+                        ->label('Marque')
+                        ->required()
+                        ->datalist(fn () => \App\Models\Product::query()
+                            ->whereNotNull('brand')->distinct()->orderBy('brand')->pluck('brand')->all())
+                        ->helperText('Affichée au-dessus du nom sur la fiche et les vignettes.'),
+
+                    TextInput::make('gamme')
+                        ->label('Gamme')
+                        ->datalist(fn () => \App\Models\Product::query()
+                            ->whereNotNull('gamme')->distinct()->orderBy('gamme')->pluck('gamme')->all())
+                        ->helperText('Ligne commerciale (Caviar, Édition Limitée…). Facultatif.'),
+
                     Select::make('category_id')->label('Catégorie')
                         ->relationship('category', 'name')->required(),
                     TextInput::make('ingredient')->label('Actif principal')

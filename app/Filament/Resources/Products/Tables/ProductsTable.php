@@ -31,6 +31,16 @@ class ProductsTable
                     ->searchable(['name', 'sku'])
                     ->wrap(),
 
+                TextColumn::make('brand')
+                    ->label('Marque')
+                    ->badge()
+                    ->sortable(),
+
+                TextColumn::make('gamme')
+                    ->label('Gamme')
+                    ->placeholder('—')
+                    ->toggleable(),
+
                 TextColumn::make('category.name')
                     ->label('Catégorie')
                     ->sortable(),
@@ -60,6 +70,18 @@ class ProductsTable
                 ToggleColumn::make('is_active')->label('En ligne'),
             ])
             ->filters([
+                SelectFilter::make('brand')
+                    ->label('Marque')
+                    ->options(fn () => Product::query()
+                        ->whereNotNull('brand')->distinct()->orderBy('brand')
+                        ->pluck('brand', 'brand')->all()),
+
+                SelectFilter::make('gamme')
+                    ->label('Gamme')
+                    ->options(fn () => Product::query()
+                        ->whereNotNull('gamme')->distinct()->orderBy('gamme')
+                        ->pluck('gamme', 'gamme')->all()),
+
                 SelectFilter::make('category')
                     ->label('Catégorie')
                     ->relationship('category', 'name'),

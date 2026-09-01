@@ -19,7 +19,7 @@ class Product extends Model
     public bool $suppressStockLog = false;
 
     protected $fillable = [
-        'sku', 'gtin', 'name', 'slug', 'brand', 'category_id',
+        'sku', 'gtin', 'name', 'slug', 'brand', 'gamme', 'category_id',
         'ingredient', 'concern', 'price_cents', 'sale_price_cents',
         'short', 'bullets', 'actifs', 'stock', 'low_stock_threshold',
         'is_active', 'is_featured',

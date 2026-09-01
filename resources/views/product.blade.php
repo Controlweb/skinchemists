@@ -59,7 +59,12 @@
 
     {{-- Details --}}
     <div>
-      <div style="font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B;margin-bottom:12px">{{ $product->brand }}</div>
+      <div style="font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B;margin-bottom:12px">
+        <a href="{{ route('shop', ['marque' => $product->brand]) }}" style="color:#9B9B9B">{{ $product->brand }}</a>
+        @if ($product->gamme)
+          · <a href="{{ route('shop', ['gamme' => $product->gamme]) }}" style="color:#9B9B9B">{{ $product->gamme }}</a>
+        @endif
+      </div>
       <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:32px;line-height:1.2;margin:0 0 16px">{{ $product->name }}</h1>
 
       @if ($product->reviews_count > 0)

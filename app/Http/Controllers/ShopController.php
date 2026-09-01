@@ -15,6 +15,8 @@ class ShopController extends Controller
             ->when($request->filled('categorie'), fn ($q) => $q->whereHas(
                 'category', fn ($c) => $c->where('slug', $request->string('categorie'))
             ))
+            ->when($request->filled('marque'), fn ($q) => $q->where('brand', $request->string('marque')))
+            ->when($request->filled('gamme'), fn ($q) => $q->where('gamme', $request->string('gamme')))
             ->when($request->filled('actif'), fn ($q) => $q->where('ingredient', $request->string('actif')))
             ->when($request->filled('besoin'), fn ($q) => $q->where('concern', $request->string('besoin')))
             ->when($request->filled('q'), function ($q) use ($request) {
@@ -35,6 +37,10 @@ class ShopController extends Controller
         return view('shop', [
             'products' => $products,
             'categories' => Category::orderBy('position')->get(),
+            'brands' => Product::active()->whereNotNull('brand')
+                ->distinct()->orderBy('brand')->pluck('brand'),
+            'gammes' => Product::active()->whereNotNull('gamme')
+                ->distinct()->orderBy('gamme')->pluck('gamme'),
             'ingredients' => Product::active()->whereNotNull('ingredient')
                 ->distinct()->orderBy('ingredient')->pluck('ingredient'),
             'concerns' => Product::active()->whereNotNull('concern')

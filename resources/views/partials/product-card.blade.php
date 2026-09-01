@@ -21,7 +21,9 @@
     </a>
 
     <div style="padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1">
-        <div style="font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B">{{ $product->brand }}</div>
+        <div style="font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B">
+            {{ $product->brand }}@if ($product->gamme) · {{ $product->gamme }}@endif
+        </div>
 
         <a href="{{ route('product', $product) }}"
            style="font-size:14.5px;line-height:1.35;color:#14120F;font-weight:400;min-height:40px">{{ $product->name }}</a>
