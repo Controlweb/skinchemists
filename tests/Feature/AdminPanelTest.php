@@ -109,7 +109,12 @@ class AdminPanelTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['is_admin' => true]));
 
-        foreach (['orders', 'products', 'reviews', 'promotions', 'articles', 'bundles', 'ingredients'] as $screen) {
+        $screens = [
+            'orders', 'products', 'reviews', 'promotions',
+            'articles', 'bundles', 'ingredients', 'contact-messages',
+        ];
+
+        foreach ($screens as $screen) {
             $this->get("/admin/{$screen}")
                 ->assertSuccessful("L'écran /admin/{$screen} ne s'affiche pas");
         }

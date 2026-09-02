@@ -143,6 +143,7 @@
         <a href="{{ route('bundles') }}" style="{{ $mobileLink }}">Coffrets &amp; rituels</a>
         <a href="{{ route('lab') }}" style="{{ $mobileLink }}">Le Lab</a>
         <a href="{{ route('tracking') }}" style="{{ $mobileLink }}">Suivre ma commande</a>
+        <a href="{{ route('contact') }}" style="{{ $mobileLink }}">Nous contacter</a>
 
         <div style="margin-top:24px;font-size:12px;color:#9B9B9B;line-height:1.7">
           Paiement à la livraison<br>

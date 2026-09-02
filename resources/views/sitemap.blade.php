@@ -4,6 +4,7 @@
   <url><loc>{{ route('shop') }}</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>{{ route('bundles') }}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ route('lab') }}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>{{ route('contact') }}</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   @foreach ($products as $product)
   <url>
     <loc>{{ route('product', $product->slug) }}</loc>

@@ -20,6 +20,7 @@
         <span style="opacity:0.8">Paiement à la livraison</span>
         <span style="opacity:0.8">Retours</span>
         <a href="{{ route('tracking') }}" style="color:#FFFFFF;opacity:0.8">Suivre ma commande</a>
+        <a href="{{ route('contact') }}" style="color:#FFFFFF;opacity:0.8">Nous contacter</a>
       </div>
     </div>
     <div>

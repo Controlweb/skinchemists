@@ -46,6 +46,20 @@
 
   .sc-mobile-only { display: none !important; }
 
+  /* Nav labels are two words ("Best-sellers", "Le Lab") and were breaking
+     across lines once the bar got tight, which pushed the header taller. */
+  .sc-header-bar nav a,
+  .sc-header-bar nav button { white-space: nowrap; }
+
+  /* Five links, a centred logo and the actions stop fitting comfortably
+     before the mobile breakpoint. */
+  @media (min-width: 861px) and (max-width: 1140px) {
+    .sc-header-bar nav { gap: 15px !important; }
+    .sc-header-bar nav a,
+    .sc-header-bar nav button { font-size: 10px !important; letter-spacing: 0.1em !important; }
+    .sc-header-bar { padding-left: 22px !important; padding-right: 22px !important; }
+  }
+
   /* For elements whose visibility Alpine controls (x-show writes an inline
      display:none). A `display:block !important` breakpoint rule would beat
      that inline style and force the panel permanently open, so these are only

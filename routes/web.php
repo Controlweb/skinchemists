@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BundleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\OrderTrackingController;
@@ -40,6 +41,11 @@ Route::get('/actif/{ingredient:slug}', [IngredientController::class, 'show'])->n
 
 Route::get('/le-lab', [ArticleController::class, 'index'])->name('lab');
 Route::get('/le-lab/{article:slug}', [ArticleController::class, 'show'])->name('article');
+
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 
 Route::get('/suivi', [OrderTrackingController::class, 'show'])->name('tracking');
 Route::post('/suivi', [OrderTrackingController::class, 'find'])
