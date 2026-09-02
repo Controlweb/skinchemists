@@ -7,6 +7,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -18,12 +20,16 @@ class ArticlesTable
         return $table
             ->defaultSort('published_at', 'desc')
             ->columns([
-                TextColumn::make('title')->label('Titre')->searchable()->wrap()->limit(60),
-                TextColumn::make('category')->label('Catégorie')->badge()->visibleFrom('md'),
-                TextColumn::make('author')->label('Auteur')->toggleable()->visibleFrom('lg'),
-                IconColumn::make('is_featured')->label('À la une')->boolean()->visibleFrom('lg'),
+                Split::make([
+                    Stack::make([
+                        TextColumn::make('title')->label('Titre')->searchable()->weight('medium')->wrap()->limit(60),
+                        TextColumn::make('author')->color('gray')->size('xs'),
+                    ]),
 
-                TextColumn::make('published_at')
+                    TextColumn::make('category')->label('Catégorie')->badge()->grow(false)->visibleFrom('md'),
+                    IconColumn::make('is_featured')->label('À la une')->boolean()->grow(false)->visibleFrom('lg'),
+
+                    TextColumn::make('published_at')
                     ->label('Statut')
                     ->badge()
                     ->formatStateUsing(fn (Article $record) => match (true) {
@@ -37,7 +43,8 @@ class ArticlesTable
                         default => 'success',
                     })
                     ->description(fn (Article $record) => $record->published_at?->format('d/m/Y H:i'))
-                    ->sortable(),
+                        ->sortable(),
+                ])->from('md'),
             ])
             ->filters([
                 SelectFilter::make('category')

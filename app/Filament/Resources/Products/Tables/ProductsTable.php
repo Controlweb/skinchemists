@@ -9,6 +9,8 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\Filter;
@@ -24,56 +26,66 @@ class ProductsTable
         return $table
             ->defaultSort('name')
             ->columns([
-                ImageColumn::make('primary_image')
-                    ->label('')
-                    ->state(fn (Product $record) => $record->primaryImage()?->url())
-                    ->height(44),
+                // Stacks into a card below md so nothing needs a sideways
+                // swipe; behaves as a normal row from md up.
+                Split::make([
+                    // Nested Split keeps the thumbnail beside the name on a
+                    // phone rather than stacking it above as its own block.
+                    Split::make([
+                        ImageColumn::make('primary_image')
+                            ->label('')
+                            ->state(fn (Product $record) => $record->primaryImage()?->url())
+                            ->height(44)
+                            ->grow(false),
 
-                TextColumn::make('name')
-                    ->label('Produit')
-                    ->description(fn (Product $record) => $record->sku)
-                    ->searchable(['name', 'sku'])
-                    ->wrap(),
+                        Stack::make([
+                            TextColumn::make('name')
+                                ->label('Produit')
+                                ->searchable(['name', 'sku'])
+                                ->weight('medium')
+                                ->wrap(),
 
-                TextColumn::make('brand')
-                    ->label('Marque')
-                    ->badge()
-                    ->sortable()
-                    ->visibleFrom('md'),
+                            TextColumn::make('sku')
+                                ->color('gray')
+                                ->size('xs')
+                                ->description(fn (Product $record) => collect([$record->brand, $record->gamme])
+                                    ->filter()->implode(' · ')),
+                        ]),
+                    ]),
 
-                TextColumn::make('gamme')
-                    ->label('Gamme')
-                    ->placeholder('—')
-                    ->toggleable(),
+                    TextColumn::make('category.name')
+                        ->label('Catégorie')
+                        ->sortable()
+                        ->grow(false)
+                        ->visibleFrom('lg'),
 
-                TextColumn::make('category.name')
-                    ->label('Catégorie')
-                    ->sortable()
-                    ->visibleFrom('lg'),
+                    TextColumn::make('ingredient')
+                        ->label('Actif')
+                        ->grow(false)
+                        ->visibleFrom('lg'),
 
-                TextColumn::make('ingredient')
-                    ->label('Actif')
-                    ->toggleable(),
+                    TextColumn::make('price_cents')
+                        ->label('Prix')
+                        ->formatStateUsing(fn (int $state) => mad($state))
+                        ->description(fn (Product $record) => $record->isOnSale()
+                            ? 'Promo '.mad($record->sale_price_cents)
+                            : null)
+                        ->sortable()
+                        ->grow(false),
 
-                TextColumn::make('price_cents')
-                    ->label('Prix')
-                    ->formatStateUsing(fn (int $state) => mad($state))
-                    ->description(fn (Product $record) => $record->isOnSale()
-                        ? 'Promo '.mad($record->sale_price_cents)
-                        : null)
-                    ->sortable(),
+                    TextColumn::make('stock')
+                        ->label('Stock')
+                        ->badge()
+                        ->color(fn (Product $record) => match (true) {
+                            $record->stock < 1 => 'danger',
+                            $record->isLowStock() => 'warning',
+                            default => 'success',
+                        })
+                        ->sortable()
+                        ->grow(false),
 
-                TextColumn::make('stock')
-                    ->label('Stock')
-                    ->badge()
-                    ->color(fn (Product $record) => match (true) {
-                        $record->stock < 1 => 'danger',
-                        $record->isLowStock() => 'warning',
-                        default => 'success',
-                    })
-                    ->sortable(),
-
-                ToggleColumn::make('is_active')->label('En ligne')->visibleFrom('md'),
+                    ToggleColumn::make('is_active')->label('En ligne')->grow(false)->visibleFrom('md'),
+                ])->from('md'),
             ])
             ->filters([
                 SelectFilter::make('brand')

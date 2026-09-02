@@ -9,6 +9,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -21,32 +23,38 @@ class ReviewsTable
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('product.name')
-                    ->label('Produit')
-                    ->limit(40)
-                    ->searchable(),
+                Split::make([
+                    Stack::make([
+                        TextColumn::make('product.name')
+                            ->label('Produit')
+                            ->weight('medium')
+                            ->limit(40)
+                            ->searchable(),
 
-                TextColumn::make('author')->label('Auteur')->searchable()->visibleFrom('md'),
+                        TextColumn::make('author')->searchable()->color('gray')->size('xs'),
 
-                TextColumn::make('rating')
-                    ->label('Note')
-                    ->formatStateUsing(fn (int $state) => str_repeat('★', $state).str_repeat('☆', 5 - $state)),
+                        TextColumn::make('rating')
+                            ->formatStateUsing(fn (int $state) => str_repeat('★', $state).str_repeat('☆', 5 - $state)),
+                    ]),
 
-                TextColumn::make('body')->label('Avis')->wrap()->limit(120)->visibleFrom('md'),
+                    TextColumn::make('body')->label('Avis')->wrap()->limit(120)->visibleFrom('md'),
 
-                IconColumn::make('verified')->label('Vérifié')->boolean()->visibleFrom('lg'),
+                    IconColumn::make('verified')->label('Vérifié')->boolean()->grow(false)->visibleFrom('lg'),
 
-                TextColumn::make('status')
-                    ->label('Statut')
-                    ->badge()
-                    ->formatStateUsing(fn (string $state) => Review::STATUSES[$state] ?? $state)
-                    ->color(fn (string $state) => match ($state) {
-                        'approuve' => 'success',
-                        'rejete' => 'danger',
-                        default => 'warning',
-                    }),
+                    TextColumn::make('status')
+                        ->label('Statut')
+                        ->badge()
+                        ->formatStateUsing(fn (string $state) => Review::STATUSES[$state] ?? $state)
+                        ->color(fn (string $state) => match ($state) {
+                            'approuve' => 'success',
+                            'rejete' => 'danger',
+                            default => 'warning',
+                        })
+                        ->grow(false),
 
-                TextColumn::make('created_at')->label('Reçu le')->date('d/m/Y')->sortable()->visibleFrom('lg'),
+                    TextColumn::make('created_at')->label('Reçu le')->date('d/m/Y')->sortable()
+                        ->grow(false)->visibleFrom('lg'),
+                ])->from('md'),
             ])
             ->filters([
                 SelectFilter::make('status')->label('Statut')->options(Review::STATUSES),

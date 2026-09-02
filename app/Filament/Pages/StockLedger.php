@@ -6,6 +6,8 @@ use App\Models\StockMovement;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -46,28 +48,37 @@ class StockLedger extends Page implements HasTable
             ->query(StockMovement::query()->with(['product', 'order', 'user']))
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')->label('Date')->dateTime('d/m/Y H:i')->sortable()->visibleFrom('md'),
+                Split::make([
+                    Stack::make([
+                        TextColumn::make('product.name')
+                            ->label('Produit')
+                            ->weight('medium')
+                            ->searchable()
+                            ->wrap()
+                            ->limit(50),
 
-                TextColumn::make('product.name')
-                    ->label('Produit')
-                    ->description(fn (StockMovement $record) => $record->product?->sku)
-                    ->searchable()
-                    ->wrap()
-                    ->limit(50),
+                        TextColumn::make('created_at')->dateTime('d/m/Y H:i')->sortable()
+                            ->color('gray')->size('xs')
+                            ->description(fn (StockMovement $record) => $record->product?->sku),
+                    ]),
 
-                TextColumn::make('delta')
-                    ->label('Mouvement')
-                    ->badge()
-                    ->formatStateUsing(fn (int $state) => $state > 0 ? "+{$state}" : (string) $state)
-                    ->color(fn (int $state) => $state > 0 ? 'success' : 'danger'),
+                    TextColumn::make('delta')
+                        ->label('Mouvement')
+                        ->badge()
+                        ->formatStateUsing(fn (int $state) => $state > 0 ? "+{$state}" : (string) $state)
+                        ->color(fn (int $state) => $state > 0 ? 'success' : 'danger')
+                        ->grow(false),
 
-                TextColumn::make('stock_after')
-                    ->label('Stock après')
-                    ->description(fn (StockMovement $record) => 'avant : '.$record->stock_before),
+                    TextColumn::make('stock_after')
+                        ->label('Stock après')
+                        ->description(fn (StockMovement $record) => 'avant : '.$record->stock_before)
+                        ->grow(false),
 
-                TextColumn::make('reason')->label('Motif')->searchable()->visibleFrom('md'),
+                    TextColumn::make('reason')->label('Motif')->searchable()->visibleFrom('md'),
 
-                TextColumn::make('user.name')->label('Par')->placeholder('Système')->toggleable()->visibleFrom('lg'),
+                    TextColumn::make('user.name')->label('Par')->placeholder('Système')
+                        ->grow(false)->visibleFrom('lg'),
+                ])->from('md'),
             ])
             ->filters([
                 Filter::make('manual')

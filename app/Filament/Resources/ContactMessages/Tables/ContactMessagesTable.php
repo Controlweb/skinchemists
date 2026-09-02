@@ -9,6 +9,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -21,27 +23,49 @@ class ContactMessagesTable
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')->label('Reçu')->since()->sortable()->visibleFrom('md'),
+                // Stacks into a card below md; a normal row from md up.
+                Split::make([
+                    Stack::make([
+                        TextColumn::make('name')
+                            ->label('Expéditeur')
+                            ->weight('medium')
+                            ->searchable(['name', 'email', 'phone']),
 
-                TextColumn::make('name')
-                    ->label('Expéditeur')
-                    ->description(fn (ContactMessage $record) => $record->email ?: $record->phone)
-                    ->searchable(['name', 'email', 'phone']),
+                        TextColumn::make('contact')
+                            ->state(fn (ContactMessage $record) => $record->email ?: $record->phone)
+                            ->color('gray')
+                            ->size('xs'),
 
-                TextColumn::make('subject')
-                    ->label('Sujet')
-                    ->badge()
-                    ->formatStateUsing(fn (ContactMessage $record) => $record->subjectLabel()),
+                        TextColumn::make('created_at')->since()->color('gray')->size('xs'),
+                    ]),
 
-                TextColumn::make('order_number')->label('Commande')->placeholder('—')->searchable()->visibleFrom('lg'),
+                    TextColumn::make('subject')
+                        ->label('Sujet')
+                        ->badge()
+                        ->formatStateUsing(fn (ContactMessage $record) => $record->subjectLabel())
+                        ->grow(false),
 
-                TextColumn::make('message')->label('Message')->wrap()->limit(90)->searchable()->visibleFrom('md'),
+                    TextColumn::make('order_number')
+                        ->label('Commande')
+                        ->placeholder('—')
+                        ->searchable()
+                        ->grow(false)
+                        ->visibleFrom('lg'),
 
-                TextColumn::make('status')
-                    ->label('Statut')
-                    ->badge()
-                    ->formatStateUsing(fn (string $state) => ContactMessage::STATUSES[$state] ?? $state)
-                    ->color(fn (string $state) => $state === 'traite' ? 'success' : 'warning'),
+                    TextColumn::make('message')
+                        ->label('Message')
+                        ->wrap()
+                        ->limit(90)
+                        ->searchable()
+                        ->visibleFrom('md'),
+
+                    TextColumn::make('status')
+                        ->label('Statut')
+                        ->badge()
+                        ->formatStateUsing(fn (string $state) => ContactMessage::STATUSES[$state] ?? $state)
+                        ->color(fn (string $state) => $state === 'traite' ? 'success' : 'warning')
+                        ->grow(false),
+                ])->from('md'),
             ])
             ->filters([
                 SelectFilter::make('status')->label('Statut')->options(ContactMessage::STATUSES),
