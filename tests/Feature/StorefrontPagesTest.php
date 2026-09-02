@@ -82,6 +82,20 @@ class StorefrontPagesTest extends TestCase
             ->assertDontSee('results');
     }
 
+    public function test_the_desktop_nav_reads_soins_to_contact(): void
+    {
+        $html = $this->get('/')->assertSuccessful()->getContent();
+
+        preg_match('#<nav class="sc-desktop-only".*?</nav>#s', $html, $nav);
+        $this->assertNotEmpty($nav, 'Le nav desktop est introuvable.');
+
+        preg_match_all('#>([^<>]+)</a>#', $nav[0], $labels);
+        $this->assertSame(
+            ['Soins', 'Best-sellers', 'Coffrets', 'Le Lab', 'Contact'],
+            array_map('trim', $labels[1])
+        );
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');

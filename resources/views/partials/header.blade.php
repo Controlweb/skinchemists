@@ -17,20 +17,34 @@
   </span>
 </div>
 
+{{-- openMega waits before dropping the panel: the trigger is the first nav
+     item, so the pointer crosses it on the way to everything else and a
+     zero-delay hover flashed the whole menu open in passing. Hovering any
+     sibling cancels a pending open and closes an open panel — before, it only
+     closed on leaving the header, so it hung over the page while you read on. --}}
 <header style="position:sticky;top:0;z-index:40;background:#FFFFFF;border-bottom:1px solid #E6E6E6"
-        x-data="{ mega: false, search: false, menu: false }"
-        @mouseleave="mega = false"
-        @keydown.escape.window="menu = false; search = false; mega = false">
+        x-data="{
+            mega: false, search: false, menu: false, megaTimer: null,
+            openMega() { clearTimeout(this.megaTimer); this.megaTimer = setTimeout(() => this.mega = true, 150) },
+            closeMega() { clearTimeout(this.megaTimer); this.mega = false },
+        }"
+        @mouseleave="closeMega()"
+        @keydown.escape.window="menu = false; search = false; closeMega()">
 
   <div class="sc-wrap sc-header-bar" style="max-width:1320px;margin:0 auto;padding:0 40px;height:90px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px">
 
     {{-- Desktop navigation --}}
     <nav class="sc-desktop-only" style="display:flex;align-items:center;gap:26px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500">
-      <a href="{{ route('shop') }}" style="{{ $navLink }}">Soins</a>
-      <button type="button" @mouseenter="mega = true" @click="mega = !mega" style="{{ $navLink }}">Actifs</button>
-      <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="{{ $navLink }}">Best-sellers</a>
-      <a href="{{ route('bundles') }}" style="{{ $navLink }}">Coffrets</a>
-      <a href="{{ route('lab') }}" style="{{ $navLink }}">Le Lab</a>
+      {{-- Soins still navigates to the full shop on click; the panel is the
+           hover shortcut into it, not a replacement for the destination. --}}
+      <a href="{{ route('shop') }}" style="{{ $navLink }}"
+         @mouseenter="openMega()" @focus="openMega()"
+         :style="mega ? 'box-shadow:inset 0 -1px 0 #14120F' : ''"
+         :aria-expanded="mega">Soins</a>
+      <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="{{ $navLink }}" @mouseenter="closeMega()">Best-sellers</a>
+      <a href="{{ route('bundles') }}" style="{{ $navLink }}" @mouseenter="closeMega()">Coffrets</a>
+      <a href="{{ route('lab') }}" style="{{ $navLink }}" @mouseenter="closeMega()">Le Lab</a>
+      <a href="{{ route('contact') }}" style="{{ $navLink }}" @mouseenter="closeMega()">Contact</a>
     </nav>
 
     {{-- Mobile menu trigger. 44px tall so it is a comfortable tap target. --}}
@@ -56,12 +70,14 @@
   {{-- Mega menu: hover-driven, desktop only.
        Absolutely positioned against the sticky header so it overlays the page
        instead of growing the header and pushing the content down. --}}
-  <div x-show="mega" x-cloak class="sc-desktop-only"
+  <div x-show="mega" x-cloak class="sc-desktop-only" @mouseenter="clearTimeout(megaTimer)"
        style="position:absolute;top:100%;left:0;right:0;z-index:50;border-top:1px solid #E6E6E6;background:#FFFFFF;box-shadow:0 18px 40px -18px rgba(20,18,15,0.28);animation:scmIn 0.18s ease both">
-    <div style="max-width:1320px;margin:0 auto;padding:34px 40px 40px;display:grid;grid-template-columns:1.1fr 1.1fr 1fr;gap:48px">
+    {{-- The actifs list is two sub-columns and the concerns list is one, so
+         equal thirds left a dead gap down the middle of the panel. --}}
+    <div style="max-width:1320px;margin:0 auto;padding:34px 40px 40px;display:grid;grid-template-columns:max-content max-content 1fr;gap:64px">
       <div>
         <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin-bottom:16px">Par actif</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px">
+        <div style="display:grid;grid-template-columns:repeat(2, max-content);gap:10px 40px">
           @foreach ($navIngredients as $ing => $ingSlug)
             <a href="{{ $ingSlug ? route('ingredient', $ingSlug) : route('shop', ['actif' => $ing]) }}"
                style="color:#14120F;font-size:14px">{{ $ing }}</a>

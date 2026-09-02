@@ -89,10 +89,23 @@
     @keyframes scmHeroA { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @keyframes scmHeroB { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-    .sc-hero { min-height: 0 !important; gap: 8px !important; }
-    .sc-hero-copy { padding: 44px 0 8px !important; }
+    /* The one .sc-stack that does not follow source order. Stacked, the copy
+       ran kicker -> title -> body -> two CTAs -> slider controls with the
+       product shot last, well past the fold. The shot belongs between the
+       title and the body, but those are children of .sc-hero-copy while the
+       shot is its sibling, so order alone cannot interleave them:
+       display:contents drops the copy wrapper out of the box tree and lifts
+       its children into the hero grid, where all six can be ordered together.
+       Vertical padding moves to .sc-hero for the same reason - a
+       display:contents box paints nothing of its own. */
+    .sc-hero { min-height: 0 !important; gap: 8px !important; padding-top: 26px !important; padding-bottom: 8px !important; }
     .sc-hero-title { font-size: 30px !important; }
-    .sc-hero-media { height: 340px !important; padding: 0 0 40px !important; }
+
+    .sc-hero-copy { display: contents !important; }
+    .sc-hero-copy > :nth-child(1) { order: 1; }   /* kicker */
+    .sc-hero-copy > :nth-child(2) { order: 2; }   /* title */
+    .sc-hero-media { order: 3; height: min(290px, 32vh) !important; padding: 4px 0 14px !important; }
+    .sc-hero-copy > :nth-child(n+3) { order: 4; } /* body, CTAs, slider controls */
 
     .sc-h1 { font-size: 30px !important; }
     .sc-h2 { font-size: 24px !important; }
