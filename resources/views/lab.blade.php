@@ -8,18 +8,18 @@
     $placeholder = 'background:repeating-linear-gradient(135deg,#F4F4F4 0 8px,#EDEDED 8px 16px);display:flex;align-items:center;justify-content:center';
   @endphp
 
-  <main style="max-width:1320px;margin:0 auto;padding:36px 40px 90px">
+  <main class="sc-wrap" style="max-width:1320px;margin:0 auto;padding:36px 40px 90px">
     <div style="font-size:11.5px;color:#6B6B6B;margin-bottom:26px">
       <a href="{{ route('home') }}" style="color:#6B6B6B">Accueil</a> / <span style="color:#14120F">Le Lab</span>
     </div>
 
     <div style="border-bottom:1px solid #E6E6E6;padding-bottom:28px;margin-bottom:36px">
-      <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:46px;margin:0 0 10px">Le Lab</h1>
+      <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:46px;margin:0 0 10px">Le Lab</h1>
       <p style="margin:0;color:#6B6B6B;font-size:15px;max-width:600px">Ce que font les actifs, dans quel ordre les appliquer, et comment adapter sa routine au climat marocain.</p>
     </div>
 
     @if ($featured)
-      <article style="display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;border:1px solid #E6E6E6;margin-bottom:36px">
+      <article class="sc-stack" style="display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;border:1px solid #E6E6E6;margin-bottom:36px">
         <a href="{{ route('article', $featured) }}" style="aspect-ratio:16/10;{{ $placeholder }}">
           @if ($featured->image_path)
             <span style="width:100%;height:100%;background-image:url('{{ image_url($featured->image_path) }}');background-repeat:no-repeat;background-position:center;background-size:cover"></span>
@@ -28,7 +28,7 @@
           @endif
         </a>
 
-        <div style="padding:40px 44px 40px 0;display:grid;gap:16px">
+        <div class="sc-lab-copy" style="padding:40px 44px 40px 0;display:grid;gap:16px">
           <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B">{{ $featured->category }} · À la une</span>
           <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;line-height:1.15;margin:0">
             <a href="{{ route('article', $featured) }}" style="color:#14120F">{{ $featured->title }}</a>
@@ -45,7 +45,7 @@
       </article>
     @endif
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+    <div class="sc-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
       @foreach ($articles->where('id', '!=', $featured?->id) as $article)
         <article style="display:flex;flex-direction:column;gap:14px">
           <a href="{{ route('article', $article) }}" style="aspect-ratio:4/3;{{ $placeholder }}">

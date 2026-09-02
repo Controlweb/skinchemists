@@ -30,12 +30,12 @@
   @endphp
   <script type="application/ld+json">{!! $jsonLd !!}</script>
 
-  <nav style="max-width:1320px;margin:0 auto;padding:26px 40px 0;font-size:11.5px;color:#9B9B9B">
+  <nav class="sc-wrap" style="max-width:1320px;margin:0 auto;padding:26px 40px 0;font-size:11.5px;color:#9B9B9B">
     <a href="{{ route('home') }}" style="color:#9B9B9B">Accueil</a> ·
     <a href="{{ route('shop', ['categorie' => $product->category->slug]) }}" style="color:#9B9B9B">{{ $product->category->name }}</a>
   </nav>
 
-  <section style="max-width:1320px;margin:0 auto;padding:26px 40px 74px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+  <section class="sc-wrap sc-stack" style="max-width:1320px;margin:0 auto;padding:26px 40px 74px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
     {{-- Gallery --}}
     <div x-data="{ active: 0 }">
       <div style="background:#FAFAFA;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:40px">
@@ -65,7 +65,7 @@
           · <a href="{{ route('shop', ['gamme' => $product->gamme]) }}" style="color:#9B9B9B">{{ $product->gamme }}</a>
         @endif
       </div>
-      <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:32px;line-height:1.2;margin:0 0 16px">{{ $product->name }}</h1>
+      <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:32px;line-height:1.2;margin:0 0 16px">{{ $product->name }}</h1>
 
       @if ($product->reviews_count > 0)
         <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:#6B6B6B;margin-bottom:18px">
@@ -123,9 +123,9 @@
   </section>
 
   @if ($reviews->isNotEmpty())
-  <section style="max-width:1320px;margin:0 auto;padding:0 40px 74px">
+  <section class="sc-wrap" style="max-width:1320px;margin:0 auto;padding:0 40px 74px">
     <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:28px;margin:0 0 24px">Avis vérifiés</h2>
-    <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
+    <div class="sc-grid-2" style="display:grid;grid-template-columns:repeat(2, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
       @foreach ($reviews as $review)
         <figure style="background:#FFFFFF;padding:26px;margin:0">
           <div style="color:#14120F;margin-bottom:10px;font-size:13px">{{ str_repeat('★', $review->rating) }}<span style="color:#CFC7BA">{{ str_repeat('★', 5 - $review->rating) }}</span></div>
@@ -138,9 +138,9 @@
   @endif
 
   @if ($related->isNotEmpty())
-  <section style="max-width:1320px;margin:0 auto;padding:0 40px 74px">
+  <section class="sc-wrap" style="max-width:1320px;margin:0 auto;padding:0 40px 74px">
     <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:28px;margin:0 0 24px">À associer</h2>
-    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
+    <div class="sc-products sc-grid-4" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
       @foreach ($related as $item)
         @include('partials.product-card', ['product' => $item])
       @endforeach

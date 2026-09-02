@@ -12,12 +12,12 @@
     ];
   @endphp
 
-  <main style="max-width:820px;margin:0 auto;padding:52px 40px 90px">
+  <main class="sc-wrap" style="max-width:820px;margin:0 auto;padding:52px 40px 90px">
     <div style="font-size:11.5px;color:#6B6B6B;margin-bottom:26px">
       <a href="{{ route('home') }}" style="color:#6B6B6B">Accueil</a> / <span style="color:#14120F">Suivi de commande</span>
     </div>
 
-    <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:38px;margin:0 0 12px">Suivre ma commande</h1>
+    <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:38px;margin:0 0 12px">Suivre ma commande</h1>
     <p style="margin:0 0 32px;color:#6B6B6B;font-size:15px;max-width:520px">
       Entrez le numéro figurant sur votre confirmation et le téléphone utilisé lors de la commande.
     </p>
@@ -28,7 +28,7 @@
       </div>
     @endif
 
-    <form method="POST" action="{{ route('tracking.find') }}" style="display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end;margin-bottom:44px">
+    <form method="POST" action="{{ route('tracking.find') }}" class="sc-track-form" style="display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end;margin-bottom:44px">
       @csrf
       <div>
         <label style="{{ $label }}" for="number">Numéro de commande</label>

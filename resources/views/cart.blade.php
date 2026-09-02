@@ -3,14 +3,14 @@
 @section('title', 'Panier — SkinChemists Maroc')
 
 @section('content')
-  <section style="max-width:1000px;margin:0 auto;padding:52px 40px 74px">
-    <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 30px">Votre panier</h1>
+  <section class="sc-wrap" style="max-width:1000px;margin:0 auto;padding:52px 40px 74px">
+    <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 30px">Votre panier</h1>
 
     @if ($lines->isEmpty())
       <p style="color:#6B6B6B;font-size:14.5px">Votre panier est vide.</p>
       <a href="{{ route('shop') }}" style="display:inline-block;margin-top:20px;background:#14120F;color:#FFFFFF;padding:15px 28px;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500">Voir les soins</a>
     @else
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:50px;align-items:start">
+      <div class="sc-stack" style="display:grid;grid-template-columns:1fr 320px;gap:50px;align-items:start">
         <div style="border-top:1px solid #E6E6E6">
           @foreach ($lines as $line)
             @php($product = $line['product'])

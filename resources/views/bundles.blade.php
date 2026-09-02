@@ -4,17 +4,17 @@
 @section('description', 'Des protocoles complets assemblés par le laboratoire, à un prix inférieur à l\'achat séparé. Paiement à la livraison partout au Maroc.')
 
 @section('content')
-  <main style="max-width:1320px;margin:0 auto;padding:36px 40px 90px">
+  <main class="sc-wrap" style="max-width:1320px;margin:0 auto;padding:36px 40px 90px">
     <div style="font-size:11.5px;color:#6B6B6B;margin-bottom:26px">
       <a href="{{ route('home') }}" style="color:#6B6B6B">Accueil</a> / <span style="color:#14120F">Coffrets &amp; rituels</span>
     </div>
 
-    <div style="border-bottom:1px solid #E6E6E6;padding-bottom:30px;margin-bottom:40px;display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:end">
+    <div class="sc-stack" style="border-bottom:1px solid #E6E6E6;padding-bottom:30px;margin-bottom:40px;display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:end">
       <div>
-        <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:46px;margin:0 0 12px">Coffrets &amp; rituels</h1>
+        <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:46px;margin:0 0 12px">Coffrets &amp; rituels</h1>
         <p style="margin:0;color:#6B6B6B;font-size:15px;max-width:560px">Des protocoles complets assemblés par le laboratoire : chaque coffret associe les formules qui se potentialisent, à un prix inférieur à l'achat séparé.</p>
       </div>
-      <div style="display:grid;gap:9px;font-size:13px;color:#454545;justify-items:end;text-align:right">
+      <div class="sc-align-left" style="display:grid;gap:9px;font-size:13px;color:#454545;justify-items:end;text-align:right">
         <span>La remise est appliquée automatiquement au panier</span>
         <span>Stock du coffret limité par son composant le plus rare</span>
         <span>Livraison offerte dès {{ mad($freeShippingThreshold) }}</span>
@@ -23,7 +23,7 @@
 
     <div style="display:grid;gap:20px">
       @forelse ($bundles as $bundle)
-        <article style="border:1px solid #E6E6E6;display:grid;grid-template-columns:1fr 1.2fr;background:#FFFFFF">
+        <article class="sc-stack-tight" style="border:1px solid #E6E6E6;display:grid;grid-template-columns:1fr 1.2fr;background:#FFFFFF">
           @php($gallery = $bundle->galleryImages())
           <div style="background:#FAFAFA;display:flex;align-items:center;justify-content:center;gap:14px;padding:44px 36px;min-height:300px">
             @foreach ($gallery as $image)

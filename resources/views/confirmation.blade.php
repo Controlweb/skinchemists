@@ -3,9 +3,9 @@
 @section('title', 'Commande '.$order->number.' confirmée')
 
 @section('content')
-  <section style="max-width:820px;margin:0 auto;padding:64px 40px 74px">
+  <section class="sc-wrap" style="max-width:820px;margin:0 auto;padding:64px 40px 74px">
     <div style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#3F6B45;margin-bottom:18px">Commande confirmée</div>
-    <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 16px">Merci {{ $order->first_name }}.</h1>
+    <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 16px">Merci {{ $order->first_name }}.</h1>
     <p style="margin:0 0 34px;color:#454545;font-size:15.5px;max-width:520px">
       Votre commande <strong>{{ $order->number }}</strong> est enregistrée. Nous vous appellerons au
       {{ $order->phone }} pour la confirmer avant expédition. Vous réglerez {{ mad($order->total_cents) }} à la livraison.

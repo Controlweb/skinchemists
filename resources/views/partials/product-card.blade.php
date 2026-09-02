@@ -20,13 +20,13 @@
         @endif
     </a>
 
-    <div style="padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1">
+    <div class="sc-card-pad" style="padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1">
         <div style="font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B">
             {{ $product->brand }}@if ($product->gamme) · {{ $product->gamme }}@endif
         </div>
 
         <a href="{{ route('product', $product) }}"
-           style="font-size:14.5px;line-height:1.35;color:#14120F;font-weight:400;min-height:40px">{{ $product->name }}</a>
+           class="sc-card-name" style="font-size:14.5px;line-height:1.35;color:#14120F;font-weight:400;min-height:40px">{{ $product->name }}</a>
 
         {{-- Rating, then the stock warning directly beneath it. Reserved height
              so a product with neither still occupies the same vertical space. --}}
@@ -42,7 +42,7 @@
             @endif
         </div>
 
-        <div style="display:flex;align-items:baseline;gap:9px;margin-top:auto">
+        <div class="sc-card-price" style="display:flex;align-items:baseline;gap:9px;margin-top:auto;flex-wrap:wrap">
             <span style="font-size:16px">{{ mad($product->effectivePriceCents()) }}</span>
             @if ($product->isOnSale())
                 <span style="font-size:13px;color:#9B9B9B;text-decoration:line-through">{{ mad($product->price_cents) }}</span>

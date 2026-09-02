@@ -34,18 +34,18 @@
                      stop() { clearInterval(this.timer) },
                      go(k) { this.i = k; this.stop(); this.start() } }"
            x-init="start()" @mouseenter="stop()" @mouseleave="start()">
-    <div style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;min-height:640px">
+    <div class="sc-wrap sc-stack sc-hero" style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;min-height:640px">
       @foreach ($heroSlides as $index => $slide)
         <template x-if="i === {{ $index }}">
-          <div style="padding:80px 0">
+          <div class="sc-hero-copy" style="padding:80px 0">
             <div style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:#6B6B6B;margin-bottom:22px;animation:scmHeroA 0.5s cubic-bezier(0.22,0.61,0.36,1) both">{{ $slide['kicker'] }}</div>
-            <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;font-size:44px;line-height:1.14;margin:0 0 22px;letter-spacing:0.01em">
+            <h1 class="sc-hero-title" style="font-family:'Montserrat',sans-serif;font-weight:300;font-size:44px;line-height:1.14;margin:0 0 22px;letter-spacing:0.01em">
               @foreach ($slide['lines'] as $line)
                 <span style="display:block;animation:scmRise 0.6s cubic-bezier(0.22,0.61,0.36,1) {{ $loop->index * 0.12 }}s both">{{ $line }}</span>
               @endforeach
             </h1>
             <p style="margin:0 0 34px;max-width:420px;color:#454545;font-size:16px;animation:scmHeroA 0.55s cubic-bezier(0.22,0.61,0.36,1) 0.1s both">{{ $slide['body'] }}</p>
-            <div style="display:flex;gap:14px;animation:scmHeroA 0.55s cubic-bezier(0.22,0.61,0.36,1) 0.18s both">
+            <div class="sc-hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;animation:scmHeroA 0.55s cubic-bezier(0.22,0.61,0.36,1) 0.18s both">
               <a href="{{ $slide['ctaUrl'] }}" style="background:#14120F;color:#FFFFFF;border:0;padding:16px 30px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500">{{ $slide['ctaLabel'] }}</a>
               <a href="{{ route('shop') }}" style="background:none;color:#14120F;border:1px solid #14120F;padding:16px 30px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500">Trouver ma routine</a>
             </div>
@@ -66,7 +66,7 @@
         </template>
       @endforeach
 
-      <div style="align-self:stretch;display:flex;align-items:center;justify-content:center;background:#FFFFFF;padding:24px 0;overflow:hidden">
+      <div class="sc-hero-media" style="align-self:stretch;display:flex;align-items:center;justify-content:center;background:#FFFFFF;padding:24px 0;overflow:hidden">
         @foreach ($heroSlides as $index => $slide)
           <template x-if="i === {{ $index }}">
             <div role="img" aria-label="{{ $slide['kicker'] }}"
@@ -79,9 +79,9 @@
   @endif
 
   {{-- Best-sellers --}}
-  <section style="max-width:1320px;margin:0 auto;padding:74px 40px 0">
+  <section class="sc-wrap sc-section" style="max-width:1320px;margin:0 auto;padding:74px 40px 0">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
-      <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0">Best-sellers au Maroc</h2>
+      <h2 class="sc-h2" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0">Best-sellers au Maroc</h2>
       <a href="{{ route('shop') }}" style="border-bottom:1px solid #14120F;padding:0 0 3px;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#14120F">Tout voir</a>
     </div>
     <div class="scm-scroll" style="display:grid;grid-auto-flow:column;grid-auto-columns:264px;gap:1px;overflow-x:auto;padding-bottom:14px;background:#E6E6E6">
@@ -92,9 +92,9 @@
   </section>
 
   {{-- Shop by active ingredient --}}
-  <section style="max-width:1320px;margin:0 auto;padding:74px 40px 0">
-    <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 28px">Acheter par actif</h2>
-    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
+  <section class="sc-wrap sc-section" style="max-width:1320px;margin:0 auto;padding:74px 40px 0">
+    <h2 class="sc-h2" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 28px">Acheter par actif</h2>
+    <div class="sc-grid-4" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
       @foreach ($navIngredients as $ingredient => $ingredientSlug)
         <a href="{{ $ingredientSlug ? route('ingredient', $ingredientSlug) : route('shop', ['actif' => $ingredient]) }}"
            style="background:#FFFFFF;padding:34px 26px;color:#14120F;display:flex;align-items:center;justify-content:space-between;font-size:15px">
@@ -107,14 +107,14 @@
 
   {{-- Campaign band --}}
   <section style="background:#14120F;color:#FFFFFF;margin-top:74px">
-    <div style="max-width:1320px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+    <div class="sc-wrap sc-stack" style="max-width:1320px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
       <div>
         <div style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;opacity:0.6;margin-bottom:20px">Le laboratoire</div>
-        <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;font-size:38px;line-height:1.15;margin:0 0 20px">Des concentrations que l'on trouve d'ordinaire en cabinet.</h2>
+        <h2 class="sc-h2" style="font-family:'Montserrat',sans-serif;font-weight:300;font-size:38px;line-height:1.15;margin:0 0 20px">Des concentrations que l'on trouve d'ordinaire en cabinet.</h2>
         <p style="margin:0 0 30px;opacity:0.72;max-width:460px;font-size:15.5px">Chaque formule est développée au Royaume-Uni puis importée et stockée à Casablanca. Vous payez à la livraison, partout au Maroc.</p>
         <a href="{{ route('shop') }}" style="display:inline-block;background:#FFFFFF;color:#14120F;padding:16px 30px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500">Découvrir les soins</a>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.14)">
+      <div class="sc-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.14)">
         @foreach ([['Authentique', 'Distributeur agréé'], ['Paiement', 'À la livraison'], ['Livraison', 'Offerte dès ' . mad($freeShippingThreshold ?? 60000)], ['Stock', 'Casablanca']] as [$label, $value])
           <div style="background:#14120F;padding:26px">
             <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;margin-bottom:8px">{{ $label }}</div>
@@ -127,12 +127,12 @@
 
   {{-- Customer reviews --}}
   @if ($reviews->isNotEmpty())
-  <section style="max-width:1320px;margin:0 auto;padding:74px 40px">
+  <section class="sc-wrap sc-section" style="max-width:1320px;margin:0 auto;padding:74px 40px">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
-      <h2 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0">Avis clients</h2>
+      <h2 class="sc-h2" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0">Avis clients</h2>
       <div style="font-size:13.5px;color:#6B6B6B"><span style="color:#14120F">★</span> {{ $ratingAvg }} / 5</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat({{ min($reviews->count(), 4) }}, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
+    <div class="sc-grid-4" style="display:grid;grid-template-columns:repeat({{ min($reviews->count(), 4) }}, 1fr);gap:1px;background:#E6E6E6;border:1px solid #E6E6E6">
       @foreach ($reviews as $review)
         <figure style="background:#FFFFFF;padding:30px 26px;margin:0">
           <div style="color:#14120F;margin-bottom:12px;font-size:13px">{{ str_repeat('★', $review->rating) }}<span style="color:#CFC7BA">{{ str_repeat('★', 5 - $review->rating) }}</span></div>

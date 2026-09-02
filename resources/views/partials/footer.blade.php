@@ -1,5 +1,5 @@
 <footer style="background:#14120F;color:#FFFFFF;margin-top:0">
-  <div style="max-width:1320px;margin:0 auto;padding:70px 40px 34px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px">
+  <div class="sc-wrap sc-footer" style="max-width:1320px;margin:0 auto;padding:70px 40px 34px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px">
     <div>
       <img src="{{ asset('uploads/SKINCHEMIST-LOGO-WHITE.webp') }}" alt="skinChemists" style="height:38px;width:auto;margin-bottom:20px" />
       <p style="margin:0 0 20px;max-width:280px;opacity:0.62;font-size:13.5px">Distributeur agréé skinChemists au Maroc. Produits authentiques, importés et stockés à Casablanca.</p>
@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div style="max-width:1320px;margin:0 auto;padding:20px 40px 40px;border-top:1px solid rgba(255,255,255,0.14);display:flex;justify-content:space-between;font-size:11.5px;opacity:0.55">
+  <div class="sc-wrap sc-footer-legal" style="max-width:1320px;margin:0 auto;padding:20px 40px 40px;border-top:1px solid rgba(255,255,255,0.14);display:flex;justify-content:space-between;gap:10px;font-size:11.5px;opacity:0.55">
     <span>© {{ date('Y') }} skinChemists Maroc</span>
     <span>Maroc · Français · MAD (د.م.)</span>
   </div>

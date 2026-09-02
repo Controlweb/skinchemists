@@ -37,6 +37,30 @@ class StorefrontPagesTest extends TestCase
         ]);
     }
 
+    /**
+     * .sc-mobile-only forces `display: block !important` at mobile widths.
+     * Alpine's x-show hides an element with an inline `display: none`, which
+     * !important beats — so combining them pins the panel permanently open.
+     * That is exactly how the mobile menu shipped stuck open once already.
+     * State-driven elements use .sc-mobile-panel, which only ever hides.
+     */
+    public function test_no_element_combines_x_show_with_a_forced_display_class(): void
+    {
+        $html = $this->get('/')->assertSuccessful()->getContent();
+
+        preg_match_all('/<[^>]*\bx-show=[^>]*>/', $html, $matches);
+
+        $this->assertNotEmpty($matches[0], 'Aucun élément x-show trouvé : le test ne vérifie rien.');
+
+        foreach ($matches[0] as $tag) {
+            $this->assertStringNotContainsString(
+                'sc-mobile-only',
+                $tag,
+                'Un élément piloté par x-show force son affichage : '.substr($tag, 0, 120)
+            );
+        }
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');

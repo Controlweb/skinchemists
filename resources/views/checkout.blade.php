@@ -8,8 +8,8 @@
     $label = 'display:block;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#9B9B9B;margin-bottom:8px';
   @endphp
 
-  <section style="max-width:1100px;margin:0 auto;padding:52px 40px 74px">
-    <h1 style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 30px">Finaliser la commande</h1>
+  <section class="sc-wrap" style="max-width:1100px;margin:0 auto;padding:52px 40px 74px">
+    <h1 class="sc-h1" style="font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:-0.015em;font-size:34px;margin:0 0 30px">Finaliser la commande</h1>
 
     @if ($errors->any())
       <div style="background:#F7E9E7;color:#A83A30;padding:16px 18px;margin-bottom:26px;font-size:13.5px">
@@ -22,7 +22,7 @@
     @endif
 
     <form method="POST" action="{{ route('checkout.store') }}"
-          style="display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:start">
+          class="sc-stack" style="display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:start">
       @csrf
 
       {{-- Honeypot: hidden from people, irresistible to bots. --}}
@@ -32,7 +32,7 @@
 
       <div>
         <h2 style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin:0 0 18px">Coordonnées</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div class="sc-stack-tight" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
           <div>
             <label style="{{ $label }}" for="first_name">Prénom</label>
             <input id="first_name" name="first_name" value="{{ old('first_name') }}" required style="{{ $field }}" />
@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div class="sc-stack-tight" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
           <div>
             <label style="{{ $label }}" for="phone">Téléphone</label>
             <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" required
@@ -61,7 +61,7 @@
           <input id="address" name="address" value="{{ old('address') }}" required style="{{ $field }}" />
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px">
+        <div class="sc-stack-tight" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px">
           <div>
             <label style="{{ $label }}" for="city">Ville</label>
             <select id="city" name="city" required style="{{ $field }}">
@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <aside style="border:1px solid #E6E6E6;padding:26px;position:sticky;top:110px">
+      <aside class="sc-unstick" style="border:1px solid #E6E6E6;padding:26px;position:sticky;top:110px">
         <h2 style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin:0 0 18px">Votre commande</h2>
 
         @foreach ($lines as $line)

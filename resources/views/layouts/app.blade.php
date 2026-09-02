@@ -33,6 +33,117 @@
   @keyframes scmRiseA { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   @keyframes scmRiseB { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   @keyframes scmToast { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ------------------------------------------------------------------ *
+   * Responsive layer.
+   *
+   * The design carries its styling in inline style attributes, which beat
+   * any stylesheet rule on specificity. Overriding them from a media query
+   * therefore needs !important — that is a property of the markup we
+   * inherited, not a shortcut. Rules are keyed off a small set of classes
+   * added to the containers that actually need to reflow.
+   * ------------------------------------------------------------------ */
+
+  .sc-mobile-only { display: none !important; }
+
+  /* For elements whose visibility Alpine controls (x-show writes an inline
+     display:none). A `display:block !important` breakpoint rule would beat
+     that inline style and force the panel permanently open, so these are only
+     ever *hidden* by CSS — never forced visible. */
+  @media (min-width: 861px) {
+    .sc-mobile-panel { display: none !important; }
+  }
+
+  @media (max-width: 1024px) {
+    .sc-wrap { padding-left: 24px !important; padding-right: 24px !important; }
+    .sc-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+    .sc-grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+    .sc-shop { grid-template-columns: 1fr !important; gap: 28px !important; }
+  }
+
+  @media (max-width: 860px) {
+    .sc-wrap { padding-left: 18px !important; padding-right: 18px !important; }
+
+    /* Every two-column split becomes one column, in source order. */
+    .sc-stack { grid-template-columns: 1fr !important; gap: 30px !important; }
+    .sc-stack-tight { grid-template-columns: 1fr !important; gap: 16px !important; }
+
+    /* The hero slides in from translateX(56px). On a desktop that overflow is
+       absorbed by the page margins; on a phone it pushes the document 56px
+       wider every 6 seconds, so the page jitters sideways on each rotation.
+       Same animation names, redefined to rise vertically instead. */
+    @keyframes scmHeroA { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes scmHeroB { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    .sc-hero { min-height: 0 !important; gap: 8px !important; }
+    .sc-hero-copy { padding: 44px 0 8px !important; }
+    .sc-hero-title { font-size: 30px !important; }
+    .sc-hero-media { height: 340px !important; padding: 0 0 40px !important; }
+
+    .sc-h1 { font-size: 30px !important; }
+    .sc-h2 { font-size: 24px !important; }
+    .sc-section { padding-top: 44px !important; padding-bottom: 0 !important; }
+
+    .sc-desktop-only { display: none !important; }
+    .sc-mobile-only { display: block !important; }
+
+    /* A 90px bar eats a third of a phone's viewport before any content. */
+    .sc-header-bar { height: 64px !important; gap: 12px !important; }
+    .sc-logo { height: 30px !important; }
+
+    /* A sticky sidebar that is now above the content would pin the summary
+       over the form it belongs to. */
+    .sc-unstick { position: static !important; top: auto !important; }
+
+    .sc-cta-full { width: 100% !important; text-align: center !important; }
+
+    /* Right-aligned columns read as ragged text once they are full width. */
+    .sc-align-left { justify-items: start !important; text-align: left !important; }
+
+    .sc-lab-copy { padding: 0 20px 32px !important; }
+    .sc-track-form { grid-template-columns: 1fr !important; }
+    .sc-cited { grid-template-columns: 56px 1fr !important; gap: 12px !important; }
+    .sc-cited > :nth-child(3), .sc-cited > :nth-child(4) { grid-column: 2 !important; }
+
+    .sc-footer { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
+    .sc-footer-legal { flex-direction: column !important; gap: 6px !important; }
+
+    /* Stacked, the filter list would push every product below the fold, so it
+       collapses behind a toggle and the catalogue stays the first thing seen. */
+    .sc-filters { display: none !important; }
+    .sc-filters.sc-filters-open { display: block !important; }
+    .sc-filter-toggle { display: flex !important; }
+  }
+
+  .sc-filter-toggle { display: none; }
+
+  @media (max-width: 560px) {
+    .sc-footer { grid-template-columns: 1fr !important; gap: 24px !important; }
+  }
+
+  @media (max-width: 560px) {
+    .sc-grid-4, .sc-grid-3, .sc-grid-2 { grid-template-columns: 1fr !important; }
+    .sc-hero-title { font-size: 26px !important; }
+    .sc-h1 { font-size: 26px !important; }
+
+    /* Two per row keeps the catalogue scannable without a card per screen. */
+    .sc-products { grid-template-columns: repeat(2, 1fr) !important; }
+    .sc-products .sc-card-name { min-height: 34px !important; font-size: 13px !important; }
+    .sc-products .sc-card-pad { padding: 12px 12px 16px !important; }
+
+    /* At two cards per row a price must never break between the number and
+       its currency — "849" on one line and "MAD" on the next reads as broken. */
+    .sc-products .sc-card-price { font-size: 15px !important; gap: 3px 8px !important; }
+    .sc-products .sc-card-price > span { white-space: nowrap !important; }
+
+    /* Let the call to action sit on one line instead of stacking two words. */
+    .sc-products button { padding: 12px 8px !important; font-size: 9.5px !important; letter-spacing: 0.1em !important; }
+  }
+
+  @media (max-width: 380px) {
+    /* One card per row below this: two would leave ~140px of usable width. */
+    .sc-products { grid-template-columns: 1fr !important; }
+  }
 </style>
 @livewireStyles
 </head>
