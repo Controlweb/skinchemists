@@ -119,6 +119,34 @@ class StorefrontPagesTest extends TestCase
         $this->assertStringNotContainsString('>Préoccupations<', $drawer[0]);
     }
 
+    /**
+     * Alpine binds a :style *string* with setAttribute('style', …), which
+     * replaces the whole attribute rather than merging into it. On an element
+     * that also carries a static style, the first evaluation therefore erases
+     * it: that is how the Soins nav link lost its colour and fell back to the
+     * global blue link rule. The object form sets one property and is safe.
+     */
+    public function test_no_element_binds_a_style_string_over_a_static_style(): void
+    {
+        $html = $this->get('/')->assertSuccessful()->getContent();
+
+        preg_match_all('/<[^>]*:style=[^>]*>/', $html, $matches);
+
+        $this->assertNotEmpty($matches[0], 'Aucun :style trouvé : le test ne vérifie rien.');
+
+        foreach ($matches[0] as $tag) {
+            if (! str_contains($tag, ' style="')) {
+                continue; // Nothing static to clobber; the binding owns the element.
+            }
+
+            $this->assertMatchesRegularExpression(
+                '/:style="\s*\{/',
+                $tag,
+                'Ce :style en chaîne écrase le style statique de l\'élément : '.substr($tag, 0, 160)
+            );
+        }
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');

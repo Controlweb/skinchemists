@@ -43,7 +43,11 @@
            hover shortcut into it, not a replacement for the destination. --}}
       <a href="{{ route('shop') }}" style="{{ $navLink }}"
          @mouseenter="openMega()" @focus="openMega()"
-         :style="mega ? 'box-shadow:inset 0 -1px 0 #14120F' : ''"
+         {{-- Object form, not a string: Alpine binds a :style string with
+              setAttribute('style', …), which replaces the whole attribute and
+              wiped $navLink — Soins lost its colour and fell back to the
+              global blue link rule. The object form sets one property. --}}
+         :style="{ boxShadow: mega ? 'inset 0 -1px 0 #14120F' : '' }"
          :aria-expanded="mega">Soins</a>
       <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="{{ $navLink }}" @mouseenter="closeMega()">Best-sellers</a>
       <a href="{{ route('bundles') }}" style="{{ $navLink }}" @mouseenter="closeMega()">Coffrets</a>
