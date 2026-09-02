@@ -1,6 +1,10 @@
 @php
-    $navLink = 'background:none;border:0;padding:0;cursor:pointer;color:#14120F;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;text-decoration:none';
-    $mobileLink = 'display:block;padding:16px 0;border-bottom:1px solid #E6E6E6;color:#14120F;font-size:15px;letter-spacing:0.04em';
+    // Both end in a semicolon: they are concatenated with further declarations
+    // at several call sites, and without it the join ate whichever property
+    // came first — the mobile toggle silently lost its width:100%, so the
+    // +/− never reached the right edge.
+    $navLink = 'background:none;border:0;padding:0;cursor:pointer;color:#14120F;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;text-decoration:none;';
+    $mobileLink = 'display:block;padding:16px 0;border-bottom:1px solid #E6E6E6;color:#14120F;font-size:15px;letter-spacing:0.04em;';
 @endphp
 
 {{-- The three promises don't fit a phone in one row, so on mobile they rotate
@@ -116,8 +120,10 @@
   </div>
 
   {{-- Mobile menu: a full-height panel, since a phone has no room for a
-       hover mega menu. Actives and concerns are collapsed behind toggles so
-       the top-level choices stay reachable without scrolling. --}}
+       hover mega menu. It mirrors the desktop nav one for one — Soins expands
+       into exactly what the mega panel holds, then the same four siblings —
+       so the two navigations teach the same shape. Tracking sits below a gap
+       as a utility link; it is not a section of the catalogue. --}}
   <div x-show="menu" x-cloak class="sc-mobile-panel" style="position:fixed;inset:0;z-index:80">
     <div @click="menu = false" style="position:absolute;inset:0;background:rgba(20,18,15,0.35)"></div>
 
@@ -128,38 +134,39 @@
                 style="background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:#14120F;width:44px;height:44px">×</button>
       </div>
 
-      <nav style="flex:1;overflow-y:auto;padding:8px 20px 28px" x-data="{ open: null }">
-        <a href="{{ route('shop') }}" style="{{ $mobileLink }}">Tous les soins</a>
+      @php
+        $mobileSub = 'display:block;padding:11px 0;color:#6B6B6B;font-size:14px';
+        $mobileEyebrow = 'font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;padding:14px 0 4px';
+      @endphp
 
-        <button type="button" @click="open = open === 'actifs' ? null : 'actifs'"
+      <nav style="flex:1;overflow-y:auto;padding:8px 20px 28px" x-data="{ soins: false }">
+        <button type="button" @click="soins = !soins" :aria-expanded="soins"
                 style="{{ $mobileLink }}width:100%;text-align:left;background:none;border-width:0 0 1px 0;border-style:solid;border-color:#E6E6E6;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-          <span>Actifs</span>
-          <span x-text="open === 'actifs' ? '−' : '+'" style="color:#9B9B9B"></span>
+          <span>Soins</span>
+          <span x-text="soins ? '−' : '+'" style="color:#9B9B9B"></span>
         </button>
-        <div x-show="open === 'actifs'" x-cloak style="padding:6px 0 6px 14px">
+
+        <div x-show="soins" x-cloak style="padding:2px 0 10px 14px">
+          <a href="{{ route('shop') }}" style="{{ $mobileSub }};color:#14120F">Tous les soins</a>
+
+          <div style="{{ $mobileEyebrow }}">Par actif</div>
           @foreach ($navIngredients as $ing => $ingSlug)
             <a href="{{ $ingSlug ? route('ingredient', $ingSlug) : route('shop', ['actif' => $ing]) }}"
-               style="display:block;padding:11px 0;color:#6B6B6B;font-size:14px">{{ $ing }}</a>
+               style="{{ $mobileSub }}">{{ $ing }}</a>
           @endforeach
-        </div>
 
-        <button type="button" @click="open = open === 'besoins' ? null : 'besoins'"
-                style="{{ $mobileLink }}width:100%;text-align:left;background:none;border-width:0 0 1px 0;border-style:solid;border-color:#E6E6E6;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-          <span>Préoccupations</span>
-          <span x-text="open === 'besoins' ? '−' : '+'" style="color:#9B9B9B"></span>
-        </button>
-        <div x-show="open === 'besoins'" x-cloak style="padding:6px 0 6px 14px">
+          <div style="{{ $mobileEyebrow }}">Par préoccupation</div>
           @foreach ($navConcerns as $concern)
-            <a href="{{ route('shop', ['besoin' => $concern]) }}"
-               style="display:block;padding:11px 0;color:#6B6B6B;font-size:14px">{{ $concern }}</a>
+            <a href="{{ route('shop', ['besoin' => $concern]) }}" style="{{ $mobileSub }}">{{ $concern }}</a>
           @endforeach
         </div>
 
         <a href="{{ route('shop', ['tri' => 'populaires']) }}" style="{{ $mobileLink }}">Best-sellers</a>
-        <a href="{{ route('bundles') }}" style="{{ $mobileLink }}">Coffrets &amp; rituels</a>
+        <a href="{{ route('bundles') }}" style="{{ $mobileLink }}">Coffrets</a>
         <a href="{{ route('lab') }}" style="{{ $mobileLink }}">Le Lab</a>
-        <a href="{{ route('tracking') }}" style="{{ $mobileLink }}">Suivre ma commande</a>
-        <a href="{{ route('contact') }}" style="{{ $mobileLink }}">Nous contacter</a>
+        <a href="{{ route('contact') }}" style="{{ $mobileLink }}">Contact</a>
+
+        <a href="{{ route('tracking') }}" style="{{ $mobileLink }}margin-top:18px;color:#6B6B6B;font-size:14px">Suivre ma commande</a>
 
         <div style="margin-top:24px;font-size:12px;color:#9B9B9B;line-height:1.7">
           Paiement à la livraison<br>

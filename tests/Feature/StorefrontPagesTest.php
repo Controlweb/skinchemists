@@ -96,6 +96,29 @@ class StorefrontPagesTest extends TestCase
         );
     }
 
+    /**
+     * The drawer mirrors the desktop nav: Soins expands into what the mega
+     * panel holds, then the same four siblings. It used to carry its own
+     * shape — a flat "Tous les soins" plus separate Actifs and Préoccupations
+     * toggles — so the two navigations taught different maps of one catalogue.
+     */
+    public function test_the_mobile_drawer_mirrors_the_desktop_nav(): void
+    {
+        $html = $this->get('/')->assertSuccessful()->getContent();
+
+        preg_match('#<aside[^>]*>.*?</aside>#s', $html, $drawer);
+        $this->assertNotEmpty($drawer, 'Le tiroir mobile est introuvable.');
+
+        foreach (['Soins', 'Best-sellers', 'Coffrets', 'Le Lab', 'Contact', 'Suivre ma commande'] as $label) {
+            $this->assertStringContainsString('>'.$label.'<', $drawer[0]);
+        }
+
+        // The two lists now live under Soins, labelled as the mega panel does.
+        $this->assertStringContainsString('Par actif', $drawer[0]);
+        $this->assertStringContainsString('Par préoccupation', $drawer[0]);
+        $this->assertStringNotContainsString('>Préoccupations<', $drawer[0]);
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');
