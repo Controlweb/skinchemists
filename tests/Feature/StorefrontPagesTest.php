@@ -61,6 +61,27 @@ class StorefrontPagesTest extends TestCase
         }
     }
 
+    /**
+     * Laravel's bundled paginator views are Tailwind-only and the storefront
+     * loads no Tailwind, so falling back to one leaks the raw
+     * "pagination.previous" key and an English "Showing … results" line.
+     */
+    public function test_the_shop_paginator_is_french(): void
+    {
+        for ($i = 0; $i < 13; $i++) {
+            $this->product();
+        }
+
+        $this->get('/boutique')
+            ->assertSuccessful()
+            ->assertSee('Précédent')
+            ->assertSee('Suivant')
+            ->assertDontSee('pagination.previous')
+            ->assertDontSee('pagination.next')
+            ->assertDontSee('Showing')
+            ->assertDontSee('results');
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');

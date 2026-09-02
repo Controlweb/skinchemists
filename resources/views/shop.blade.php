@@ -117,7 +117,7 @@
           @endforeach
         </div>
 
-        <div style="margin-top:34px">{{ $products->links() }}</div>
+        <div style="margin-top:34px">{{ $products->links('partials.pagination') }}</div>
       @endif
     </div>
   </section>
