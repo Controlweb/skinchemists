@@ -32,7 +32,7 @@ class IngredientsTable
                         ? null
                         : 'Aucun produit ne porte ce nom'),
 
-                TextColumn::make('intro')->label('Accroche')->wrap()->limit(90)->toggleable(),
+                TextColumn::make('intro')->label('Accroche')->wrap()->limit(90)->toggleable()->visibleFrom('lg'),
 
                 ToggleColumn::make('is_published')->label('Publiée'),
             ])

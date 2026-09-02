@@ -115,6 +115,16 @@
     .sc-align-left { justify-items: start !important; text-align: left !important; }
 
     .sc-lab-copy { padding: 0 20px 32px !important; }
+
+    /* The coffret card's desktop padding left the contents list ~100px for a
+       product name, wrapping every one onto three lines. */
+    .sc-bundle-body { padding: 24px 18px !important; }
+    .sc-bundle-media { padding: 28px 18px !important; min-height: 200px !important; }
+
+    /* Price drops beneath the name so the name gets the full row width
+       instead of wrapping a long product title onto three lines. */
+    .sc-bundle-row { grid-template-columns: 42px 1fr !important; gap: 4px 12px !important; align-items: start !important; }
+    .sc-bundle-row > :nth-child(3) { grid-column: 2 !important; }
     .sc-track-form { grid-template-columns: 1fr !important; }
     .sc-cited { grid-template-columns: 56px 1fr !important; gap: 12px !important; }
     .sc-cited > :nth-child(3), .sc-cited > :nth-child(4) { grid-column: 2 !important; }

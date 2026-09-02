@@ -46,7 +46,7 @@ class StockLedger extends Page implements HasTable
             ->query(StockMovement::query()->with(['product', 'order', 'user']))
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')->label('Date')->dateTime('d/m/Y H:i')->sortable(),
+                TextColumn::make('created_at')->label('Date')->dateTime('d/m/Y H:i')->sortable()->visibleFrom('md'),
 
                 TextColumn::make('product.name')
                     ->label('Produit')
@@ -65,9 +65,9 @@ class StockLedger extends Page implements HasTable
                     ->label('Stock après')
                     ->description(fn (StockMovement $record) => 'avant : '.$record->stock_before),
 
-                TextColumn::make('reason')->label('Motif')->searchable(),
+                TextColumn::make('reason')->label('Motif')->searchable()->visibleFrom('md'),
 
-                TextColumn::make('user.name')->label('Par')->placeholder('Système')->toggleable(),
+                TextColumn::make('user.name')->label('Par')->placeholder('Système')->toggleable()->visibleFrom('lg'),
             ])
             ->filters([
                 Filter::make('manual')

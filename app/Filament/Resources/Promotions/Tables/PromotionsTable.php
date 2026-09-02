@@ -18,7 +18,7 @@ class PromotionsTable
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('code')->label('Code')->searchable()->weight('medium')->copyable(),
-                TextColumn::make('name')->label('Nom')->searchable()->toggleable(),
+                TextColumn::make('name')->label('Nom')->searchable()->toggleable()->visibleFrom('md'),
 
                 TextColumn::make('value')
                     ->label('Remise')
@@ -34,6 +34,7 @@ class PromotionsTable
 
                 TextColumn::make('period')
                     ->label('Période')
+                    ->visibleFrom('lg')
                     ->state(fn (Promotion $record) => match (true) {
                         $record->starts_at && $record->ends_at => $record->starts_at->format('d/m').' → '.$record->ends_at->format('d/m'),
                         (bool) $record->ends_at => 'jusqu\'au '.$record->ends_at->format('d/m/Y'),
@@ -42,6 +43,7 @@ class PromotionsTable
 
                 TextColumn::make('uses')
                     ->label('Utilisé')
+                    ->visibleFrom('md')
                     ->state(fn (Promotion $record) => $record->max_uses
                         ? $record->uses.' / '.$record->max_uses
                         : (string) $record->uses)
@@ -55,7 +57,7 @@ class PromotionsTable
                     ->state(fn (Promotion $record) => $record->isRedeemable() ? 'Utilisable' : 'Inactif')
                     ->color(fn (Promotion $record) => $record->isRedeemable() ? 'success' : 'gray'),
 
-                ToggleColumn::make('is_active')->label('Activé'),
+                ToggleColumn::make('is_active')->label('Activé')->visibleFrom('md'),
             ])
             ->recordActions([EditAction::make()])
             ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);

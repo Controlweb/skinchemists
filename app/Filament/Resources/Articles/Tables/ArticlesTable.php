@@ -19,9 +19,9 @@ class ArticlesTable
             ->defaultSort('published_at', 'desc')
             ->columns([
                 TextColumn::make('title')->label('Titre')->searchable()->wrap()->limit(60),
-                TextColumn::make('category')->label('Catégorie')->badge(),
-                TextColumn::make('author')->label('Auteur')->toggleable(),
-                IconColumn::make('is_featured')->label('À la une')->boolean(),
+                TextColumn::make('category')->label('Catégorie')->badge()->visibleFrom('md'),
+                TextColumn::make('author')->label('Auteur')->toggleable()->visibleFrom('lg'),
+                IconColumn::make('is_featured')->label('À la une')->boolean()->visibleFrom('lg'),
 
                 TextColumn::make('published_at')
                     ->label('Statut')

@@ -38,7 +38,8 @@ class ProductsTable
                 TextColumn::make('brand')
                     ->label('Marque')
                     ->badge()
-                    ->sortable(),
+                    ->sortable()
+                    ->visibleFrom('md'),
 
                 TextColumn::make('gamme')
                     ->label('Gamme')
@@ -47,7 +48,8 @@ class ProductsTable
 
                 TextColumn::make('category.name')
                     ->label('Catégorie')
-                    ->sortable(),
+                    ->sortable()
+                    ->visibleFrom('lg'),
 
                 TextColumn::make('ingredient')
                     ->label('Actif')
@@ -71,7 +73,7 @@ class ProductsTable
                     })
                     ->sortable(),
 
-                ToggleColumn::make('is_active')->label('En ligne'),
+                ToggleColumn::make('is_active')->label('En ligne')->visibleFrom('md'),
             ])
             ->filters([
                 SelectFilter::make('brand')

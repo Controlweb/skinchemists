@@ -18,7 +18,7 @@ class BundlesTable
             ->defaultSort('position')
             ->columns([
                 TextColumn::make('name')->label('Coffret')->searchable()->weight('medium'),
-                TextColumn::make('products_count')->label('Produits')->counts('products'),
+                TextColumn::make('products_count')->label('Produits')->counts('products')->visibleFrom('md'),
 
                 TextColumn::make('price')
                     ->label('Prix coffret')
@@ -27,6 +27,7 @@ class BundlesTable
 
                 TextColumn::make('saving')
                     ->label('Économie')
+                    ->visibleFrom('lg')
                     ->state(fn (Bundle $record) => mad($record->savingCents()))
                     ->color('success'),
 
@@ -36,7 +37,7 @@ class BundlesTable
                     ->state(fn (Bundle $record) => $record->availableQuantity())
                     ->color(fn (Bundle $record) => $record->availableQuantity() > 0 ? 'success' : 'danger'),
 
-                ToggleColumn::make('is_active')->label('Actif'),
+                ToggleColumn::make('is_active')->label('Actif')->visibleFrom('md'),
             ])
             ->recordActions([EditAction::make()])
             ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);

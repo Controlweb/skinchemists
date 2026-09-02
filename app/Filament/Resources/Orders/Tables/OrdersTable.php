@@ -11,6 +11,7 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -36,46 +37,53 @@ class OrdersTable
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('number')
-                    ->label('N°')
-                    ->searchable()
-                    ->weight('medium'),
+                // Nine columns needed ~890px on a 390px phone, so staff had to
+                // swipe sideways to reach the total and the status - the two
+                // things they open this screen for. Split stacks the row into a
+                // card below md and behaves as a normal row from md up.
+                Split::make([
+                    TextColumn::make('number')
+                        ->label('N°')
+                        ->description(fn (Order $record) => $record->created_at->format('d/m/Y H:i'))
+                        ->searchable()
+                        ->sortable()
+                        ->weight('medium')
+                        ->grow(false),
 
-                TextColumn::make('created_at')
-                    ->label('Date')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable(),
+                    TextColumn::make('customer')
+                        ->label('Client')
+                        ->state(fn (Order $record) => $record->customerName())
+                        ->description(fn (Order $record) => $record->phone.' · '.$record->city)
+                        ->searchable(['first_name', 'last_name', 'phone', 'city']),
 
-                TextColumn::make('customer')
-                    ->label('Client')
-                    ->state(fn (Order $record) => $record->customerName())
-                    ->description(fn (Order $record) => $record->phone)
-                    ->searchable(['first_name', 'last_name', 'phone']),
+                    TextColumn::make('items_count')
+                        ->label('Articles')
+                        ->counts('items')
+                        ->grow(false)
+                        ->visibleFrom('md'),
 
-                TextColumn::make('city')
-                    ->label('Ville')
-                    ->searchable(),
+                    TextColumn::make('total_cents')
+                        ->label('Total')
+                        ->formatStateUsing(fn (int $state) => mad($state))
+                        ->sortable()
+                        ->weight('medium')
+                        ->grow(false),
 
-                TextColumn::make('items_count')
-                    ->label('Articles')
-                    ->counts('items'),
+                    TextColumn::make('status')
+                        ->label('Statut')
+                        ->badge()
+                        ->formatStateUsing(fn (string $state) => Order::STATUSES[$state] ?? $state)
+                        ->color(fn (string $state) => self::STATUS_COLORS[$state] ?? 'gray')
+                        ->grow(false),
 
-                TextColumn::make('total_cents')
-                    ->label('Total')
-                    ->formatStateUsing(fn (int $state) => mad($state))
-                    ->sortable(),
-
-                TextColumn::make('status')
-                    ->label('Statut')
-                    ->badge()
-                    ->formatStateUsing(fn (string $state) => Order::STATUSES[$state] ?? $state)
-                    ->color(fn (string $state) => self::STATUS_COLORS[$state] ?? 'gray'),
-
-                TextColumn::make('payment_status')
-                    ->label('Paiement')
-                    ->badge()
-                    ->formatStateUsing(fn (string $state) => $state === 'paye' ? 'Payé' : 'En attente')
-                    ->color(fn (string $state) => $state === 'paye' ? 'success' : 'gray'),
+                    TextColumn::make('payment_status')
+                        ->label('Paiement')
+                        ->badge()
+                        ->formatStateUsing(fn (string $state) => $state === 'paye' ? 'Payé' : 'En attente')
+                        ->color(fn (string $state) => $state === 'paye' ? 'success' : 'gray')
+                        ->grow(false)
+                        ->visibleFrom('md'),
+                ])->from('md'),
             ])
             ->filters([
                 SelectFilter::make('status')

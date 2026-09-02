@@ -33,10 +33,10 @@ class LowStockProducts extends TableWidget
             ->paginated(false)
             ->columns([
                 TextColumn::make('name')->label('Produit')->wrap()->limit(60),
-                TextColumn::make('sku')->label('SKU'),
+                TextColumn::make('sku')->label('SKU')->visibleFrom('md'),
                 TextColumn::make('stock')->label('Stock')->badge()
                     ->color(fn (Product $record) => $record->stock < 1 ? 'danger' : 'warning'),
-                TextColumn::make('low_stock_threshold')->label('Seuil'),
+                TextColumn::make('low_stock_threshold')->label('Seuil')->visibleFrom('md'),
             ])
             ->recordUrl(fn (Product $record) => ProductResource::getUrl('edit', ['record' => $record]));
     }

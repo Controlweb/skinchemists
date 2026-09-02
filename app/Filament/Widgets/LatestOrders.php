@@ -23,12 +23,12 @@ class LatestOrders extends TableWidget
             ->paginated(false)
             ->columns([
                 TextColumn::make('number')->label('N°')->weight('medium'),
-                TextColumn::make('created_at')->label('Reçue')->since(),
+                TextColumn::make('created_at')->label('Reçue')->since()->visibleFrom('md'),
                 TextColumn::make('customer')
                     ->label('Client')
                     ->state(fn (Order $record) => $record->customerName())
                     ->description(fn (Order $record) => $record->phone),
-                TextColumn::make('city')->label('Ville'),
+                TextColumn::make('city')->label('Ville')->visibleFrom('lg'),
                 TextColumn::make('total_cents')->label('Total')
                     ->formatStateUsing(fn (int $state) => mad($state)),
                 TextColumn::make('status')->label('Statut')->badge()

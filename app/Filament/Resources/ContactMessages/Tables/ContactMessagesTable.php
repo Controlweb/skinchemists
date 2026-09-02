@@ -21,7 +21,7 @@ class ContactMessagesTable
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')->label('Reçu')->since()->sortable(),
+                TextColumn::make('created_at')->label('Reçu')->since()->sortable()->visibleFrom('md'),
 
                 TextColumn::make('name')
                     ->label('Expéditeur')
@@ -33,9 +33,9 @@ class ContactMessagesTable
                     ->badge()
                     ->formatStateUsing(fn (ContactMessage $record) => $record->subjectLabel()),
 
-                TextColumn::make('order_number')->label('Commande')->placeholder('—')->searchable(),
+                TextColumn::make('order_number')->label('Commande')->placeholder('—')->searchable()->visibleFrom('lg'),
 
-                TextColumn::make('message')->label('Message')->wrap()->limit(90)->searchable(),
+                TextColumn::make('message')->label('Message')->wrap()->limit(90)->searchable()->visibleFrom('md'),
 
                 TextColumn::make('status')
                     ->label('Statut')

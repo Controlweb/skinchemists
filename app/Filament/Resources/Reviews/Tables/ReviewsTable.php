@@ -26,15 +26,15 @@ class ReviewsTable
                     ->limit(40)
                     ->searchable(),
 
-                TextColumn::make('author')->label('Auteur')->searchable(),
+                TextColumn::make('author')->label('Auteur')->searchable()->visibleFrom('md'),
 
                 TextColumn::make('rating')
                     ->label('Note')
                     ->formatStateUsing(fn (int $state) => str_repeat('★', $state).str_repeat('☆', 5 - $state)),
 
-                TextColumn::make('body')->label('Avis')->wrap()->limit(120),
+                TextColumn::make('body')->label('Avis')->wrap()->limit(120)->visibleFrom('md'),
 
-                IconColumn::make('verified')->label('Vérifié')->boolean(),
+                IconColumn::make('verified')->label('Vérifié')->boolean()->visibleFrom('lg'),
 
                 TextColumn::make('status')
                     ->label('Statut')
@@ -46,7 +46,7 @@ class ReviewsTable
                         default => 'warning',
                     }),
 
-                TextColumn::make('created_at')->label('Reçu le')->date('d/m/Y')->sortable(),
+                TextColumn::make('created_at')->label('Reçu le')->date('d/m/Y')->sortable()->visibleFrom('lg'),
             ])
             ->filters([
                 SelectFilter::make('status')->label('Statut')->options(Review::STATUSES),
