@@ -7,7 +7,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
+use Filament\Auth\Pages\EditProfile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class AdminPanelTest extends TestCase
@@ -118,6 +121,84 @@ class AdminPanelTest extends TestCase
             $this->get("/admin/{$screen}")
                 ->assertSuccessful("L'écran /admin/{$screen} ne s'affiche pas");
         }
+    }
+
+    public function test_the_account_screen_loads(): void
+    {
+        $this->actingAs(User::factory()->create(['is_admin' => true]))
+            ->get('/admin/profile')
+            ->assertSuccessful()
+            ->assertSee('Adresse Email')
+            ->assertSee('Nouveau mot de passe');
+    }
+
+    /**
+     * The confirmation and current-password fields are deliberately absent
+     * until you touch something sensitive — both source fields are live, so
+     * they appear as you type. Asserting it, because a page that asks for the
+     * current password only sometimes otherwise reads as a bug.
+     */
+    public function test_the_account_screen_asks_for_the_current_password_only_when_needed(): void
+    {
+        $user = User::factory()->create(['is_admin' => true, 'email' => 'ancien@skinchemists.ma']);
+
+        $page = Livewire::actingAs($user)->test(EditProfile::class);
+        $page->assertFormFieldHidden('currentPassword')
+            ->assertFormFieldHidden('passwordConfirmation');
+
+        $page->fillForm(['password' => 'un-nouveau-mot-de-passe'])
+            ->assertFormFieldVisible('currentPassword')
+            ->assertFormFieldVisible('passwordConfirmation');
+
+        // Changing only the email must ask for it too, not just a password change.
+        Livewire::actingAs($user)->test(EditProfile::class)
+            ->fillForm(['email' => 'nouveau@skinchemists.ma'])
+            ->assertFormFieldVisible('currentPassword');
+    }
+
+    public function test_the_account_screen_saves_a_new_email_and_password(): void
+    {
+        $user = User::factory()->create([
+            'is_admin' => true,
+            'email' => 'ancien@skinchemists.ma',
+            'password' => Hash::make('mot-de-passe-actuel'),
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(EditProfile::class)
+            ->fillForm([
+                'email' => 'nouveau@skinchemists.ma',
+                'password' => 'un-nouveau-mot-de-passe',
+                'passwordConfirmation' => 'un-nouveau-mot-de-passe',
+                'currentPassword' => 'mot-de-passe-actuel',
+            ])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $user->refresh();
+        $this->assertSame('nouveau@skinchemists.ma', $user->email);
+        $this->assertTrue(Hash::check('un-nouveau-mot-de-passe', $user->password));
+    }
+
+    /** Without this, anyone with a borrowed open session could take the account. */
+    public function test_the_account_screen_refuses_a_wrong_current_password(): void
+    {
+        $user = User::factory()->create([
+            'is_admin' => true,
+            'email' => 'ancien@skinchemists.ma',
+            'password' => Hash::make('mot-de-passe-actuel'),
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(EditProfile::class)
+            ->fillForm([
+                'email' => 'pirate@example.com',
+                'currentPassword' => 'pas-le-bon',
+            ])
+            ->call('save')
+            ->assertHasFormErrors(['currentPassword']);
+
+        $this->assertSame('ancien@skinchemists.ma', $user->refresh()->email);
     }
 
     public function test_the_reviews_screen_loads(): void

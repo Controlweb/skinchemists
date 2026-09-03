@@ -30,6 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            // Account settings: name, email and password, reached from the user
+            // menu. Filament's page already gates every save behind the current
+            // password, so there is nothing to hand-roll. isSimple: false keeps
+            // it inside the panel shell rather than on a bare centred page.
+            ->profile(isSimple: false)
             ->brandName('skinChemists Maroc')
             ->brandLogo(asset('uploads/black_Logo_1.webp'))
             ->darkModeBrandLogo(asset('uploads/SKINCHEMIST-LOGO-WHITE.webp'))
