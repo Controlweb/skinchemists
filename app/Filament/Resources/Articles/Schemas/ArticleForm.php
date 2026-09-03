@@ -11,6 +11,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use App\Filament\Schemas\SeoSection;
 
 class ArticleForm
 {
@@ -84,6 +85,7 @@ class ArticleForm
                         ->searchable()
                         ->columnSpanFull(),
                 ]),
+            SeoSection::make("le titre de l'article"),
         ]);
     }
 }

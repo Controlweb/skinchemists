@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Coffrets & rituels — SkinChemists Maroc')
+@section('title', 'Coffrets & rituels')
 @section('description', 'Des protocoles complets assemblés par le laboratoire, à un prix inférieur à l\'achat séparé. Paiement à la livraison partout au Maroc.')
 
 @section('content')

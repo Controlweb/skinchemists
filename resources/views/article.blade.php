@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
-@section('title', $article->title.' — Le Lab')
-@section('description', Str::limit(strip_tags($article->excerpt ?? ''), 155))
+@section('title', $article->meta_title ?: $article->title.' — Le Lab')
+@section('description', $article->meta_description ?: strip_tags($article->excerpt ?? ''))
+@section('seoType', 'article')
+{{-- Never pass null to @section: Blade reads a null second argument as the
+     block form and calls ob_start(), leaking a buffer on every render. --}}
+@section('seoImage', (string) $article->image_path)
 
 @section('content')
   @php

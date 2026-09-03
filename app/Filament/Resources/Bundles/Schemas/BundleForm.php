@@ -10,6 +10,7 @@ use App\Filament\Schemas\GallerySection;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use App\Filament\Schemas\SeoSection;
 
 class BundleForm
 {
@@ -46,6 +47,7 @@ class BundleForm
             GallerySection::make(
                 'Facultatif. Sans image, la vignette est composée automatiquement à partir des produits du coffret.'
             ),
+            SeoSection::make('le nom du coffret'),
         ]);
     }
 }

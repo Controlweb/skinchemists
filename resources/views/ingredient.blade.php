@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $ingredient->name.' — Actif SkinChemists Maroc')
-@section('description', Str::limit(strip_tags($ingredient->intro ?? ''), 155))
+@section('title', $ingredient->meta_title ?: $ingredient->name.' — Actif')
+@section('description', $ingredient->meta_description ?: strip_tags($ingredient->intro ?? ''))
 
 @section('content')
   <main style="padding-bottom:90px">

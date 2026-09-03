@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>@yield('title', 'SkinChemists Maroc — Soins scientifiques')</title>
-<meta name="description" content="@yield('description', 'SkinChemists Maroc : soins anti-âge formulés au Caviar, Rétinol, Acide Hyaluronique et Vitamine C. Livraison partout au Maroc, paiement à la livraison.')" />
-<link rel="canonical" href="{{ url()->current() }}" />
+@include('partials.seo')
 <link rel="icon" href="{{ asset('uploads/favicon.png') }}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />

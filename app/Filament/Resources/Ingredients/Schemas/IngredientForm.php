@@ -9,6 +9,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use App\Filament\Schemas\SeoSection;
 
 class IngredientForm
 {
@@ -43,6 +44,7 @@ class IngredientForm
 
                     Toggle::make('is_published')->label('Page publiée')->default(true),
                 ]),
+            SeoSection::make("le nom de l'actif"),
         ]);
     }
 }

@@ -23,6 +23,7 @@ class Product extends Model
         'ingredient', 'concern', 'price_cents', 'sale_price_cents',
         'short', 'bullets', 'actifs', 'stock', 'low_stock_threshold',
         'is_active', 'is_featured',
+        'meta_title', 'meta_description',
     ];
 
     protected function casts(): array

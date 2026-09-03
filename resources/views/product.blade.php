@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
-@section('title', $product->name.' — SkinChemists Maroc')
-@section('description', Str::limit(strip_tags($product->short ?? ''), 155))
+@section('title', $product->meta_title ?: $product->name)
+@section('description', $product->meta_description ?: strip_tags($product->short ?? ''))
+@section('seoType', 'product')
+@section('seoImage', $product->primaryImageUrl())
 
 @section('content')
   {{-- Product structured data: what gets a rich result in Google.

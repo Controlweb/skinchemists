@@ -28,6 +28,28 @@ Route::post('/commande', [CheckoutController::class, 'store'])
 Route::get('/commande/{order:number}/confirmation', [CheckoutController::class, 'confirmation'])
     ->name('checkout.confirmation');
 
+/**
+ * robots.txt is generated rather than static so the SEO screen's indexing
+ * toggle actually reaches crawlers. A meta robots tag only helps on pages a
+ * crawler already fetched; this stops it at the door.
+ */
+Route::get('/robots.txt', function () {
+    $lines = ['User-agent: *'];
+
+    if (\App\Support\Seo::isIndexable()) {
+        $lines[] = 'Disallow: /panier';
+        $lines[] = 'Disallow: /commande';
+        $lines[] = 'Disallow: /suivi';
+        $lines[] = 'Disallow: /admin';
+        $lines[] = '';
+        $lines[] = 'Sitemap: '.route('sitemap');
+    } else {
+        $lines[] = 'Disallow: /';
+    }
+
+    return response(implode("\n", $lines)."\n")->header('Content-Type', 'text/plain');
+})->name('robots');
+
 Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', [
         'products' => \App\Models\Product::active()->select('slug', 'updated_at')->get(),

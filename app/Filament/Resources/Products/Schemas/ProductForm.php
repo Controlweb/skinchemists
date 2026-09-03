@@ -15,6 +15,7 @@ use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use App\Filament\Schemas\SeoSection;
 
 class ProductForm
 {
@@ -180,6 +181,7 @@ class ProductForm
                     ->helperText('Désactivé : le produit disparaît de la boutique et des recherches.'),
 
                 Toggle::make('is_featured')->label('Mis en avant'),
+                SeoSection::make('le nom du produit'),
             ]);
     }
 
