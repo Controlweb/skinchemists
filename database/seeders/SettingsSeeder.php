@@ -13,9 +13,14 @@ class SettingsSeeder extends Seeder
             'store_name' => 'skinChemists Maroc',
             'store_email' => 'contact@skinchemists.ma',
             'store_phone' => '+212662403006',
+            // Casablanca is delivered same day and free; everywhere else pays a
+            // flat 25 MAD in 2-3 days, waived from 600 MAD, with express at
+            // 35 MAD in 24h. See App\Support\Shipping.
             'free_shipping_threshold_cents' => 60000,   // 600 MAD
-            'shipping_standard_cents' => 3500,          // 35 MAD
-            'shipping_express_cents' => 6000,           // 60 MAD
+            'shipping_casablanca_cents' => 0,
+            'shipping_standard_cents' => 2500,          // 25 MAD
+            'shipping_express_cents' => 3500,           // 35 MAD
+            'shipping_same_day_cutoff_hour' => 20,
             'low_stock_threshold' => 5,
 
             // SEO. seo_indexable is the one that matters on a staging copy:

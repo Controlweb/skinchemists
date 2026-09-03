@@ -25,7 +25,9 @@
        Built in a php block rather than the json directive, because Blade parses
        a bare '@context' key inside a directive argument as a directive itself. --}}
   @php
-      $jsonLd = json_encode([
+      // array_filter throughout: a null gtin13 or a null aggregateRating is a
+      // structured-data error, where an absent key is simply an absent key.
+      $jsonLd = json_encode(array_filter([
           '@context' => 'https://schema.org',
           '@type' => 'Product',
           'name' => $product->name,
@@ -34,7 +36,15 @@
           'brand' => ['@type' => 'Brand', 'name' => $product->brand],
           'description' => strip_tags($product->short ?? ''),
           'image' => $product->images->map(fn ($i) => $i->url())->all(),
-          'offers' => [
+          // Ratings are the difference between a plain blue link and a row of
+          // stars in the results. Omitted entirely when there are none:
+          // an aggregateRating of 0 out of 0 is a structured-data error.
+          'aggregateRating' => $product->reviews_count > 0 ? [
+              '@type' => 'AggregateRating',
+              'ratingValue' => (string) round($product->rating_avg, 1),
+              'reviewCount' => (int) $product->reviews_count,
+          ] : null,
+          'offers' => array_filter([
               '@type' => 'Offer',
               'url' => route('product', $product),
               'priceCurrency' => 'MAD',
@@ -42,8 +52,18 @@
               'availability' => $product->stock > 0
                   ? 'https://schema.org/InStock'
                   : 'https://schema.org/OutOfStock',
-          ],
-      ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+              'availableDeliveryMethod' => 'https://schema.org/OnSitePickup',
+              // Cash on delivery is the whole payment model here, and saying so
+              // in the markup is what lets Google show it as a shop feature.
+              'acceptedPaymentMethod' => [
+                  '@type' => 'PaymentMethod',
+                  'name' => 'Paiement à la livraison',
+              ],
+              // Generated from App\Support\Shipping, so the delivery Google is
+              // told about cannot drift from the one the checkout charges.
+              'shippingDetails' => \App\Support\Shipping::structuredData(),
+          ]),
+      ]), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
   @endphp
   <script type="application/ld+json">{!! $jsonLd !!}</script>
 

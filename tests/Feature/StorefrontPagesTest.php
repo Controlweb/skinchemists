@@ -147,6 +147,42 @@ class StorefrontPagesTest extends TestCase
         }
     }
 
+    /**
+     * Alpine reveals an element with style.removeProperty('display'), which
+     * deletes the author's own inline display for good — one hide/show cycle
+     * and a display:flex row silently becomes a stack. The express delivery
+     * option on the checkout lost its layout exactly this way.
+     *
+     * Sibling of the .sc-mobile-only guard above: same collision between
+     * x-show and an author-declared display, from the other direction.
+     */
+    public function test_no_x_show_element_declares_its_own_inline_display(): void
+    {
+        $product = $this->product();
+        $this->post('/panier', ['product_id' => $product->id, 'quantity' => 1]);
+
+        $pages = ['/', '/boutique', '/commande', '/produit/'.$product->slug];
+        $checked = 0;
+
+        foreach ($pages as $page) {
+            $html = $this->get($page)->assertSuccessful()->getContent();
+
+            preg_match_all('/<[^>]*\bx-show=[^>]*>/', $html, $matches);
+
+            foreach ($matches[0] as $tag) {
+                $checked++;
+                $this->assertDoesNotMatchRegularExpression(
+                    '/\sstyle="[^"]*\bdisplay\s*:/',
+                    $tag,
+                    "{$page} : cet élément x-show déclare son propre display, "
+                    ."qu'Alpine supprimera en le réaffichant : ".substr($tag, 0, 140)
+                );
+            }
+        }
+
+        $this->assertGreaterThan(0, $checked, 'Aucun élément x-show trouvé : le test ne vérifie rien.');
+    }
+
     public function test_the_bundles_page_loads(): void
     {
         $this->get('/coffrets')->assertSuccessful()->assertSee('Coffrets');

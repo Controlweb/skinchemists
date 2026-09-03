@@ -82,8 +82,10 @@ class PlaceOrder
                 ? Promotion::whereRaw('UPPER(code) = ?', [strtoupper($couponCode)])->first()
                 : null;
 
-            // Prices come from the locked rows, not from the request.
-            $pricing = Pricing::for($lines, $promotion, $shippingMethod);
+            // Prices come from the locked rows, not from the request. The city
+            // does come from the request — it is what the customer chose, and
+            // it decides whether delivery is free.
+            $pricing = Pricing::for($lines, $promotion, $shippingMethod, $customer['city'] ?? null);
 
             $order = Order::create([
                 'number' => (string) Str::uuid(),   // replaced below, once the id exists

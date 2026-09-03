@@ -4,7 +4,6 @@ namespace App\Support;
 
 use App\Models\Bundle;
 use App\Models\Promotion;
-use App\Models\Setting;
 
 /**
  * The single source of truth for order money.
@@ -24,7 +23,7 @@ final readonly class Pricing
     /**
      * @param  iterable<array{product: \App\Models\Product, quantity: int}>  $lines
      */
-    public static function for(iterable $lines, ?Promotion $promotion, string $shippingMethod): self
+    public static function for(iterable $lines, ?Promotion $promotion, string $shippingMethod, ?string $city = null): self
     {
         $subtotal = 0;
         $quantities = [];
@@ -42,7 +41,7 @@ final readonly class Pricing
         $discount = min($subtotal, $bundleDiscount + $couponDiscount);
         $net = $subtotal - $discount;
 
-        $shipping = self::shippingFor($net, $shippingMethod);
+        $shipping = Shipping::costFor($net, $shippingMethod, $city);
 
         // ponytail: a free-shipping coupon only waives standard delivery.
         // Express is a paid upgrade; waiving it is a business call nobody has made.
@@ -88,20 +87,4 @@ final readonly class Pricing
         return $discount;
     }
 
-    private static function shippingFor(int $netCents, string $shippingMethod): int
-    {
-        if ($netCents <= 0) {
-            return 0;
-        }
-
-        if ($shippingMethod === 'express') {
-            return Setting::int('shipping_express_cents', 6000);
-        }
-
-        $threshold = Setting::int('free_shipping_threshold_cents', 60000);
-
-        return $netCents >= $threshold
-            ? 0
-            : Setting::int('shipping_standard_cents', 3500);
-    }
 }

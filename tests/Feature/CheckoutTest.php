@@ -42,7 +42,11 @@ class CheckoutTest extends TestCase
         ]);
     }
 
-    private function customer(): array
+    /**
+     * Rabat by default, deliberately: Casablanca now ships free, so leaving it
+     * as the fixture city would make every shipping assertion below vacuous.
+     */
+    private function customer(string $city = 'Rabat'): array
     {
         return [
             'first_name' => 'Salma',
@@ -50,7 +54,7 @@ class CheckoutTest extends TestCase
             'phone' => '0661228410',
             'email' => 'salma@example.ma',
             'address' => '12 rue Ibn Batouta',
-            'city' => 'Casablanca',
+            'city' => $city,
             'zip' => '20250',
         ];
     }
@@ -121,13 +125,44 @@ class CheckoutTest extends TestCase
     {
         $below = $this->product(priceCents: 50000, stock: 5);
         $order = app(PlaceOrder::class)->handle([$below->id => 1], $this->customer());
-        $this->assertSame(3500, $order->shipping_cents);
-        $this->assertSame(53500, $order->total_cents);
+        $this->assertSame(2500, $order->shipping_cents);
+        $this->assertSame(52500, $order->total_cents);
 
         $above = $this->product(priceCents: 60000, stock: 5);
         $order = app(PlaceOrder::class)->handle([$above->id => 1], $this->customer());
         $this->assertSame(0, $order->shipping_cents);
         $this->assertSame(60000, $order->total_cents);
+    }
+
+    /**
+     * Casablanca is delivered same day and free, at any basket size and
+     * whichever method is picked — express is sold as a 24h upgrade for the
+     * other cities, so charging for it in a same-day city would be charging
+     * for nothing.
+     */
+    public function test_casablanca_ships_free_whatever_the_basket_or_method(): void
+    {
+        $product = $this->product(priceCents: 12000, stock: 9);
+
+        foreach (['standard', 'express'] as $method) {
+            $order = app(PlaceOrder::class)->handle(
+                [$product->id => 1], $this->customer('Casablanca'), shippingMethod: $method
+            );
+
+            $this->assertSame(0, $order->shipping_cents, "Méthode {$method}");
+            $this->assertSame(12000, $order->total_cents, "Méthode {$method}");
+        }
+    }
+
+    /** The city decides, not the form: a spoofed method cannot buy Casa rates. */
+    public function test_a_city_outside_casablanca_pays_even_on_a_small_basket(): void
+    {
+        $product = $this->product(priceCents: 12000, stock: 5);
+
+        $order = app(PlaceOrder::class)->handle([$product->id => 1], $this->customer('Marrakech'));
+
+        $this->assertSame(2500, $order->shipping_cents);
+        $this->assertSame(14500, $order->total_cents);
     }
 
     public function test_express_shipping_is_flat_and_ignores_the_threshold(): void
@@ -138,8 +173,8 @@ class CheckoutTest extends TestCase
             [$product->id => 1], $this->customer(), shippingMethod: 'express'
         );
 
-        $this->assertSame(6000, $order->shipping_cents);
-        $this->assertSame(106000, $order->total_cents);
+        $this->assertSame(3500, $order->shipping_cents);
+        $this->assertSame(103500, $order->total_cents);
     }
 
     public function test_a_percentage_coupon_discounts_the_subtotal(): void
@@ -158,8 +193,8 @@ class CheckoutTest extends TestCase
         $this->assertSame(50000, $order->subtotal_cents);
         $this->assertSame(5000, $order->discount_cents);
         // 450 MAD net is under the 600 threshold, so shipping is still charged.
-        $this->assertSame(3500, $order->shipping_cents);
-        $this->assertSame(48500, $order->total_cents);
+        $this->assertSame(2500, $order->shipping_cents);
+        $this->assertSame(47500, $order->total_cents);
         $this->assertSame('MAROC10', $order->coupon_code);
     }
 

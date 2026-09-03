@@ -21,8 +21,25 @@
       </div>
     @endif
 
+    {{-- The delivery options depend on the city, and the city is picked on this
+         page, so the labels are driven client-side. The prices below are only
+         what the customer is quoted: PlaceOrder recharges from App\Support\
+         Shipping on submit, so a tampered form cannot buy cheaper delivery. --}}
     <form method="POST" action="{{ route('checkout.store') }}"
-          class="sc-stack" style="display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:start">
+          class="sc-stack" style="display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:start"
+          x-data="{
+              city: '{{ old('city', $cities[0]) }}',
+              method: '{{ old('shipping_method', 'standard') }}',
+              get sameDay() { return this.city.toLowerCase().includes('casa') },
+              get shipping() {
+                  if (this.sameDay) return {{ \App\Support\Shipping::sameDayCityCents() }};
+                  if (this.method === 'express') return {{ \App\Support\Shipping::expressCents() }};
+                  return {{ $pricing->subtotal - $pricing->discount }} >= {{ \App\Support\Shipping::freeThresholdCents() }}
+                      ? 0 : {{ \App\Support\Shipping::standardCents() }};
+              },
+              money(c) { return (c / 100).toFixed(2).replace('.00', '') + ' MAD' },
+          }"
+          x-effect="if (sameDay) method = 'standard'">
       @csrf
 
       {{-- Honeypot: hidden from people, irresistible to bots. --}}
@@ -64,7 +81,7 @@
         <div class="sc-stack-tight" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px">
           <div>
             <label style="{{ $label }}" for="city">Ville</label>
-            <select id="city" name="city" required style="{{ $field }}">
+            <select id="city" name="city" required x-model="city" style="{{ $field }}">
               @foreach ($cities as $city)
                 <option value="{{ $city }}" @selected(old('city') === $city)>{{ $city }}</option>
               @endforeach
@@ -78,15 +95,34 @@
 
         <div style="display:grid;gap:1px;background:#E6E6E6;border:1px solid #E6E6E6;margin-bottom:22px">
           <label style="background:#FFFFFF;padding:16px 18px;display:flex;gap:12px;align-items:center;cursor:pointer">
-            <input type="radio" name="shipping_method" value="standard" @checked(old('shipping_method', 'standard') === 'standard') />
-            <span style="flex:1;font-size:14px">Livraison standard · 2 à 4 jours</span>
-            <span style="font-size:13.5px;color:#6B6B6B">Offerte dès {{ mad($freeShippingThreshold) }}</span>
+            <input type="radio" name="shipping_method" value="standard" x-model="method" />
+            <span style="flex:1;font-size:14px">
+              <span x-text="sameDay ? 'Livraison à Casablanca' : 'Livraison standard'">Livraison standard</span>
+              ·
+              <span x-text="sameDay
+                  ? 'le jour même si vous commandez avant {{ \App\Support\Shipping::sameDayCutoffHour() }} h'
+                  : '2 à 3 jours'">2 à 3 jours</span>
+            </span>
+            <span style="font-size:13.5px;color:#6B6B6B"
+                  x-text="sameDay ? 'Offerte' : 'Offerte dès {{ mad($freeShippingThreshold) }}'">Offerte dès {{ mad($freeShippingThreshold) }}</span>
           </label>
-          <label style="background:#FFFFFF;padding:16px 18px;display:flex;gap:12px;align-items:center;cursor:pointer">
-            <input type="radio" name="shipping_method" value="express" @checked(old('shipping_method') === 'express') />
-            <span style="flex:1;font-size:14px">Livraison express · 24 à 48 h</span>
-            <span style="font-size:13.5px;color:#6B6B6B">{{ mad(\App\Models\Setting::int('shipping_express_cents', 6000)) }}</span>
-          </label>
+
+          {{-- Express is sold as a 24h upgrade for the other cities. Casablanca
+               is already served the same day, so offering it there would be
+               charging for nothing.
+
+               x-show sits on the wrapper, not on the label: Alpine reveals an
+               element with style.removeProperty('display'), which deletes the
+               author's own display:flex for good. One hide/show cycle and the
+               row loses its layout — the radio, the label and the price stop
+               sitting on one line. The wrapper has no display to lose. --}}
+          <div x-show="! sameDay">
+            <label style="background:#FFFFFF;padding:16px 18px;display:flex;gap:12px;align-items:center;cursor:pointer">
+              <input type="radio" name="shipping_method" value="express" x-model="method" />
+              <span style="flex:1;font-size:14px">Livraison express · 24 h</span>
+              <span style="font-size:13.5px;color:#6B6B6B">{{ mad(\App\Support\Shipping::expressCents()) }}</span>
+            </label>
+          </div>
         </div>
 
         <h2 style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#9B9B9B;margin:28px 0 18px">Paiement</h2>
@@ -126,10 +162,12 @@
           </div>
         @endif
         <div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:16px">
-          <span style="color:#6B6B6B">Livraison</span><span>{{ $pricing->shipping === 0 ? 'Offerte' : mad($pricing->shipping) }}</span>
+          <span style="color:#6B6B6B">Livraison</span>
+          <span x-text="shipping === 0 ? 'Offerte' : money(shipping)">{{ $pricing->shipping === 0 ? 'Offerte' : mad($pricing->shipping) }}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:16px;padding-top:16px;border-top:1px solid #E6E6E6;margin-bottom:20px">
-          <span>Total</span><span>{{ mad($pricing->total) }}</span>
+          <span>Total</span>
+          <span x-text="money({{ $pricing->subtotal - $pricing->discount }} + shipping)">{{ mad($pricing->total) }}</span>
         </div>
         <p style="margin:0 0 18px;font-size:11.5px;color:#9B9B9B;line-height:1.5">
           Le total définitif, remise et livraison comprises, est recalculé au moment de la validation.
