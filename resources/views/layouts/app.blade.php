@@ -103,6 +103,12 @@
     .sc-hero-copy > :nth-child(1) { order: 1; }   /* kicker */
     .sc-hero-copy > :nth-child(2) { order: 2; }   /* title */
     .sc-hero-media { order: 3; height: min(290px, 32vh) !important; padding: 4px 0 14px !important; }
+
+    /* Each slide sets its own height: 560px, sized for the desktop column. In a
+       290px container with overflow:hidden, background-size:contain fits the
+       image to that 560px box and the container then clips the top and bottom
+       off it. The slide has to follow the container, not the desktop layout. */
+    .sc-hero-media > [role="img"] { height: 100% !important; }
     .sc-hero-copy > :nth-child(n+3) { order: 4; } /* body, CTAs, slider controls */
 
     .sc-h1 { font-size: 30px !important; }
