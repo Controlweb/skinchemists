@@ -38,6 +38,20 @@ class SeoTest extends TestCase
         ], $attributes));
     }
 
+    private function article(array $attributes = []): Article
+    {
+        return Article::create(array_merge([
+            'title' => 'Article sans image',
+            'slug' => 'article-sans-image',
+            'category' => 'Routine',
+            'author' => 'Le laboratoire',
+            'excerpt' => 'Un article de test.',
+            'body' => [['h' => 'Titre', 'p' => 'Corps.']],
+            'image_path' => null,
+            'published_at' => now()->subDay(),
+        ], $attributes));
+    }
+
     public function test_every_public_page_carries_a_full_set_of_meta(): void
     {
         $html = $this->get('/')->assertSuccessful()->getContent();
@@ -163,22 +177,97 @@ class SeoTest extends TestCase
      */
     public function test_an_article_without_an_image_leaks_no_output_buffer(): void
     {
-        Article::create([
-            'title' => 'Article sans image',
-            'slug' => 'article-sans-image',
-            'category' => 'Routine',
-            'author' => 'Le laboratoire',
-            'excerpt' => 'Un article de test.',
-            'body' => [['h' => 'Titre', 'p' => 'Corps.']],
-            'image_path' => null,
-            'published_at' => now()->subDay(),
-        ]);
+        $this->article();
 
         $before = ob_get_level();
 
         $this->get('/le-lab/article-sans-image')->assertSuccessful();
 
         $this->assertSame($before, ob_get_level(), 'Un tampon de sortie est resté ouvert.');
+    }
+
+    public function test_a_product_page_carries_product_open_graph(): void
+    {
+        $this->product(['stock' => 4, 'brand' => 'skinChemists']);
+
+        $head = $this->metaHead('/produit/serum-de-test');
+
+        $this->assertStringContainsString('<meta property="og:type" content="product"', $head);
+        $this->assertStringContainsString('content="500.00"', $head);
+        $this->assertStringContainsString('content="MAD"', $head);
+        $this->assertStringContainsString('content="in stock"', $head);
+        $this->assertStringContainsString('<meta property="product:brand" content="skinChemists"', $head);
+    }
+
+    public function test_an_out_of_stock_product_says_so_in_open_graph(): void
+    {
+        $this->product(['stock' => 0]);
+
+        $this->assertStringContainsString(
+            'content="out of stock"',
+            $this->metaHead('/produit/serum-de-test')
+        );
+    }
+
+    public function test_an_article_page_carries_article_open_graph(): void
+    {
+        $this->article();
+
+        $head = $this->metaHead('/le-lab/article-sans-image');
+
+        $this->assertStringContainsString('<meta property="og:type" content="article"', $head);
+        $this->assertStringContainsString('<meta property="article:author" content="Le laboratoire"', $head);
+        $this->assertStringContainsString('<meta property="article:section" content="Routine"', $head);
+        $this->assertStringContainsString('article:published_time', $head);
+    }
+
+    /**
+     * TITLE_LIMIT is what Google *displays*. Truncating the tag to it cut the
+     * brand in half — "… — SkinChemists Mar" — in the share card, where nothing
+     * trims for you.
+     */
+    public function test_a_long_title_is_not_truncated_mid_word(): void
+    {
+        $this->product(['meta_title' => 'Un titre de page délibérément très long qui dépasse largement la limite affichée par Google']);
+
+        $head = $this->metaHead('/produit/serum-de-test');
+
+        $this->assertStringContainsString(
+            'délibérément très long qui dépasse largement la limite affichée par Google',
+            $head
+        );
+    }
+
+    /**
+     * summary_large_image is a promise about the image: claimed for one too
+     * small to fill the card, the network letterboxes it or drops the preview.
+     */
+    public function test_the_card_type_follows_the_image_size(): void
+    {
+        // The bundled logo is 280x115 — under Twitter's 300x157 floor.
+        Setting::put('seo_default_image', 'uploads/black_Logo_1.webp');
+        $this->assertStringContainsString(
+            '<meta name="twitter:card" content="summary"',
+            $this->metaHead('/panier')
+        );
+
+        $this->assertSame('summary', \App\Support\Seo::cardType('x.webp', ['width' => 280, 'height' => 115]));
+        $this->assertSame('summary_large_image', \App\Support\Seo::cardType('x.webp', ['width' => 1200, 'height' => 630]));
+        // Unmeasurable (remote) images are trusted rather than downgraded.
+        $this->assertSame('summary_large_image', \App\Support\Seo::cardType('https://ailleurs/x.webp', null));
+        $this->assertSame('summary', \App\Support\Seo::cardType(null, null));
+    }
+
+    /** Declared dimensions stop the first share of a link rendering blank. */
+    public function test_a_local_share_image_declares_its_dimensions(): void
+    {
+        Setting::put('seo_default_image', 'uploads/black_Logo_1.webp');
+
+        $head = $this->metaHead('/panier');
+
+        $this->assertStringContainsString('<meta property="og:image:width" content="280"', $head);
+        $this->assertStringContainsString('<meta property="og:image:height" content="115"', $head);
+        $this->assertStringContainsString('<meta property="og:image:alt"', $head);
     }
 
     public function test_the_settings_screen_loads(): void

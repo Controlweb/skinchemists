@@ -6,6 +6,18 @@
 {{-- Never pass null to @section: Blade reads a null second argument as the
      block form and calls ob_start(), leaking a buffer on every render. --}}
 @section('seoImage', (string) $article->image_path)
+@section('seoImageAlt', $article->title)
+
+@section('ogTags')
+@if ($article->published_at)
+<meta property="article:published_time" content="{{ $article->published_at->toIso8601String() }}" />
+@endif
+@if ($article->updated_at)
+<meta property="article:modified_time" content="{{ $article->updated_at->toIso8601String() }}" />
+@endif
+<meta property="article:author" content="{{ $article->author }}" />
+<meta property="article:section" content="{{ $article->category }}" />
+@endsection
 
 @section('content')
   @php

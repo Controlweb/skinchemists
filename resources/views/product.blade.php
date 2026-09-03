@@ -4,6 +4,21 @@
 @section('description', $product->meta_description ?: strip_tags($product->short ?? ''))
 @section('seoType', 'product')
 @section('seoImage', $product->primaryImageUrl())
+@section('seoImageAlt', $product->name)
+
+{{-- Price and stock in the share card itself, which is what a Facebook or
+     Instagram shop catalogue reads off the page. --}}
+@section('ogTags')
+<meta property="product:price:amount" content="{{ number_format($product->effectivePriceCents() / 100, 2, '.', '') }}" />
+<meta property="product:price:currency" content="MAD" />
+<meta property="product:availability" content="{{ $product->stock > 0 ? 'in stock' : 'out of stock' }}" />
+@if ($product->brand)
+<meta property="product:brand" content="{{ $product->brand }}" />
+@endif
+@if ($product->gtin)
+<meta property="product:retailer_item_id" content="{{ $product->gtin }}" />
+@endif
+@endsection
 
 @section('content')
   {{-- Product structured data: what gets a rich result in Google.

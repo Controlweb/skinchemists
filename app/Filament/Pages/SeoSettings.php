@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Support\Seo;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -93,10 +94,36 @@ class SeoSettings extends Page implements HasForms
                             ->rows(3)
                             ->maxLength(300)
                             ->helperText('Google en affiche environ '.Seo::DESCRIPTION_LIMIT.' caractères ; au-delà, le texte est coupé.'),
-                        TextInput::make('seo_default_image')
+                        FileUpload::make('seo_default_image')
                             ->label('Image de partage')
-                            ->helperText('Chemin ou URL complète. Utilisée par Facebook, WhatsApp et X quand la page n\'a pas d\'image à elle.')
-                            ->maxLength(255),
+                            ->helperText('Utilisée par Facebook, WhatsApp et X quand la page n\'a pas d\'image à elle. 1200 × 630 px : c\'est le format que ces réseaux recadrent le moins.')
+                            ->image()
+                            ->imageEditor()
+                            ->imagePreviewHeight('140')
+                            ->disk('public_files')
+                            ->directory('uploads/seo')
+                            ->visibility('public')
+                            ->maxSize(4096)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            // Same reason as the gallery uploader: the disk builds
+                            // preview URLs by concatenation, so paths with spaces
+                            // or accents 404 in the editor unless built like the
+                            // storefront builds them.
+                            ->getUploadedFileUsing(function (string $file): ?array {
+                                $absolute = public_path($file);
+
+                                if (! is_file($absolute)) {
+                                    return null;
+                                }
+
+                                return [
+                                    'name' => basename($file),
+                                    'size' => filesize($absolute) ?: 0,
+                                    'type' => 'image/'.strtolower(pathinfo($file, PATHINFO_EXTENSION)),
+                                    'url' => image_url($file),
+                                ];
+                            })
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
 
