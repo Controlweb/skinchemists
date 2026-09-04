@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Tables;
 
 use App\Actions\CancelOrder;
+use App\Filament\Resources\Orders\OrderResource;
 use App\Mail\OrderConfirmation;
 use App\Models\Order;
 use Filament\Actions\Action;
@@ -99,109 +100,135 @@ class OrdersTable
             ->recordActions([
                 ViewAction::make(),
 
-                ActionGroup::make([
-                    Action::make('advance')
-                        ->label('Changer le statut')
-                        ->icon('heroicon-m-arrow-right-circle')
-                        ->visible(fn (Order $record) => ! $record->isCancelled())
-                        ->schema([
-                            Select::make('status')
-                                ->label('Nouveau statut')
-                                ->options(collect(Order::STATUSES)->except('annulee'))
-                                ->required(),
-                            TextInput::make('tracking')
-                                ->label('N° de suivi (facultatif)'),
-                        ])
-                        ->action(function (Order $record, array $data) {
-                            $record->update(array_filter([
-                                'status' => $data['status'],
-                                'tracking' => $data['tracking'] ?: null,
-                            ], fn ($v) => $v !== null));
-
-                            // Every status change leaves a timeline entry naming
-                            // who did it — that is the whole point of the log.
-                            $record->recordEvent(
-                                'Statut : '.(Order::STATUSES[$data['status']] ?? $data['status']),
-                                auth()->user()?->name ?? 'Administration',
-                                auth()->id(),
-                            );
-
-                            Notification::make()->title('Statut mis à jour')->success()->send();
-                        }),
-
-                    Action::make('markPaid')
-                        ->label('Marquer encaissée')
-                        ->icon('heroicon-m-banknotes')
-                        ->visible(fn (Order $record) => $record->payment_status !== 'paye' && ! $record->isCancelled())
-                        ->requiresConfirmation()
-                        ->action(function (Order $record) {
-                            $record->update(['payment_status' => 'paye']);
-                            $record->recordEvent(
-                                'Paiement encaissé à la livraison',
-                                auth()->user()?->name ?? 'Administration',
-                                auth()->id(),
-                            );
-
-                            Notification::make()->title('Commande encaissée')->success()->send();
-                        }),
-
-                    Action::make('resendConfirmation')
-                        ->label('Renvoyer la confirmation')
-                        ->icon('heroicon-m-envelope')
-                        ->visible(fn (Order $record) => filled($record->email))
-                        ->schema([
-                            TextInput::make('email')
-                                ->label('Adresse de destination')
-                                ->email()
-                                ->required()
-                                ->default(fn (Order $record) => $record->email)
-                                ->helperText('Corrigez ici si le client a mal saisi son email.'),
-                        ])
-                        ->action(function (Order $record, array $data) {
-                            // Persist a corrected address, otherwise the next
-                            // resend repeats the same typo.
-                            if ($data['email'] !== $record->email) {
-                                $record->update(['email' => $data['email']]);
-                            }
-
-                            try {
-                                Mail::to($data['email'])->send(new OrderConfirmation($record));
-                            } catch (Throwable $e) {
-                                Notification::make()
-                                    ->title("Envoi impossible : {$e->getMessage()}")
-                                    ->danger()->send();
-
-                                return;
-                            }
-
-                            $record->recordEvent(
-                                'Confirmation renvoyée à '.$data['email'],
-                                auth()->user()?->name ?? 'Administration',
-                                auth()->id(),
-                            );
-
-                            Notification::make()->title('Confirmation renvoyée')->success()->send();
-                        }),
-
-                    Action::make('cancel')
-                        ->label('Annuler et remettre en stock')
-                        ->icon('heroicon-m-x-circle')
-                        ->color('danger')
-                        ->visible(fn (Order $record) => ! $record->isCancelled())
-                        ->requiresConfirmation()
-                        ->modalDescription('Les articles seront remis en stock et un mouvement sera enregistré.')
-                        ->action(function (Order $record) {
-                            app(CancelOrder::class)->handle(
-                                $record,
-                                auth()->user()?->name ?? 'Administration',
-                                auth()->id(),
-                            );
-
-                            Notification::make()->title('Commande annulée, stock restitué')->success()->send();
-                        }),
-                ]),
+                ActionGroup::make(self::actions()),
             ])
-            // Orders are financial records. They are cancelled, never deleted.
+            // Orders are financial records. Deleting one is a last resort.
             ->toolbarActions([]);
+    }
+
+    /** Per-record actions, shared by the table row menu and the order page header. */
+    public static function actions(): array
+    {
+        return [
+            Action::make('advance')
+                ->label('Changer le statut')
+                ->icon('heroicon-m-arrow-right-circle')
+                ->visible(fn (Order $record) => ! $record->isCancelled())
+                ->schema([
+                    Select::make('status')
+                        ->label('Nouveau statut')
+                        ->options(collect(Order::STATUSES)->except('annulee'))
+                        ->required(),
+                    TextInput::make('tracking')
+                        ->label('N° de suivi (facultatif)'),
+                ])
+                ->action(function (Order $record, array $data) {
+                    $record->update(array_filter([
+                        'status' => $data['status'],
+                        'tracking' => $data['tracking'] ?: null,
+                    ], fn ($v) => $v !== null));
+
+                    // Every status change leaves a timeline entry naming
+                    // who did it — that is the whole point of the log.
+                    $record->recordEvent(
+                        'Statut : '.(Order::STATUSES[$data['status']] ?? $data['status']),
+                        auth()->user()?->name ?? 'Administration',
+                        auth()->id(),
+                    );
+
+                    Notification::make()->title('Statut mis à jour')->success()->send();
+                }),
+
+            Action::make('markPaid')
+                ->label('Marquer encaissée')
+                ->icon('heroicon-m-banknotes')
+                ->visible(fn (Order $record) => $record->payment_status !== 'paye' && ! $record->isCancelled())
+                ->requiresConfirmation()
+                ->action(function (Order $record) {
+                    $record->update(['payment_status' => 'paye']);
+                    $record->recordEvent(
+                        'Paiement encaissé à la livraison',
+                        auth()->user()?->name ?? 'Administration',
+                        auth()->id(),
+                    );
+
+                    Notification::make()->title('Commande encaissée')->success()->send();
+                }),
+
+            Action::make('resendConfirmation')
+                ->label('Renvoyer la confirmation')
+                ->icon('heroicon-m-envelope')
+                ->visible(fn (Order $record) => filled($record->email))
+                ->schema([
+                    TextInput::make('email')
+                        ->label('Adresse de destination')
+                        ->email()
+                        ->required()
+                        ->default(fn (Order $record) => $record->email)
+                        ->helperText('Corrigez ici si le client a mal saisi son email.'),
+                ])
+                ->action(function (Order $record, array $data) {
+                    // Persist a corrected address, otherwise the next
+                    // resend repeats the same typo.
+                    if ($data['email'] !== $record->email) {
+                        $record->update(['email' => $data['email']]);
+                    }
+
+                    try {
+                        Mail::to($data['email'])->send(new OrderConfirmation($record));
+                    } catch (Throwable $e) {
+                        Notification::make()
+                            ->title("Envoi impossible : {$e->getMessage()}")
+                            ->danger()->send();
+
+                        return;
+                    }
+
+                    $record->recordEvent(
+                        'Confirmation renvoyée à '.$data['email'],
+                        auth()->user()?->name ?? 'Administration',
+                        auth()->id(),
+                    );
+
+                    Notification::make()->title('Confirmation renvoyée')->success()->send();
+                }),
+
+            Action::make('cancel')
+                ->label('Annuler et remettre en stock')
+                ->icon('heroicon-m-x-circle')
+                ->color('danger')
+                ->visible(fn (Order $record) => ! $record->isCancelled())
+                ->requiresConfirmation()
+                ->modalDescription('Les articles seront remis en stock et un mouvement sera enregistré.')
+                ->action(function (Order $record) {
+                    app(CancelOrder::class)->handle(
+                        $record,
+                        auth()->user()?->name ?? 'Administration',
+                        auth()->id(),
+                    );
+
+                    Notification::make()->title('Commande annulée, stock restitué')->success()->send();
+                }),
+            Action::make('delete')
+                ->label('Supprimer la commande')
+                ->icon('heroicon-m-trash')
+                ->color('danger')
+                ->requiresConfirmation()
+                ->modalDescription('La commande, ses articles et son historique seront effacés définitivement. Si elle n’est pas déjà annulée, le stock est restitué avant la suppression.')
+                ->action(function (Order $record) {
+                    // Deleting a live order would strand the units it holds, so
+                    // restock through the same path the cancel action uses.
+                    app(CancelOrder::class)->handle(
+                        $record,
+                        auth()->user()?->name ?? 'Administration',
+                        auth()->id(),
+                    );
+
+                    $record->delete();
+
+                    Notification::make()->title('Commande supprimée')->success()->send();
+                })
+                ->successRedirectUrl(fn () => OrderResource::getUrl('index')),
+        ];
     }
 }
