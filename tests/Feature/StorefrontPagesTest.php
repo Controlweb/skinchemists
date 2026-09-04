@@ -370,6 +370,36 @@ class StorefrontPagesTest extends TestCase
         $this->get('/le-lab/article-programme')->assertNotFound();
     }
 
+    /**
+     * The Lab, the featured block and the article page have always rendered
+     * this image, but nothing in the admin could set it — every article fell
+     * back to the "[ visuel éditorial ]" placeholder. Asserted from the
+     * storefront rather than the form, because that is where it was missing.
+     */
+    public function test_an_article_image_replaces_the_placeholder_on_the_lab(): void
+    {
+        $article = Article::create([
+            'title' => 'Un article illustré', 'slug' => 'un-article-illustre',
+            'category' => 'Actifs', 'author' => 'Le laboratoire',
+            'excerpt' => 'Avec un visuel.',
+            'body' => [['h' => 'Section', 'p' => 'Texte.']],
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->get('/le-lab')->assertSuccessful()->assertSee('visuel éditorial', false);
+
+        $article->update(['image_path' => 'uploads/articles/exemple.webp']);
+
+        $lab = $this->get('/le-lab')->assertSuccessful()->getContent();
+        $this->assertStringContainsString('uploads/articles/exemple.webp', $lab);
+
+        // And it becomes the share image, rather than the site-wide default.
+        $this->assertStringContainsString(
+            'uploads/articles/exemple.webp',
+            $this->get('/le-lab/un-article-illustre')->assertSuccessful()->getContent()
+        );
+    }
+
     public function test_an_article_shows_its_cited_products(): void
     {
         $product = $this->product();

@@ -7,6 +7,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
@@ -21,6 +22,19 @@ class ArticlesTable
             ->defaultSort('published_at', 'desc')
             ->columns([
                 Split::make([
+                    // Which articles still have no visual is the thing you come
+                    // to this list to find out; a thumbnail answers it at a
+                    // glance where a filename would not.
+                    ImageColumn::make('image_path')
+                        ->label('Visuel')
+                        ->getStateUsing(fn (Article $record) => $record->image_path
+                            ? image_url($record->image_path)
+                            : null)
+                        ->height(40)
+                        ->width(64)
+                        ->grow(false)
+                        ->visibleFrom('md'),
+
                     Stack::make([
                         TextColumn::make('title')->label('Titre')->searchable()->weight('medium')->wrap()->limit(60),
                         TextColumn::make('author')->color('gray')->size('xs'),

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Articles\Schemas;
 
+use App\Filament\Schemas\ImageUpload;
+use App\Filament\Schemas\SeoSection;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -11,7 +13,6 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
-use App\Filament\Schemas\SeoSection;
 
 class ArticleForm
 {
@@ -48,6 +49,17 @@ class ArticleForm
                     TextInput::make('read_minutes')
                         ->label('Durée de lecture (min)')
                         ->numeric()->required()->minValue(1)->default(5),
+                ]),
+
+            // The storefront has always rendered this image — on the article,
+            // on the Lab grid and in the "à la une" block — but there was no
+            // field for it, so every article fell back to the
+            // "[ visuel éditorial ]" placeholder.
+            Section::make('Visuel')
+                ->schema([
+                    ImageUpload::make('image_path', 'uploads/articles')
+                        ->label('Image de l\'article')
+                        ->helperText('Cadrée en 16/10 sur Le Lab et recadrée au centre : visez au moins 1200 × 750 px, sujet centré. Sans image, la vignette affiche un placeholder.'),
                 ]),
 
             Section::make('Contenu')
