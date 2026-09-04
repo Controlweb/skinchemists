@@ -81,6 +81,37 @@ chmod -R 775 storage bootstrap/cache
 > avoir reçu sa confirmation, chercher `Confirmation email failed` dans les
 > logs, puis utiliser l'action « Renvoyer la confirmation » sur la commande.
 
+### DNS mail : Cloudflare Email Routing + SMTP de l'hébergeur
+
+Email Routing prend l'**entrant** (MX Cloudflare) et réécrit le SPF du domaine
+avec son seul include. Le **sortant** part toujours du serveur cPanel Namecheap
+(`server706.web-hosting.com`, 198.177.120.0/24) : plus autorisé par le SPF, il
+n'est ni aligné SPF ni DKIM, et le DMARC en `p=reject` fait rejeter le message
+(`550-5.7.26 ... domain's DMARC policy` chez Gmail).
+
+Les trois enregistrements TXT à publier dans Cloudflare (DNS → Records) :
+
+| Nom | Valeur |
+| --- | --- |
+| `@` | `v=spf1 include:_spf.mx.cloudflare.net include:spf.web-hosting.com ~all` |
+| `default._domainkey` | la clé DKIM exacte affichée par cPanel → **Email Deliverability** |
+| `_dmarc` | `v=DMARC1; p=reject; sp=reject; adkim=r; aspf=r; rua=mailto:…` |
+
+- Un **seul** enregistrement SPF : les deux `include` dans la même ligne, jamais
+  deux TXT `v=spf1` (SPF devient invalide et tout casse). La chaîne coûte 8 des
+  10 résolutions DNS autorisées — ne pas ajouter d'`include` à la légère.
+- **La clé DKIM doit être sur une seule ligne.** Collée depuis cPanel avec un
+  retour à la ligne, Cloudflare le stocke tel quel (`` au milieu du base64) :
+  la clé ne décode plus, DKIM échoue en silence et, avec `p=reject`, Gmail
+  renvoie `550-5.7.26`. C'est exactement ce qui s'est produit ici.
+- `adkim=s; aspf=s` (strict) casse dès que le Return-Path est un sous-domaine de
+  l'hébergeur : rester en `r` (relaxed), l'alignement reste vérifié.
+- Le DMARC est **temporairement en `p=none`** le temps de confirmer les rapports
+  `rua`. Repasser à `p=reject; sp=reject` une fois que Gmail montre vert.
+- Contrôle : cPanel → Email Deliverability doit afficher « Valid » pour SPF et
+  DKIM, puis dans Gmail « Afficher l'original » doit montrer
+  `spf=pass`, `dkim=pass`, `dmarc=pass`.
+
 ## Comptes du back-office
 
 Filament n'a pas d'écran de gestion des utilisateurs. Tout passe par une
