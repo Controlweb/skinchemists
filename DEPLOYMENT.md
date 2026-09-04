@@ -71,6 +71,10 @@ chmod -R 775 storage bootstrap/cache
 - [ ] `/admin` refuse un visiteur non connecté
 - [ ] Le mot de passe admin de `.env` a été changé
 - [ ] `/sitemap.xml` répond
+- [ ] Sur mobile, `/admin` propose « Ajouter à l'écran d'accueil » et s'ouvre
+      sans barre d'adresse. Le service worker n'est actif qu'en **HTTPS**.
+      Ne jamais créer de dossier `public/admin/` : il masquerait le panel
+      (règle `!-d` du `.htaccess`).
 - [ ] La commande test a bien déclenché **deux** emails : la confirmation au
       client et l'alerte à `store_email`. Vérifier aussi qu'ils n'arrivent pas
       en spam (SPF/DKIM du domaine).

@@ -14,6 +14,8 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -40,6 +42,9 @@ class AdminPanelProvider extends PanelProvider
             ->darkModeBrandLogo(asset('uploads/SKINCHEMIST-LOGO-WHITE.webp'))
             ->brandLogoHeight('1.75rem')
             ->favicon(asset('uploads/favicon.png'))
+            // Installable on a phone home screen: manifest, iOS meta tags and the
+            // service worker registration. See the admin.pwa.* routes.
+            ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('pwa.head'))
             ->colors([
                 // Matches the storefront's near-black rather than Filament amber.
                 'primary' => Color::Zinc,

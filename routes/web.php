@@ -10,6 +10,10 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Models\Article;
+use App\Models\Ingredient;
+use App\Models\Product;
+use App\Support\Seo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -36,7 +40,7 @@ Route::get('/commande/{order:number}/confirmation', [CheckoutController::class, 
 Route::get('/robots.txt', function () {
     $lines = ['User-agent: *'];
 
-    if (\App\Support\Seo::isIndexable()) {
+    if (Seo::isIndexable()) {
         $lines[] = 'Disallow: /panier';
         $lines[] = 'Disallow: /commande';
         $lines[] = 'Disallow: /suivi';
@@ -52,9 +56,9 @@ Route::get('/robots.txt', function () {
 
 Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', [
-        'products' => \App\Models\Product::active()->select('slug', 'updated_at')->get(),
-        'ingredients' => \App\Models\Ingredient::published()->select('slug', 'updated_at')->get(),
-        'articles' => \App\Models\Article::published()->select('slug', 'updated_at')->get(),
+        'products' => Product::active()->select('slug', 'updated_at')->get(),
+        'ingredients' => Ingredient::published()->select('slug', 'updated_at')->get(),
+        'articles' => Article::published()->select('slug', 'updated_at')->get(),
     ])->header('Content-Type', 'application/xml');
 })->name('sitemap');
 
@@ -73,3 +77,51 @@ Route::get('/suivi', [OrderTrackingController::class, 'show'])->name('tracking')
 Route::post('/suivi', [OrderTrackingController::class, 'find'])
     ->middleware('throttle:8,1')
     ->name('tracking.find');
+
+/**
+ * Admin PWA: makes /admin installable on a phone home screen.
+ *
+ * These three live on Laravel routes rather than files in public/admin/, because
+ * an actual public/admin directory would satisfy the `!-d` rewrite condition in
+ * public/.htaccess and shadow the whole Filament panel. They stay outside the
+ * panel's auth middleware: the browser fetches the manifest and the worker
+ * without session credentials.
+ */
+Route::prefix('admin')->name('admin.pwa.')->group(function () {
+    Route::get('manifest.webmanifest', function () {
+        return response()->json([
+            'name' => 'skinChemists Maroc — Administration',
+            'short_name' => 'SC Admin',
+            'lang' => 'fr',
+            'start_url' => '/admin',
+            'scope' => '/admin',
+            'display' => 'standalone',
+            'background_color' => '#18181b',
+            'theme_color' => '#18181b',
+            'icons' => collect([192, 512])->map(fn (int $size) => [
+                'src' => asset("uploads/admin-icon-{$size}.png"),
+                'sizes' => "{$size}x{$size}",
+                'type' => 'image/png',
+                'purpose' => 'any maskable',
+            ])->all(),
+        ])->header('Content-Type', 'application/manifest+json');
+    })->name('manifest');
+
+    // Served from /admin/ so the worker's scope covers the panel and nothing else.
+    Route::get('sw.js', function () {
+        return response()
+            ->view('pwa.sw', ['version' => substr(md5(config('app.key').filemtime(base_path('composer.lock'))), 0, 8)])
+            ->header('Content-Type', 'application/javascript')
+            ->header('Cache-Control', 'no-cache');
+    })->name('sw');
+
+    Route::get('hors-ligne', function () {
+        // The worker caches this page on install, so it must reference nothing
+        // it cannot load offline. Livewire injects its script into any response
+        // containing </html> once a component has rendered; opt out explicitly
+        // rather than rely on this route never touching one.
+        config(['livewire.inject_assets' => false]);
+
+        return view('pwa.offline');
+    })->name('offline');
+});
