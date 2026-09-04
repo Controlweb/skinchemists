@@ -117,6 +117,39 @@ class MailSettingsTest extends TestCase
     }
 
     /**
+     * The encrypted round-trip must be byte-faithful. An SMTP password is
+     * rejected whole: a single character altered in storage is indistinguishable
+     * from the wrong password, and sends you looking in the wrong place.
+     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('awkwardPasswords')]
+    public function test_a_password_survives_storage_unchanged(string $password): void
+    {
+        Setting::putSecret('mail_password', $password);
+
+        $this->assertSame($password, Setting::secret('mail_password'));
+
+        MailConfig::apply();
+        Setting::put('mail_host', 'smtp.exemple.com');
+        MailConfig::apply();
+
+        $this->assertSame($password, config('mail.mailers.smtp.password'));
+    }
+
+    /** @return array<string, array{string}> */
+    public static function awkwardPasswords(): array
+    {
+        return [
+            'simple' => ['motdepasse'],
+            'espaces au milieu' => ['mot de passe'],
+            'caractères spéciaux' => ['p@ss"w0rd#$%&*()_+-=[]{}|;:,.<>?/~`'],
+            'apostrophe' => ["l'apostrophe"],
+            'antislash' => ['a\\b\\c'],
+            'accents' => ['mötdepàssé'],
+            'très long' => [str_repeat('x', 200)],
+        ];
+    }
+
+    /**
      * Asserted against the array transport rather than Mail::fake(), because
      * MailFake::raw() is an empty method — a fake records nothing for a raw
      * send, so faking here would pass whether or not the button worked.

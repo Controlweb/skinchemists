@@ -175,7 +175,12 @@ class MailSettings extends Page implements HasForms
         } catch (Throwable $e) {
             Notification::make()
                 ->title('Échec de l\'envoi')
-                ->body($e->getMessage())
+                // The transport's own message plus what was actually attempted.
+                // "535 Incorrect authentication data" on its own gives the admin
+                // nothing to act on; the same message next to the host, port and
+                // username used points straight at the mismatch. Never the
+                // password — only whether one was sent at all.
+                ->body($e->getMessage()."\n\n".$this->attemptedConnection())
                 ->danger()
                 ->persistent()
                 ->send();
@@ -187,5 +192,21 @@ class MailSettings extends Page implements HasForms
             ->title('Email de test envoyé à '.$to)
             ->success()
             ->send();
+    }
+
+    /**
+     * What the failed attempt actually used. The password is never included —
+     * only whether one was sent, which is the part that distinguishes "wrong
+     * password" from "no password reached the server at all".
+     */
+    protected function attemptedConnection(): string
+    {
+        $port = (int) config('mail.mailers.smtp.port');
+        $scheme = config('mail.mailers.smtp.scheme') ?: ($port === 465 ? 'smtps' : 'smtp').' (déduit du port)';
+
+        return 'Connexion tentée : '.config('mail.mailers.smtp.host').':'.$port
+            .' · chiffrement '.$scheme
+            .' · identifiant '.(config('mail.mailers.smtp.username') ?: '(aucun)')
+            .' · mot de passe '.(filled(config('mail.mailers.smtp.password')) ? 'envoyé' : 'ABSENT');
     }
 }
